@@ -2,16 +2,19 @@
 mb-config.inc
 mb-secure-config.inc
 
-# Ignor composer working files
+# Ignore composer working files
 composer.phar
 composer.lock
 /vendor/
 
-# Ignor testing working files
+# Ignore testing working files
 tests/phpunit.xml
 
-# Ignor config settings with sensative account creds
+# Ignore config settings with sensitive account creds
 config.inc
 
-# Ignor OSX system files
+# Ignore OSX system files
 .DS_Store
+
+# Ignore Node modules folder
+node_modules
