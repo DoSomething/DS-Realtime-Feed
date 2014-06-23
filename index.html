@@ -2,351 +2,99 @@
 <html>
 
   <head>
-    <title>Data Viz</title>
     <link rel="stylesheet" href="/css/animate.css">
-    <link rel="stylesheet" href="/css/c3.css">
     <style>
 
       body {
-        background-color: black;
-        color: white;
-
-      }
-
-      #map {
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      .bars-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 75%;
-        height: 100%;
-      }
-
-      .bar {
-        height: 20%;
-        font-size: 37.904px;
-        color: #FFFFFF;
-        text-align: center;
-        background-color: #4e2b63;
-        border: 1px solid black;
-        -vendor-animation-duration: .5s;
-
-      }
-
-      .d3-container {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 25%;
-        height: 100%;
         background-color: white;
-        color: black;
+        width: 100%;
+        height: 100%;
+        display: block;
       }
 
-      .center-text {
+      .container {
+        border: 1px solid black;
+        width: 1172px;
+        height: 717px;
+        top: 0;
+        left: 0;
+        position: absolute;
+        display: block;
+      }
+
+      .box {
+        height: 20%;
+        width: 12.5%;
+        display: inline-block;
+        margin: .5%;
         text-align: center;
+        float: left;
+      }
+
+      .box-style-1 {
+        background-color: #23b7fb;
+        color: #FFFFFF;
+      }
+
+      .box-style-2 {
+        background-color: #4e2b63;
+        color: #fed100;
+      }
+
+      .box-style-3 {
+        background-color: #fed100;
+        color: #4e2b63;
       }
 
     </style>
-
   </head>
 
   <body>
 
-    <div class="bars-container">
-    </div>
-    <div class="d3-container">
-    </div>
+    <div class="container">
 
+    </div>
+    <script src="/js/jquery-1.11.0.min.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="/js/c3.min.js"></script>
 
-    <script type="text/javascript">
+    <script>
 
-    var totalBars = 6;
-
-    var webSignups = 0;
-    var mobileSignups = 0;
-    var columns = [
-      ['Web_Signups', 0],
-      ['Mobile_Signups', 0]
-    ];
-
-    var totalTxtMessages = 0;
-
-    var socket = io.connect('http://localhost:3000');
-
-    socket.on('message', function(text){
-      var string = '<div class="bar">' + text + '</div>';
-      var element = $(string).css('opacity: 0%');
-      $('.bars-container').prepend(string);
-      $('.bar').addClass('animated slideInDown2');
-      $('.bar').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-        $('.bar').removeClass('slideInDown2');
+      var socket = io.connect('http://localhost:3000');
+      socket.on('message', function(text){
+        var element = $('.box')[getRandomInt(0, $('.box').length)];
+        $(element).addClass('animated flipInX');
+        $(element).text(text);
+        $(element).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          $(element).val(getRandomBox(text));
+          $(element).text(text);
+          $(element).removeClass('flipInX');
+        });
       });
-      if($('.bar').length >= totalBars + 1){
-        $('.bar')[totalBars].remove();
-      }
-    });
 
-    socket.on('signup', function(text){
-      if(text == "web"){
-        webSignups++;
-      }
-      else{
-        mobileSignups++;
-      }
-    });
-
-    socket.on('txt-refresh', function(total){
-      totalTxtMessages = total;
-      makeTextSpeedometer();
-    })
-
-    $(document).ready(function(){
-      makeAccountGraph();
-      makeTextSpeedometer();
-    });
-
-    function makeTextSpeedometer(){
-      //Messages Per Hour
-      $('.d3-container').append('<canvas id="meter"></canvas>');
-      $('.d3-container').append('<h3 class="center-text mph-text">Messages Per Hour</h3>')
-      var canvas = document.getElementById('meter');
-      var canvasWidth = window.innerWidth * .20;
-      canvas.width = canvasWidth;
-      canvas.height = canvasWidth;
-      var ctx = canvas.getContext('2d');
-
-      var radius = canvas.width * .40;
-      var centerX = canvas.width / 2;
-      var centerY = canvas.height / 2;
-
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 45, 90, true);
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = '#000000';
-      ctx.stroke();
-
-      //Measurement lines
-      for(var angle = 116; angle < 421; angle++){
-          ctx.beginPath();
-          ctx.strokeStyle = '#000000';
-          if(angle % 90 == 0){
-            ctx.lineWidth = 3;
-          }
-          else if(angle % 15 == 0){
-            ctx.lineWidth = 1;
-          }
-          else{
-            continue;
-          }
-          ctx.moveTo(centerX, centerY);
-          ctx.lineTo(centerX + radius * Math.cos(angle * (Math.PI/180)), centerY + radius * Math.sin(angle * (Math.PI/180)));
-          ctx.stroke();
-      }
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius - 20, 0, 2*Math.PI, false);
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fill();
-
-      //Meter line
-      var angle = ((totalTxtMessages) / 10) + 90;
-
-      if(angle < 116){
-        angle = 116;
-      }
-      else if(angle > 418){
-        angle = 418;
-      }
-
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.lineTo(centerX + radius * Math.cos(angle * (Math.PI/180)), centerY + radius * Math.sin(angle * (Math.PI/180)));
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = '#4e2b63';
-      ctx.stroke();
-
-      $('.mph-text').text("Messages Per Hour: " + totalTxtMessages);
-
-    }
-
-    function updateAccountGraph(){
-      columns[0].push(webSignups);
-      columns[1].push(mobileSignups);
-      webSignups = 0;
-      mobileSignups = 0;
-      makeAccountGraph();
-    }
-
-    function makeAccountGraph(){
-      $('.d3-container').append('<div id="chart"></div>');
-      var chart = c3.generate({
-          bindto: '#chart',
-          data: {
-            columns: columns,
-            colors: {
-              Web_Signups: '#23b7fb',
-              Mobile_Signups: '#fed100'
-            }
-          },
-          axis: {
-            y: {
-              label: {
-                text: 'Total Signups',
-                position: 'outer-middle'
-              }
-            }
-          },
-      });
-    }
-
-    setInterval(updateAccountGraph, 1000 * 10);
-
-    </script>
-
-    <!-- Falling text -->
-    <!--
-    <script type="text/javascript">
-
-      var canvas = document.getElementById('map');
-      var canvasWidth = window.innerWidth * .75;
-      canvas.width = canvasWidth;
-      canvas.height = window.innerHeight;
-      var ctx = canvas.getContext('2d');
-
-      var layer1 = [];
-      var layer2 = [];
-      var layer3 = [];
-
-      function makeData(){
-        if(layer2.length >= layer1.length){
-          var text = "Another Do-er just signed up for CAMPAIGN NAME";
-          layer1.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 40, text));
+      $(document).ready(function(){
+        for(var index = 0; index < (7 * 4); index++){
+          $('.container').append(getRandomBox("derp"));
         }
-        else if(layer3.length >= layer2.length){
-          var text = "Member name here just reported back for CAMPAIGN NAME";
-          layer2.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 50, text));
+      });
+
+      function getRandomBox(text){
+        var random = Math.random();
+        if(random >= 0.7){
+          return '<div class="box box-style-1">' + text + '</div>';
+        }
+        else if(random >= 0.4){
+          return '<div class="box box-style-2">' + text + '</div>';
         }
         else{
-          var text = "First name created an account";
-          layer3.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 60, text));
+          return '<div class="box box-style-3">' + text + '</div>';
         }
-
-      }
-
-      function update(){
-        var now = Date.now();
-        var delta = (now - then) / 1000;
-
-        for(var index = 0; index < layer1.length; index++){
-          var text = layer1[index];
-          text.y += (text.fallRate * delta);
-          if(text.y > canvas.height){
-            layer1.splice(index, 1);
-          }
-        }
-
-
-        for(var index = 0; index < layer2.length; index++){
-          var text = layer2[index];
-          text.y += (text.fallRate * delta);
-          if(text.y > canvas.height){
-            layer2.splice(index, 1);
-          }
-        }
-
-        for(var index = 0; index < layer3.length; index++){
-          var text = layer3[index];
-          text.y += (text.fallRate * delta);
-          if(text.y > canvas.height){
-            layer3.splice(index, 1);
-          }
-        }
-
-        animate();
-        then = now;
-        requestAnimationFrame(update);
-      }
-
-      function animate(){
-        ctx.fillStyle = "#870a99";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "white";
-        ctx.font = "bold 24px Arial"
-        for(var index = 0; index < layer1.length; index++){
-          ctx.fillText(layer1[index].text, layer1[index].x, layer1[index].y);
-        }
-
-        ctx.fillStyle = "rgba(255, 255, 255, 0.7)"
-        ctx.font = "bold 20px Arial"
-        for(var index = 0; index < layer2.length; index++){
-          ctx.fillText(layer2[index].text, layer2[index].x, layer2[index].y);
-        }
-
-        ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
-        ctx.font = "bold 16px Arial"
-        for(var index = 0; index < layer3.length; index++){
-          ctx.fillText(layer3[index].text, layer3[index].x, layer3[index].y);
-        }
-      }
-
-      var fallingText = function(x, fallRate, text){
-        this.x = x;
-        this.fallRate = fallRate;
-        this.text = text;
-        this.y = 0;
       }
 
       function getRandomInt(min, max) {
-          return Math.floor(Math.random() * (max - min + 1)) + min;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
       }
 
-      var w = window;
-      requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
-      var then = Date.now();
-      update();
-
-      //setInterval(makeData, 1000);
-
-
-      var socket = io.connect('http://localhost:3000');
-
-      socket.on('layer1', function(msg){
-        layer1.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(msg).width) * 2), 40, msg));
-      });
-
-      socket.on('layer2', function(msg){
-        layer2.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(msg).width) * 2), 50, msg));
-      });
-
-      socket.on('layer3', function(msg){
-        layer3.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(msg).width) * 2), 60, msg));
-      });
-
-      socket.on('message', function(text){
-        if(layer2.length >= layer1.length){
-          layer1.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 40, text));
-        }
-        else if(layer3.length >= layer2.length){
-          layer2.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 50, text));
-        }
-        else{
-          layer3.push(new fallingText(getRandomInt(0, canvas.width - (ctx.measureText(text).width) * 2), 60, text));
-        }
-      });
-
     </script>
-    -->
-
   </body>
 
 </html>
