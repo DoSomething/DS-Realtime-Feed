@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/flipcounter.css">
+    <link rel="stylesheet" href="/css/jquery.fullPage.css">
     <link rel="stylesheet" href="/css/main.css">
     <title>DoSomething.org Dashboard</title>
 </head>
 <body>
     <div class="wrapper">
-        <header>
+        <div class="section" id="title">
             <img src="/img/logo.png" alt="Our Logo">
-            <h1>Member Activity Feed</h1>
-        </header>
-        <div class="content">
-            <div class="updates"></div><div class="counters">
-                <h1>Current Member Count</h1>
-                <div class="counter-wrapper">
-                    <ul class="flip-counter default" id="counter"></ul>
-                </div>
+            <h1>Welcome to DoSomething!</h1>
+        </div>
+
+        <div class="section" id="feed"></div>
+
+        <div class="section" id="counts">
+            <h1>Current Member Count</h1>
+            <div class="counter-wrapper">
+                <ul class="flip-counter default" id="counter"></ul>
             </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/js/jquery.slimscroll.min.js"></script>
+    <script src="/js/jquery.fullPage.min.js"></script>
     <script src="/js/flipcounter.js"></script>
     <script src="/js/main.js"></script>
 </body>
