@@ -1,0 +1,40 @@
+body {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.container {
+    border: 1px solid black;
+    width: 1172px;
+    height: 717px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+}
+
+.box {
+    height: 20%;
+    width: 12.5%;
+    display: inline-block;
+    margin: .5%;
+    text-align: center;
+    float: left;
+}
+
+.box-style-1 {
+    background-color: #23b7fb;
+    color: #FFFFFF;
+}
+
+.box-style-2 {
+    background-color: #4e2b63;
+    color: #fed100;
+}
+
+.box-style-3 {
+    background-color: #fed100;
+    color: #4e2b63;
+}

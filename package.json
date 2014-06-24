@@ -1,22 +1,23 @@
 {
-    "name": "mbc-activityStats",
-    "version": "0.1.0",
-    "author": "DoSomething and contributors <developers@dosomething.org>",
-    "description": "Real time dashboad of DoSomething transactional (email and SMS) activity stats.",
-    "private": true,
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/DoSomething/mbc-activityStats"
-    },
-    "dependencies": {
-        "express": "^4.4.1",
-        "rabbit.js": "^0.4.1",
-        "socket.io": "^1.0.4",
-        "superagent": "^0.18.0",
-        "xml2js": "^0.4.4"
-    },
-    "license": "GNU",
-    "engines": {
-      "node": ">=0.6"
-    }
+  "name": "mbc-activityStats",
+  "version": "0.1.0",
+  "author": "DoSomething and contributors <developers@dosomething.org>",
+  "description": "Real time dashboad of DoSomething transactional (email and SMS) activity stats.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoSomething/mbc-activityStats"
+  },
+  "dependencies": {
+    "express": "^4.4.1",
+    "rabbit.js": "^0.4.1",
+    "socket.io": "^1.0.4",
+    "superagent": "^0.18.0",
+    "xml2js": "^0.4.4",
+    "amqp": "^0.2.0"
+  },
+  "license": "GNU",
+  "engines": {
+    "node": ">=0.6"
+  }
 }
