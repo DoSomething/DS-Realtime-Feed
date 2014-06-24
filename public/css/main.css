@@ -79,23 +79,16 @@ h4 {
 #title h1 {
     font-family: 'Proxima Nova SBold';
     display: inline-block;
-    vertical-align: top;
     margin: 0;
-    font-size: 46px;
-    font-size: 4.6rem;
+    font-size: 60px;
+    font-size: 6rem;
 }
 
 #title img {
     width: 100%;
-    max-width: 100px;
+    max-width: 300px;
     display: inline-block;
-}
-
-#counts h1 {
-    font-family: 'Proxima Nova Bold';
-    font-size: 42px;
-    font-size: 4.2rem;
-    color: #30b5f5;
+    vertical-align: middle;
 }
 
 #feed .box {
@@ -110,4 +103,11 @@ h4 {
     word-wrap: break-word;
     font-size: 18px;
     font-size: 1.8rem;
+}
+
+#counts h1 {
+    font-family: 'Proxima Nova Bold';
+    font-size: 60px;
+    font-size: 6rem;
+    color: #30b5f5;
 }
