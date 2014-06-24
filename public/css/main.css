@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: 'Proxima Nova SBold';
+    src: url('../fonts/Proxima Nova/ProximaNova-Sbold.otf');
+}
+
+@font-face {
     font-family: 'Proxima Nova Bold';
     src: url('../fonts/Proxima Nova/ProximaNova-Bold.otf');
 }
@@ -65,32 +70,48 @@ h4 {
     font-size: 2.4rem;
 }
 
-.container {
-    width: 100%;
+.wrapper {
     margin: 0 auto;
+    padding: 20px;
+    padding: 2rem;
 }
 
-.container, .updates, .counters {
-    overflow: auto;
+header h1 {
+    font-family: 'Proxima Nova SBold';
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    font-size: 46px;
+    font-size: 4.6rem;
+}
+
+header img {
+    width: 100%;
+    max-width: 100px;
+    display: inline-block;
 }
 
 .updates, .counters {
     padding: 10px;
     padding: 1rem;
+    vertical-align: top;
 }
 
 .updates {
-    float: left;
-    width: 60%;
+    display: inline-block;
+    width: 50%;
 }
 
 .counters {
-    float: left;
-    width: 40%;
+    display: inline-block;
+    width: 50%;
 }
 
 .counters h1 {
     font-family: 'Proxima Nova Bold';
+    font-size: 42px;
+    font-size: 4.2rem;
+    color: #30b5f5;
 }
 
 .box {
