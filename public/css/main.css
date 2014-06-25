@@ -105,6 +105,12 @@ h4 {
     font-size: 1.8rem;
 }
 
+#feed img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 #counts h1 {
     font-family: 'Proxima Nova Bold';
     font-size: 60px;
