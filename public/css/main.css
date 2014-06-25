@@ -94,8 +94,8 @@ h4 {
 
 #feed .box {
     display: inline-block;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     vertical-align: top;
     margin: 5px;
     margin: 0.5rem;
@@ -117,6 +117,15 @@ h4 {
     font-size: 60px;
     font-size: 6rem;
     color: #30b5f5;
+}
+
+@media screen and (min-width: 1400px) {
+    #feed .box {
+        width: 300px;
+        height: 300px;
+        font-size: 36px;
+        font-size: 3.6rem;
+    }
 }
 
 @media screen and (max-width: 960px) {
