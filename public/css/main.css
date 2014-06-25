@@ -41,7 +41,7 @@ h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
     margin: 0 0 2rem;
 }
 
-ul,ol {
+ul, ol {
     padding-left: 40px;
     padding-left: 4rem;
 }
@@ -76,66 +76,38 @@ h4 {
     padding: 2rem;
 }
 
-header h1 {
+#title h1 {
     font-family: 'Proxima Nova SBold';
     display: inline-block;
-    vertical-align: top;
     margin: 0;
-    font-size: 46px;
-    font-size: 4.6rem;
+    font-size: 60px;
+    font-size: 6rem;
 }
 
-header img {
+#title img {
     width: 100%;
-    max-width: 100px;
+    max-width: 300px;
     display: inline-block;
+    vertical-align: middle;
 }
 
-.updates, .counters {
-    padding: 10px;
-    padding: 1rem;
+#feed .box {
+    display: inline-block;
+    width: 24%;
+    height: 25%;
     vertical-align: top;
-}
-
-.updates {
-    display: inline-block;
-    width: 50%;
-}
-
-.counters {
-    display: inline-block;
-    width: 50%;
-}
-
-.counters h1 {
-    font-family: 'Proxima Nova Bold';
-    font-size: 42px;
-    font-size: 4.2rem;
-    color: #30b5f5;
-}
-
-.box {
-    float: left;
-    width: 200px;
-    height: 200px;
     margin: 5px;
     margin: .5rem;
     padding: 10px;
     padding: 1rem;
     word-wrap: break-word;
+    font-size: 18px;
+    font-size: 1.8rem;
 }
 
-.box-style-1 {
-    background: #25b2ef;
-    color: #fff;
-}
-
-.box-style-2 {
-    background: #4e2c60;
-    color: #fed100;
-}
-
-.box-style-3 {
-    background: #fed100;
-    color: #4e2b63;
+#counts h1 {
+    font-family: 'Proxima Nova Bold';
+    font-size: 60px;
+    font-size: 6rem;
+    color: #30b5f5;
 }
