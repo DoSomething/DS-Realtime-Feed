@@ -94,16 +94,22 @@ h4 {
 
 #feed .box {
     display: inline-block;
-    width: 150px;
-    height: 150px;
-    vertical-align: top;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
     margin: 5px;
     margin: 0.5rem;
     padding: 10px;
     padding: 1rem;
     word-wrap: break-word;
-    font-size: 18px;
-    font-size: 1.8rem;
+    font-size: 24px;
+    font-size: 2.4rem;
+}
+
+#feed .box span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
 }
 
 #feed img {
@@ -117,15 +123,6 @@ h4 {
     font-size: 60px;
     font-size: 6rem;
     color: #30b5f5;
-}
-
-@media screen and (min-width: 1800px) {
-    #feed .box {
-        width: 300px;
-        height: 300px;
-        font-size: 36px;
-        font-size: 3.6rem;
-    }
 }
 
 @media screen and (max-width: 960px) {
