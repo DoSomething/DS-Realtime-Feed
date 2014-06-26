@@ -18,3 +18,5 @@ config.inc
 
 # Ignore Node modules folder
 node_modules
+
+/config
