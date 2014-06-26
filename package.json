@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "amqp": "^0.2.0",
+    "configure": "0.0.1",
     "express": "^4.4.1",
     "php-unserialize": "0.0.1",
     "rabbit.js": "^0.4.1",
