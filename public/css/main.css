@@ -51,8 +51,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 36px;
-    font-size: 3.6rem;
+    font-size: 48px;
+    font-size: 4.8rem;
 }
 
 h2 {
@@ -92,11 +92,6 @@ h4 {
     vertical-align: middle;
 }
 
-#feed h1 {
-    font-size: 48px;
-    font-size: 4.8rem;
-}
-
 #feed .box {
     display: inline-block;
     width: 200px;
@@ -128,6 +123,53 @@ h4 {
     font-size: 60px;
     font-size: 6rem;
     color: #30b5f5;
+}
+
+#upcoming-events .events {
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    max-width: 750px;
+}
+
+#upcoming-events .events p {
+    margin: 0;
+}
+
+#upcoming-events .events li {
+    overflow: auto;
+    border-left: 2px solid black;
+    margin-bottom: 30px;
+}
+
+#upcoming-events .events .date {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+#upcoming-events .events .date .day {
+    font-size: 32px;
+    font-size: 3.2rem;
+}
+
+#upcoming-events .events .date .month {
+    margin-top: -10px;
+    margin-top: -1rem;
+}
+
+#upcoming-events .events .date .time {
+    margin-top: -5px;
+    margin-top: -0.5rem;
+}
+
+#upcoming-events .events .info {
+    float: left;
+    width: 70%;
+}
+
+#upcoming-events .events .info h2 {
+    margin: 10px 0 0 0;
 }
 
 @media screen and (max-width: 960px) {
