@@ -70,6 +70,12 @@ h4 {
     font-size: 2.4rem;
 }
 
+img {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .wrapper {
     margin: 0 auto;
     padding: 20px;
@@ -86,13 +92,12 @@ h4 {
 }
 
 #title img {
-    width: 100%;
     max-width: 300px;
     display: inline-block;
     vertical-align: middle;
 }
 
-#feed .box {
+.box {
     display: inline-block;
     width: 200px;
     height: 200px;
@@ -106,7 +111,7 @@ h4 {
     font-size: 2.4rem;
 }
 
-#feed .box span {
+.box span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
@@ -123,6 +128,78 @@ h4 {
     font-size: 60px;
     font-size: 6rem;
     color: #30b5f5;
+}
+
+.staff-pick {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.staff-pick figure {
+    width: 60%;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    margin: 0 auto;
+}
+
+.staff-pick .stats {
+    padding: 20px;
+    padding: 2rem;
+    width: 40%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.staff-pick .stats h1, .staff-pick .stats h3 {
+    margin: 0;
+}
+
+.staff-pick .stats h1 {
+    font-size: 90px;
+    font-size: 9rem;
+    font-family: 'Proxima Nova Bold';
+    color: #03B4F4;
+    margin-top: -42px;
+    margin-top: -4.2rem;
+}
+
+.staff-pick .stats h3 {
+    text-transform: uppercase;
+    font-family: 'Proxima Nova SBold';
+    font-size: 30px;
+    font-size: 3rem;
+}
+
+.staff-pick figure .banner {
+    font-family: 'Proxima Nova SBold';
+    font-size: 24px;
+    font-size: 2.4rem;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    background: #FACC3A;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    padding: 1rem 2rem;
+    width: 80%;
+    text-align: left;
+}
+
+.staff-pick figure .title {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    padding: 0 2rem;
+    margin: 0;
+}
+
+.staff-pick figure img {
+    max-width: 500px;
+    margin: 0;
 }
 
 #upcoming-events .events {
