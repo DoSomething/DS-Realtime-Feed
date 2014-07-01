@@ -78,8 +78,8 @@ $(function() {
 
     $(window).on('resize', setMaxBoxes);
 
-    var createBox = function(text) {
-        var colors = boxColors[getRandomInt(0, boxColors.length - 1)];
+    var createBox = function(text, colors) {
+        //var colors = boxColors[getRandomInt(0, boxColors.length - 1)];
         boxes = $('.box');
 
         var element = $('<div class="box"></div>').css({
@@ -107,20 +107,19 @@ $(function() {
     };
 
     socket.on('text', function(msg) {
-      console.log(msg);
-        createBox(msg);
+        createBox(msg, boxColors[0]);
     });
 
     socket.on('signup', function(msg) {
-        createBox(msg);
+        createBox(msg, boxColors[1]);
     });
 
     socket.on('report back', function(msg) {
-        createBox(msg);
+        createBox(msg, boxColors[2]);
     });
 
     socket.on('campaign', function(msg) {
-        createBox(msg);
+        createBox(msg, boxColors[3]);
     });
 
     // https://github.com/cnanney/css-flip-counter
