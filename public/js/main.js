@@ -86,7 +86,7 @@ $(function() {
             background: colors.background,
             color: colors.text
         });
-        element.append('<span></span>').find('span').text(text);
+        element.append('<span></span>').find('span').append(text);
 
         if (boxes.length >= maxBoxes) {
             if (boxes.length > maxBoxes) {
@@ -107,6 +107,7 @@ $(function() {
     };
 
     socket.on('text', function(msg) {
+      console.log(msg);
         createBox(msg);
     });
 

@@ -36,6 +36,10 @@ body {
     background: #ECECEC;
 }
 
+strong {
+  font-weight: 900;
+}
+
 h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
     margin: 0 0 20px;
     margin: 0 0 2rem;

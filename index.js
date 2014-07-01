@@ -131,7 +131,8 @@ function getMessages(pageNumber){
               continue;
             }
             if(message.profile[1].first_name != ''){
-              textMessages.push(message.profile[1].first_name + " sent us a text message!");
+              var string = "<p><strong>" + message.profile[1].first_name + "</strong> sent us a text message!</p>";
+              textMessages.push(string);
             }
           }
 
