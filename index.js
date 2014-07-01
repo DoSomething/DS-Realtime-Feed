@@ -62,13 +62,13 @@ conn.on('ready', function(){
       var activity = serializedMessage.activity;
       switch(activity){
         case "user_register":
-          io.emit('signup', serializedMessage.merge_vars.FNAME + " created an account!", {for: 'everyone'});
+          io.emit('signup', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> created an account!</p>", {for: 'everyone'});
           break;
         case "campaign_signup" :
-          io.emit('campaign', serializedMessage.merge_vars.FNAME + " signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!", {for: 'everyone'});
+          io.emit('campaign', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
-          io.emit('report back', serializedMessage.merge_vars.FNAME + " reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!", {for: 'everyone'});
+          io.emit('report back', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_group_signup":
           break;
