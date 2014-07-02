@@ -1,15 +1,18 @@
 @font-face {
     font-family: 'Proxima Nova Light';
+    font-weight: 400;
     src: url('../fonts/Proxima Nova/ProximaNova-Light.otf');
 }
 
 @font-face {
     font-family: 'Proxima Nova SBold';
+    font-weight: 600;
     src: url('../fonts/Proxima Nova/ProximaNova-Sbold.otf');
 }
 
 @font-face {
     font-family: 'Proxima Nova Bold';
+    font-weight: 700;
     src: url('../fonts/Proxima Nova/ProximaNova-Bold.otf');
 }
 
@@ -34,10 +37,6 @@ body {
     font: 300 18px/1.6875 'Proxima Nova Light';
     text-align: center;
     background: #ECECEC;
-}
-
-strong {
-  font-weight: 900;
 }
 
 h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
@@ -204,6 +203,12 @@ img {
 .staff-pick figure img {
     max-width: 500px;
     margin: 0;
+}
+
+.name {
+  font-weight: 900;
+  display: inline;
+  font-family: "Proxima Nova Bold";
 }
 
 #upcoming-events .events {
