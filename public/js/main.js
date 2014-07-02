@@ -107,15 +107,15 @@ $(function() {
     };
 
     socket.on('text', function(msg) {
-        createBox(msg, boxColors[0]);
-    });
-
-    socket.on('signup', function(msg) {
         createBox(msg, boxColors[1]);
     });
 
-    socket.on('report back', function(msg) {
+    socket.on('signup', function(msg) {
         createBox(msg, boxColors[2]);
+    });
+
+    socket.on('report back', function(msg) {
+        createBox(msg, boxColors[0]);
     });
 
     socket.on('campaign', function(msg) {
