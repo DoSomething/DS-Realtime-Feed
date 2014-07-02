@@ -62,13 +62,13 @@ conn.on('ready', function(){
       var activity = serializedMessage.activity;
       switch(activity){
         case "user_register":
-          io.emit('signup', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> created an account!</p>", {for: 'everyone'});
+          io.emit('signup', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + '</p> created an account!</p>', {for: 'everyone'});
           break;
         case "campaign_signup" :
-          io.emit('campaign', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
+          io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
-          io.emit('report back', "<p><strong>" + serializedMessage.merge_vars.FNAME + " </strong> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
+          io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </strong> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_group_signup":
           break;
@@ -131,7 +131,7 @@ function getMessages(pageNumber){
               continue;
             }
             if(message.profile[1].first_name != ''){
-              var string = "<p><strong>" + message.profile[1].first_name + "</strong> sent us a text message!</p>";
+              var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";
               textMessages.push(string);
             }
           }
