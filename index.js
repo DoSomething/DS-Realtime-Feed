@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
-var cheerio = require('cheerio'),
+var cheerio = require('cheerio');
 
 var mb_config = require(__dirname + '/config/mb_config.json');
 var mc_config = require(__dirname + '/config/mc_config.json');
@@ -200,15 +200,28 @@ app.get('/events', function(req, res){
 //Campaign Hack
 //-------------
 var url = "dosomething.org";
+var campaigns = [];
 
-app.get('/stacff-pick', function(req, res){
+var camp = function(title, imageURL){
+  this.title = title;
+  this.imageURL = imageURL;
+}
+
+app.get('/staff-picks', function(req, res){
   request
     .get(url)
     .end(function(dRes){
       var pageHTML = dRes.text;
-      var $ = cheerio.load(html);
+      var $ = cheerio.load(pageHTML);
 
-      res.send(pageHTML);
+      $('div.staff-pick').each(function(i, element){
+        var imgElement = element.next.next;
+        var imgURL = imgElement.attribs['data-src'];
+        var title = imgElement.next.next.children[1].children[0].data;
+        campaigns.push(new camp(title, imgURL));
+      });
+
+      res.json(JSON.stringify(campaigns));
     });
 
 });
