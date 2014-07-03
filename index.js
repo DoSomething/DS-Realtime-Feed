@@ -197,6 +197,7 @@ app.get('/events', function(req, res){
 
 
 //Campaign Hack
+//Was going to originally find campaigns but I can just use jQuery on the client and I didn't feel like deleting this code when I can still use it
 //-------------
 var url = "dosomething.org";
 
