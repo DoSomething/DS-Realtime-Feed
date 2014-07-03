@@ -22,6 +22,12 @@ $(function() {
                 }
             }
         });
+        $.ajax('/staff-picks', {
+          type: 'GET',
+          success: function(data){
+            console.log(data);
+          }
+        })
     };
 
     updateEvents();
