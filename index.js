@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
+var cheerio = require('cheerio'),
 
 var mb_config = require(__dirname + '/config/mb_config.json');
 var mc_config = require(__dirname + '/config/mc_config.json');
@@ -197,15 +198,16 @@ app.get('/events', function(req, res){
 
 
 //Campaign Hack
-//Was going to originally find campaigns but I can just use jQuery on the client and I didn't feel like deleting this code when I can still use it
 //-------------
 var url = "dosomething.org";
 
-app.get('/dosomething', function(req, res){
+app.get('/stacff-pick', function(req, res){
   request
     .get(url)
     .end(function(dRes){
       var pageHTML = dRes.text;
+      var $ = cheerio.load(html);
+
       res.send(pageHTML);
     });
 
