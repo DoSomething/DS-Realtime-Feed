@@ -172,11 +172,12 @@ function distributeMessages(){
   messageIntervalID = setInterval(sendTextMessage, messagesInterval * 1000);
 }
 
+//Setup
+//-----
 http.listen(3000, function(){
   getMessages(1);
   console.log("listening on 3000");
 });
-
 
 // Cal. stuff
 //-----------
@@ -193,6 +194,22 @@ app.get('/events', function(req, res){
      res.json(gRes.res.text);
    });
 });
+
+
+//Campaign Hack
+//-------------
+var url = "dosomething.org";
+
+app.get('/dosomething', function(req, res){
+  request
+    .get(url)
+    .end(function(dRes){
+      var pageHTML = dRes.text;
+      res.send(pageHTML);
+    });
+
+});
+
 
 // Test output
 //-------------
