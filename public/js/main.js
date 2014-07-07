@@ -1,5 +1,6 @@
 $(function() {
     var socket = io.connect('http://localhost:3000');
+    var picks = [];
 
     $('.wrapper').fullpage({
         resize: false,
@@ -25,7 +26,9 @@ $(function() {
         $.ajax('/staff-picks', {
           type: 'GET',
           success: function(data){
-            console.log(data);
+            var picks = JSON.parse(data);
+            $('#campaign-title').text(picks[0].title);
+            $('#campaign-image').attr('src', picks[0].imageURL);
           }
         })
     };
