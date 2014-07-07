@@ -184,11 +184,10 @@ http.listen(3000, function(){
 //-----------
 var apiKey = gc_config.apiKey;
 var calendarID = gc_config.calendarID;
-var url = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?key=' + apiKey;
 
 app.get('/events', function(req, res){
   request
-   .get(url)
+   .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?key=' + apiKey)
    .accept('application/json')
    .type('application/json')
    .end(function(gRes){
