@@ -10,6 +10,10 @@ $(function() {
         navigation: true
     });
 
+    var getRandomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
     var updateEvents = function() {
         $.ajax('/events', {
             dataType: 'json',
@@ -27,8 +31,9 @@ $(function() {
           type: 'GET',
           success: function(data){
             var picks = JSON.parse(data);
-            $('#campaign-title').text(picks[0].title);
-            $('#campaign-image').attr('src', picks[0].imageURL);
+            var random = picks[getRandomInt(0, picks.length - 1)];
+            $('#campaign-title').text(random.title);
+            $('#campaign-image').attr('src', random.imageURL);
           }
         })
     };
@@ -67,10 +72,6 @@ $(function() {
             "text": "#4e2b63"
         }
     ];
-
-    var getRandomInt = function(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
 
     var setMaxBoxes = function() {
         boxes = $('.box');
