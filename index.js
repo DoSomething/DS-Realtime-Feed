@@ -86,6 +86,8 @@ conn.on('ready', function(){
 //Mobile Commons
 //--------------
 
+//Txt Messages
+
 var textMessages = [];
 var messageIntervalID = 0;
 
@@ -173,12 +175,63 @@ function distributeMessages(){
   messageIntervalID = setInterval(sendTextMessage, messagesInterval * 1000);
 }
 
-//Setup
-//-----
-http.listen(3000, function(){
-  getMessages(1);
-  console.log("listening on 3000");
-});
+//User Count
+var masterCampaign = 5091;
+var totalMobileUsers = 0;
+
+var lastPageMobile = 3363;
+var lastIndexMobile = 0;
+
+function getTotalUsers(pageNumber){
+  var now = new Date();
+  var minAgo = new Date();
+  minAgo.subMinutes(1);
+
+  request
+    .get('https://secure.mcommons.com/api/campaign_subscribers')
+    .auth(mc_config.user, mc_config.pass)
+    .query({campaign_id: masterCampaign, limit: '1000', page: pageNumber})
+    .buffer()
+    .accept('xml')
+    .type('xml')
+    .end(function(res){
+      parseString(res.text, function (err, result) {
+          var jsonResult = JSON.stringify(result);
+          if(jsonResult == undefined){
+            return;
+          }
+          var obj = JSON.parse(jsonResult);
+          if(obj.response.subscriptions[0].sub == undefined){
+            getTotalMailChimpUsers(totalMobileUsers);
+            return;
+          }
+          var num = parseInt(obj.response.subscriptions[0]['$'].num);
+          totalMobileUsers += (num - lastIndexMobile);
+
+          var page = parseInt(obj.response.subscriptions[0]['$'].page);
+          lastPageMobile = page;
+          if(num == 1000){
+            lastIndexMobile = 0;
+          }
+          else{
+            lastIndexMobile = num;
+          }
+          console.log(page, totalMobileUsers);
+          getTotalUsers(page + 1);
+
+      });
+    });
+
+}
+
+//Mailchimp
+//---------
+
+function getTotalMailChimpUsers(totalMobileUsers){
+  console.log(totalMobileUsers);
+  getTotalUsers(lastPageMobile);
+}
+
 
 // Cal. stuff
 //-----------
@@ -225,6 +278,13 @@ app.get('/staff-picks', function(req, res){
 
 });
 
+//Setup
+//-----
+http.listen(3000, function(){
+  getMessages(1);
+  getTotalUsers(lastPageMobile);
+  console.log("listening on 3000");
+});
 
 // Test output
 //-------------
