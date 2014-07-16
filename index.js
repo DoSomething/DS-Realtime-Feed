@@ -12,8 +12,6 @@ var mb_config = require(__dirname + '/config/mb_config.json');
 var mc_config = require(__dirname + '/config/mc_config.json');
 var gc_config = require(__dirname + '/config/gc_config.json');
 
-var tickerVal = 100;
-
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
@@ -179,7 +177,7 @@ function distributeMessages(){
 var masterCampaign = 5091;
 var totalMobileUsers = 0;
 
-var lastPageMobile = 3363;
+var lastPageMobile = 1;
 var lastIndexMobile = 0;
 
 function getTotalUsers(pageNumber){
@@ -216,8 +214,8 @@ function getTotalUsers(pageNumber){
           else{
             lastIndexMobile = num;
           }
-          console.log(page, totalMobileUsers);
           getTotalUsers(page + 1);
+          calculateTotalUsers(totalMobileUsers, 1);
 
       });
     });
@@ -228,10 +226,20 @@ function getTotalUsers(pageNumber){
 //---------
 
 function getTotalMailChimpUsers(totalMobileUsers){
-  console.log(totalMobileUsers);
+  calculateTotalUsers(totalMobileUsers, 1);
   getTotalUsers(lastPageMobile);
 }
 
+//Users
+//-----
+
+var dedoupValue = .905;
+
+function calculateTotalUsers(totalMobileUsers, totalWebUsers){
+  var total = Math.round((totalMobileUsers + totalWebUsers) * dedoupValue);
+  io.emit('ticker', total, {for: 'everyone'});
+  console.log(total);
+}
 
 // Cal. stuff
 //-----------
@@ -285,12 +293,3 @@ http.listen(3000, function(){
   getTotalUsers(lastPageMobile);
   console.log("listening on 3000");
 });
-
-// Test output
-//-------------
-function updateTicker() {
-  tickerVal++;
-  io.emit('ticker', tickerVal, {for: 'everyone'});
-}
-
-setInterval(updateTicker, 1000);
