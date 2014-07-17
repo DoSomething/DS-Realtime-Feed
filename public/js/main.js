@@ -2,7 +2,7 @@ $(function() {
     var socket = io.connect('http://localhost:3000');
     var picks = [];
 
-    $('.wrapper').fullpage({
+    $('.fullpage').fullpage({
         resize: false,
         loopBottom: true,
         easing: 'easeInOutQuart',
@@ -19,11 +19,19 @@ $(function() {
             dataType: 'json',
             type: 'GET',
             success: function(data) {
-              var jsonData = JSON.parse(data);
+                var jsonData = JSON.parse(data);
                 var current = null;
-                for (var i = 0; i < jsonData.items.length; i++) {
+                var number = (jsonData.items.length > 3) ? 3 : jsonData.items.length;
+                for (var i = 0; i < number; i++) {
                     current = jsonData.items[i];
-                    $('#upcoming-events .tableCell .events').append('<li><div class="date"><p class="day">' + moment(current.start.dateTime).format('DD') + '</p><p class="month">' + moment(current.start.dateTime).format('MMMM') + '</p><p class="time">' + moment(current.start.dateTime).format('h:mm A') + ' to ' + moment(current.end.dateTime).format('h:mm A') + '</p></div><div class="info"><h2>' + current.summary + '</h2><p class="location">' + current.location + '</p></div></li>');
+                    if (typeof current.location === 'undefined') {
+                        current.location = 'No Location Given'
+                    }
+                    var color = boxColors[getRandomInt(0, boxColors.length - 1)];
+                    $('#upcoming-events .tableCell .events').append('<li><div class="date"><p class="day">' + moment(current.start.dateTime).format('DD') + '</p><p class="month">' + moment(current.start.dateTime).format('MMMM') + '</p><p class="time">' + moment(current.start.dateTime).format('h:mm A') + ' to ' + moment(current.end.dateTime).format('h:mm A') + '</p></div><div class="info"><h2>' + current.summary + '</h2><p class="location">' + current.location + '</p></div></li>').find('li').last().css({
+                        background: color.background,
+                        color: color.text
+                    });
                 }
             }
         });
