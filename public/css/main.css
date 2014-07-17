@@ -49,6 +49,10 @@ ul, ol {
     padding-left: 4rem;
 }
 
+#counter {
+    padding-left: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
@@ -79,10 +83,14 @@ img {
     margin: 0 auto;
 }
 
-.wrapper {
+.fullpage > .wrapper {
     margin: 0 auto;
     padding: 20px;
     padding: 2rem;
+}
+
+#title {
+    background: #23B7FB;
 }
 
 #title h1 {
@@ -92,10 +100,12 @@ img {
     margin: 2rem 0 0 0;
     font-size: 60px;
     font-size: 6rem;
+    color: white;
 }
 
 #title img {
-    max-width: 300px;
+    max-width: 400px;
+    max-width: 40rem;
     display: inline-block;
     vertical-align: middle;
 }
@@ -134,15 +144,6 @@ img {
 }
 
 .staff-pick {
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.staff-pick figure {
-    width: 60%;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
     margin: 0 auto;
 }
 
@@ -159,12 +160,12 @@ img {
 }
 
 .staff-pick .stats h1 {
-    font-size: 90px;
-    font-size: 9rem;
+    font-size: 80px;
+    font-size: 8rem;
     font-family: 'Proxima Nova Bold';
     color: #03B4F4;
-    margin-top: -42px;
-    margin-top: -4.2rem;
+    margin-top: -30px;
+    margin-top: -3rem;
 }
 
 .staff-pick .stats h3 {
@@ -174,35 +175,89 @@ img {
     font-size: 3rem;
 }
 
-.staff-pick figure .banner {
-    font-family: 'Proxima Nova SBold';
-    font-size: 24px;
-    font-size: 2.4rem;
-    position: absolute;
-    top: 5%;
-    left: 0;
-    background: #FACC3A;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    padding: 1rem 2rem;
-    width: 80%;
-    text-align: left;
+.staff-pick .tile--wrapper {
+    width: 60%;
+    max-width: 600px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.staff-pick figure .title {
-    position: absolute;
-    bottom: 5%;
+.tile > .wrapper {
+    display: block;
+    overflow: hidden;
+    background-color: #000;
+    height: 100%;
     left: 0;
-    color: white;
-    text-align: left;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.tile {
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+}
+
+.tile > .wrapper:before {
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0);
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 87%, rgba(0, 0, 0, 0.85) 100%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 87%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.tile img {
+    display: block;
+    width: 100%;
+    z-index: 1;
+}
+
+.tile .tile__meta {
+    bottom: 0;
+    color: #fff;
     padding: 0 20px;
     padding: 0 2rem;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.tile .__flag {
+    text-align: left;
+    font-family: 'Proxima Nova SBold';
+    color: #000;
+    background: #FACC3A;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    padding: 1rem;
+    text-transform: uppercase;
+    z-index: 15;
+}
+
+.tile .__title {
+    font-family: 'Proxima Nova Bold';
+    text-align: left;
     margin: 0;
 }
 
-.staff-pick figure img {
-    max-width: 500px;
+.tile .__tagline {
+    color: inherit;
+    font-size: 0.9em;
+    line-height: 1;
     margin: 0;
+}
+
+.tile .__title,
+.tile .__tagline {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .name {
@@ -215,7 +270,7 @@ img {
     padding: 0;
     margin: 0 auto;
     list-style: none;
-    max-width: 750px;
+    max-width: 60%;
 }
 
 #upcoming-events .events p {
@@ -224,8 +279,10 @@ img {
 
 #upcoming-events .events li {
     overflow: auto;
-    border-left: 2px solid black;
-    margin-bottom: 30px;
+    padding: 20px;
+    padding: 2rem;
+    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 #upcoming-events .events .date {
@@ -262,13 +319,30 @@ img {
     font-weight: 700;
 }
 
-@media screen and (max-width: 960px) {
-    #title img {
-        max-width: 200px;
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    html {
+        font-size: 55%;
     }
 
-    #title h1 {
-        font-size: 48px;
-        font-size: 4.8rem;
+    .staff-pick figure {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px;
+        margin: 2rem;
+        display: block;
+        position: relative;
+    }
+
+    .staff-pick .stats {
+        padding: 20px;
+        padding: 2rem;
+        width: 100%;
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1824px) {
+    html {
+        font-size: 65%;
     }
 }

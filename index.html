@@ -9,39 +9,47 @@
     <title>DoSomething.org Dashboard</title>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="fullpage">
         <div class="section" id="title">
             <img src="/img/logo.png" alt="Our Logo">
-            <h1>Welcome to DoSomething.org!</h1>
+            <h1>Welcome!</h1>
         </div>
 
-        <div class="section" id="feed"></div>
+        <div class="wrapper">
+            <div class="section" id="feed"></div>
 
-        <div class="section" id="counts">
-            <h1>Current Member Count</h1>
-            <div class="counter-wrapper">
-                <ul class="flip-counter default" id="counter"></ul>
-            </div>
-        </div>
-
-        <div class="section" id="campaigns">
-            <div class="staff-pick">
-                <figure>
-                    <img id="campaign-image" src="http://placehold.it/500x500/222222/ffffff&text=%20" alt="Staff Pick" />
-                    <p class="banner">Staff Pick Performance</p>
-                    <h1 id="campaign-title" class="title">Campaign Title</h1>
-                </figure><div class="stats">
-                    <h3>Sign Ups</h3>
-                    <h1 class="sign-ups">16,456</h1>
-                    <h3>Days Left</h3>
-                    <h1 class="days-left">57</h1>
+            <div class="section" id="counts">
+                <h1>Current Member Count</h1>
+                <div class="counter-wrapper">
+                    <ul class="flip-counter default" id="counter"></ul>
                 </div>
             </div>
-        </div>
 
-        <div class="section" id="upcoming-events">
-            <h1>Upcoming Events</h1>
-            <ul class="events"></ul>
+            <div class="section" id="campaigns">
+                <div class="staff-pick">
+                    <div class="tile--wrapper">
+                        <article class="tile tile--campaign">
+                            <div class="wrapper">
+                                <p class="__flag">Staff Pick Performance</p>
+                                <div class="tile__meta">
+                                    <h1 id="campaign-title" class="__title"></h1>
+                                </div>
+                                <img alt="Staff Pick" id="campaign-image" />
+                            </div>
+                        </article>
+                    </div><div class="stats">
+                        <h3>Sign Ups</h3>
+                        <h1 class="sign-ups">16,456</h1>
+                        <h3>Days Left</h3>
+                        <h1 class="days-left">57</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="upcoming-events">
+                <h1>Upcoming Events</h1>
+                <ul class="events"></ul>
+            </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
