@@ -1,3 +1,7 @@
+var mb_config = require(__dirname + '/config/mb_config.json');
+var mc_config = require(__dirname + '/config/mc_config.json');
+var gc_config = require(__dirname + '/config/gc_config.json');
+
 var express = require('express');
 var request = require('superagent');
 var app = require('express')();
@@ -7,10 +11,6 @@ var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
 var cheerio = require('cheerio');
-
-var mb_config = require(__dirname + '/config/mb_config.json');
-var mc_config = require(__dirname + '/config/mc_config.json');
-var gc_config = require(__dirname + '/config/gc_config.json');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -67,6 +67,7 @@ conn.on('ready', function(){
           io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
+          console.log(serializedMessage);
           io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_group_signup":
@@ -177,18 +178,16 @@ function distributeMessages(){
 var masterCampaign = 5091;
 var totalMobileUsers = 0;
 
-var lastPageMobile = 1;
-var lastIndexMobile = 0;
+var bStart = 1;
+var bStop = Math.pow(2, 30);
+var middle = Math.pow(2, 29);
 
-function getTotalUsers(pageNumber){
-  var now = new Date();
-  var minAgo = new Date();
-  minAgo.subMinutes(1);
+function initialMemberCount(){
 
   request
     .get('https://secure.mcommons.com/api/campaign_subscribers')
     .auth(mc_config.user, mc_config.pass)
-    .query({campaign_id: masterCampaign, limit: '1000', page: pageNumber})
+    .query({campaign_id: masterCampaign, limit: '1', page: middle})
     .buffer()
     .accept('xml')
     .type('xml')
@@ -200,46 +199,50 @@ function getTotalUsers(pageNumber){
           }
           var obj = JSON.parse(jsonResult);
           if(obj.response.subscriptions[0].sub == undefined){
-            getTotalMailChimpUsers(totalMobileUsers);
+            bStop = (bStart + bStop) / 2;
+          }
+          else {
+            bStart = (bStart + bStop) / 2;
+          }
+
+          middle = Math.floor((bStart + bStop) / 2);
+
+          if(bStop - bStart < 10){
+            totalMobileUsers = middle;
+            getTotalMailChimpUsers(middle);
             return;
           }
-          var num = parseInt(obj.response.subscriptions[0]['$'].num);
-          totalMobileUsers += (num - lastIndexMobile);
-
-          var page = parseInt(obj.response.subscriptions[0]['$'].page);
-          lastPageMobile = page;
-          if(num == 1000){
-            lastIndexMobile = 0;
-          }
           else{
-            lastIndexMobile = num;
+            initialMemberCount();
           }
-          getTotalUsers(page + 1);
-          calculateTotalUsers(totalMobileUsers, 1);
 
-      });
     });
+  });
 
-}
-
-//Mailchimp
-//---------
-
-function getTotalMailChimpUsers(totalMobileUsers){
-  calculateTotalUsers(totalMobileUsers, 1);
-  getTotalUsers(lastPageMobile);
 }
 
 //Users
 //-----
 
-var dedoupValue = .905;
-
-function calculateTotalUsers(totalMobileUsers, totalWebUsers){
-  var total = Math.round((totalMobileUsers + totalWebUsers) * dedoupValue);
-  io.emit('ticker', total, {for: 'everyone'});
-  console.log(total);
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
 }
+
+function calculateTotalUsers(){
+  var url = "http://dashboards.dosomething.org/";
+  var total = 0;
+  request
+    .get(url)
+    .end(function(res){
+      var pageHTML = res.text;
+      var $ = cheerio.load(pageHTML);
+		      var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
+          var total = parseInt(replaceAll(',', '', data));
+          io.emit('ticker', total, {for: 'everyone'});
+  });
+}
+
+
 
 // Cal. stuff
 //-----------
@@ -290,6 +293,6 @@ app.get('/staff-picks', function(req, res){
 //-----
 http.listen(3000, function(){
   getMessages(1);
-  getTotalUsers(lastPageMobile);
+  setInterval(calculateTotalUsers, 5 * 1000);
   console.log("listening on 3000");
 });
