@@ -107,7 +107,7 @@ $(function() {
         });
 
         if(imgElement){
-          element.append($(text));
+          element.addClass('image').append($(text));
         }
         else{
           element.append('<span></span>').find('span').append(text);

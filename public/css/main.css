@@ -24,7 +24,7 @@
     margin: 0;
 }
 
-html,body {
+html, body {
     height: 100%;
 }
 
@@ -110,18 +110,19 @@ img {
     vertical-align: middle;
 }
 
+#feed .tableCell {
+    overflow: auto;
+}
+
 .box {
-    display: inline-block;
     width: 200px;
     height: 200px;
     line-height: 200px;
     margin: 5px;
-    margin: 0.5rem;
     padding: 10px;
-    padding: 1rem;
     word-wrap: break-word;
     font-size: 24px;
-    font-size: 2.4rem;
+    float: left;
 }
 
 .box span {
@@ -130,10 +131,16 @@ img {
     line-height: normal;
 }
 
-#feed img {
-    display: block;
-    max-width: 100%;
-    margin: 0 auto;
+.box.image {
+    padding: 0;
+}
+
+.box.image img {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    height: 100%;
+    width: 100%;
 }
 
 #counts h1 {
