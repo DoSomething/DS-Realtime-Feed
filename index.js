@@ -72,7 +72,9 @@ conn.on('ready', function(){
           io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
+          console.log(serializedMessage);
           io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
+          io.emit('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP, {for: 'everyone'});
           break;
         case "campaign_group_signup":
           break;
@@ -266,3 +268,8 @@ http.listen(3000, function(){
   //setInterval(calculateTotalUsers, 5 * 1000);
   console.log("listening on 3000");
 });
+
+setInterval(function(){
+  io.emit('report back image', '<img src="https://www.dosomething.org/sites/default/files/styles/300x300/public/reportbacks/2401/uid_1849228-nid_2401-0.jpg?itok=Adn8gWAg" width="300" height="300" alt="" />'
+  , {for: 'everyone'});
+}, 1000);

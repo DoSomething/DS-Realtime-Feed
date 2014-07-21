@@ -40,10 +40,10 @@ $(function() {
         $.ajax('/staff-picks', {
           type: 'GET',
           success: function(data){
-            var picks = JSON.parse(data);
-            var random = picks[getRandomInt(0, picks.length - 1)];
-            $('#campaign-title').text(random.title);
-            $('#campaign-image').attr('src', random.imageURL);
+            // var picks = JSON.parse(data);
+            // var random = picks[getRandomInt(0, picks.length - 1)];
+            // $('#campaign-title').text(random.title);
+            // $('#campaign-image').attr('src', random.imageURL);
           }
         })
     };
@@ -98,14 +98,20 @@ $(function() {
 
     $(window).on('resize', setMaxBoxes);
 
-    var createBox = function(text, colors) {
+    var createBox = function(text, colors, imgElement) {
         boxes = $('.box');
 
         var element = $('<div class="box"></div>').css({
             background: colors.background,
             color: colors.text
         });
-        element.append('<span></span>').find('span').append(text);
+
+        if(imgElement){
+          element.append($(text));
+        }
+        else{
+          element.append('<span></span>').find('span').append(text);
+        }
 
         if (boxes.length >= maxBoxes) {
             if (boxes.length > maxBoxes) {
@@ -126,19 +132,23 @@ $(function() {
     };
 
     socket.on('text', function(msg) {
-        createBox(msg, boxColors[1]);
+        createBox(msg, boxColors[1], false);
     });
 
     socket.on('signup', function(msg) {
-        createBox(msg, boxColors[2]);
+        createBox(msg, boxColors[2], false);
     });
 
     socket.on('report back', function(msg) {
-        createBox(msg, boxColors[0]);
+        createBox(msg, boxColors[0], false);
+    });
+
+    socket.on('report back image', function(msg) {
+        createBox(msg, boxColors[0], true);
     });
 
     socket.on('campaign', function(msg) {
-        createBox(msg, boxColors[3]);
+        createBox(msg, boxColors[3], false);
     });
 
     // https://github.com/cnanney/css-flip-counter
