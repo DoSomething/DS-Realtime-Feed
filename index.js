@@ -12,6 +12,9 @@ var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
 var cheerio = require('cheerio');
 
+var totalUsers = 0;
+var currentTime = new Date();
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
@@ -25,6 +28,7 @@ io.on('connection', function(socket) {
     console.log('Client disconnected');
   });
 });
+
 
 //RabbitMQ
 //--------
@@ -61,6 +65,7 @@ conn.on('ready', function(){
       var activity = serializedMessage.activity;
       switch(activity){
         case "user_register":
+          totalUsers++;
           io.emit('signup', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + '</p> created an account!</p>', {for: 'everyone'});
           break;
         case "campaign_signup" :
@@ -132,6 +137,11 @@ function getMessages(pageNumber){
             if(message.profile[1] == undefined){
               continue;
             }
+            console.log(message['$'].type);
+            if(message['$'].type == "opt_in"){
+              totalUsers++;
+              console.log(totalUsers);//35
+            }
             if(message.profile[1].first_name != ''){
               var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";
               textMessages.push(string);
@@ -174,53 +184,6 @@ function distributeMessages(){
   messageIntervalID = setInterval(sendTextMessage, messagesInterval * 1000);
 }
 
-//User Count
-var masterCampaign = 5091;
-var totalMobileUsers = 0;
-
-var bStart = 1;
-var bStop = Math.pow(2, 30);
-var middle = Math.pow(2, 29);
-
-function initialMemberCount(){
-
-  request
-    .get('https://secure.mcommons.com/api/campaign_subscribers')
-    .auth(mc_config.user, mc_config.pass)
-    .query({campaign_id: masterCampaign, limit: '1', page: middle})
-    .buffer()
-    .accept('xml')
-    .type('xml')
-    .end(function(res){
-      parseString(res.text, function (err, result) {
-          var jsonResult = JSON.stringify(result);
-          if(jsonResult == undefined){
-            return;
-          }
-          var obj = JSON.parse(jsonResult);
-          if(obj.response.subscriptions[0].sub == undefined){
-            bStop = (bStart + bStop) / 2;
-          }
-          else {
-            bStart = (bStart + bStop) / 2;
-          }
-
-          middle = Math.floor((bStart + bStop) / 2);
-
-          if(bStop - bStart < 10){
-            totalMobileUsers = middle;
-            getTotalMailChimpUsers(middle);
-            return;
-          }
-          else{
-            initialMemberCount();
-          }
-
-    });
-  });
-
-}
-
 //Users
 //-----
 
@@ -228,7 +191,7 @@ function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function calculateTotalUsers(){
+function calculateTotalUsers(callback){
   var url = "http://dashboards.dosomething.org/";
   var total = 0;
   request
@@ -237,12 +200,21 @@ function calculateTotalUsers(){
       var pageHTML = res.text;
       var $ = cheerio.load(pageHTML);
 		      var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
-          var total = parseInt(replaceAll(',', '', data));
-          io.emit('ticker', total, {for: 'everyone'});
+          var num = parseInt(replaceAll(',', '', data));
+          totalUsers = num;
+          callback();
   });
 }
 
+function pushUserTotal(){
+  io.emit('ticker', totalUsers, {for: 'everyone'});
+}
 
+function calculateFakeTime(){
+  calculateTotalUsers(function(){
+    setInterval(pushUserTotal, 1000); //So we don't have to update the ticker manually everytime we change the number
+  });
+}
 
 // Cal. stuff
 //-----------
@@ -293,6 +265,7 @@ app.get('/staff-picks', function(req, res){
 //-----
 http.listen(3000, function(){
   getMessages(1);
-  setInterval(calculateTotalUsers, 5 * 1000);
+  calculateFakeTime();
+  //setInterval(calculateTotalUsers, 5 * 1000);
   console.log("listening on 3000");
 });
