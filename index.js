@@ -72,7 +72,6 @@ conn.on('ready', function(){
           io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
-          console.log(serializedMessage);
           io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_group_signup":
@@ -137,10 +136,8 @@ function getMessages(pageNumber){
             if(message.profile[1] == undefined){
               continue;
             }
-            console.log(message['$'].type);
             if(message['$'].type == "opt_in"){
               totalUsers++;
-              console.log(totalUsers);//35
             }
             if(message.profile[1].first_name != ''){
               var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";
