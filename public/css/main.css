@@ -83,8 +83,7 @@ img {
     margin: 0 auto;
 }
 
-.fullpage > .wrapper {
-    margin: 0 auto;
+.padding {
     padding: 20px;
     padding: 2rem;
 }
@@ -94,18 +93,19 @@ img {
 }
 
 #title h1 {
-    font-family: 'Proxima Nova SBold';
+    font-family: 'Proxima Nova Bold';
     display: inline-block;
-    margin: 20px 0 0 0;
-    margin: 2rem 0 0 0;
-    font-size: 60px;
-    font-size: 6rem;
+    margin: 0 0 0 20px;
+    margin: 0 0 0 2rem;
+    font-size: 130px;
+    font-size: 13rem;
     color: white;
+    vertical-align: middle;
 }
 
 #title img {
-    max-width: 400px;
-    max-width: 40rem;
+    max-width: 250px;
+    max-width: 25rem;
     display: inline-block;
     vertical-align: middle;
 }
@@ -138,13 +138,31 @@ img {
 
 #counts h1 {
     font-family: 'Proxima Nova Bold';
-    font-size: 60px;
-    font-size: 6rem;
-    color: #30b5f5;
+    font-size: 80px;
+    font-size: 8rem;
+    color: white;
+    margin-bottom: -20px;
+    margin-bottom: -2rem;
+}
+
+#counts {
+    background: url(../img/counter-background.jpg) no-repeat 0 0 fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#campaigns .tableCell > .wrapper {
+    display: table;
+    height: 100%;
+    width: 100%;
 }
 
 .staff-pick {
-    margin: 0 auto;
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
 }
 
 .staff-pick .stats {
@@ -261,9 +279,9 @@ img {
 }
 
 .name {
-  font-weight: 900;
-  display: inline;
-  font-family: "Proxima Nova Bold";
+    font-weight: 900;
+    display: inline;
+    font-family: "Proxima Nova Bold";
 }
 
 #upcoming-events .events {
@@ -289,6 +307,7 @@ img {
     float: left;
     width: 30%;
     text-align: center;
+    padding-right: 5px;
 }
 
 #upcoming-events .events .date .day {
@@ -309,21 +328,19 @@ img {
 #upcoming-events .events .info {
     float: left;
     width: 70%;
+    padding-left: 5px;
 }
 
 #upcoming-events .events .info h2 {
     margin: 10px 0 0 0;
+    font-family: "Proxima Nova SBold";
 }
 
 #campaign-title {
     font-weight: 700;
 }
 
-@media only screen and (min-width: 320px) and (max-width: 480px) {
-    html {
-        font-size: 55%;
-    }
-
+@media only screen and (max-width: 760px) {
     .staff-pick figure {
         width: 100%;
         max-width: 400px;
@@ -338,6 +355,36 @@ img {
         padding: 2rem;
         width: 100%;
         display: block;
+    }
+
+    #upcoming-events .events .date {
+        float: none;
+        width: 100%;
+        padding: 0;
+    }
+
+    #upcoming-events .events .info {
+        float: none;
+        width: 100%;
+        border: none !important;
+        padding: 10px 0 0 0;
+        padding: 1rem 0 0 0;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    html {
+        font-size: 55%;
+    }
+
+    #title h1 {
+        font-size: 80px;
+        font-size: 8rem;
+    }
+
+    #title img {
+        max-width: 200px;
+        max-width: 20rem;
     }
 }
 
