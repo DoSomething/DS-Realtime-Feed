@@ -7,7 +7,7 @@ $(function() {
         loopBottom: true,
         easing: 'easeInOutQuart',
         scrollingSpeed: 1000,
-        navigation: true
+        navigation: false
     });
 
     var getRandomInt = function(min, max) {
@@ -37,15 +37,15 @@ $(function() {
                 }
             }
         });
-        $.ajax('/staff-picks', {
-          type: 'GET',
-          success: function(data){
-            // var picks = JSON.parse(data);
-            // var random = picks[getRandomInt(0, picks.length - 1)];
-            // $('#campaign-title').text(random.title);
-            // $('#campaign-image').attr('src', random.imageURL);
-          }
-        })
+        // $.ajax('/staff-picks', {
+        //   type: 'GET',
+        //   success: function(data){
+        //     var picks = JSON.parse(data);
+        //     var random = picks[getRandomInt(0, picks.length - 1)];
+        //     $('#campaign-title').text(random.title);
+        //     $('#campaign-image').attr('src', random.imageURL);
+        //   }
+        // });
     };
 
     updateEvents();

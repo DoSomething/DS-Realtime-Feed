@@ -242,22 +242,21 @@ var camp = function(title, imageURL){
 }
 
 app.get('/staff-picks', function(req, res){
-  request
-    .get(url)
-    .end(function(dRes){
-      var pageHTML = dRes.text;
-      var $ = cheerio.load(pageHTML);
+  // request
+  //   .get(url)
+  //   .end(function(dRes){
+  //     var pageHTML = dRes.text;
+  //     var $ = cheerio.load(pageHTML);
 
-      $('div.staff-pick').each(function(i, element){
-        var imgElement = element.next.next;
-        var imgURL = imgElement.attribs['data-src'];
-        var title = imgElement.next.next.children[1].children[0].data;
-        campaigns.push(new camp(title, imgURL));
-      });
+  //     $('div.staff-pick').each(function(i, element){
+  //       var imgElement = element.next.next;
+  //       var imgURL = imgElement.attribs['data-src'];
+  //       var title = imgElement.next.next.children[1].children[0].data;
+  //       campaigns.push(new camp(title, imgURL));
+  //     });
 
-      res.json(JSON.stringify(campaigns));
-    });
-
+  //     res.json(JSON.stringify(campaigns));
+  //   });
 });
 
 //Setup
