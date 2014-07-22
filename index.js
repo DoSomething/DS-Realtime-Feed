@@ -72,7 +72,6 @@ conn.on('ready', function(){
           io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           break;
         case "campaign_reportback":
-          console.log(serializedMessage);
           io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
           io.emit('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP, {for: 'everyone'});
           break;
