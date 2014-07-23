@@ -139,6 +139,8 @@ img {
 }
 
 .box.image img {
+    position: relative;
+    top: -1px;
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
@@ -153,6 +155,7 @@ img {
     color: white;
     margin-bottom: -20px;
     margin-bottom: -2rem;
+    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);
 }
 
 #counts {
@@ -188,8 +191,8 @@ img {
 }
 
 .staff-pick .stats h1 {
-    font-size: 80px;
-    font-size: 8rem;
+    font-size: 90px;
+    font-size: 9rem;
     font-family: 'Proxima Nova Bold';
     color: #03B4F4;
     margin-top: -30px;
@@ -199,8 +202,8 @@ img {
 .staff-pick .stats h3 {
     text-transform: uppercase;
     font-family: 'Proxima Nova SBold';
-    font-size: 30px;
-    font-size: 3rem;
+    font-size: 40px;
+    font-size: 4rem;
 }
 
 .staff-pick .tile--wrapper {
@@ -298,11 +301,13 @@ img {
     padding: 0;
     margin: 0 auto;
     list-style: none;
-    max-width: 60%;
+    max-width: 70%;
 }
 
 #upcoming-events .events p {
     margin: 0;
+    font-size: 22px;
+    font-size: 2.2rem;
 }
 
 #upcoming-events .events li {
@@ -317,7 +322,8 @@ img {
     float: left;
     width: 30%;
     text-align: center;
-    padding-right: 5px;
+    padding-right: 10px;
+    padding-right: 1rem;
 }
 
 #upcoming-events .events .date .day {
@@ -338,11 +344,13 @@ img {
 #upcoming-events .events .info {
     float: left;
     width: 70%;
-    padding-left: 5px;
+    padding-left: 20px;
+    padding-left: 2rem;
+    text-align: left;
 }
 
 #upcoming-events .events .info h2 {
-    margin: 10px 0 0 0;
+    margin: 0;
     font-family: "Proxima Nova SBold";
 }
 
@@ -371,12 +379,13 @@ img {
         float: none;
         width: 100%;
         padding: 0;
+        border: none !important;
     }
 
     #upcoming-events .events .info {
         float: none;
         width: 100%;
-        border: none !important;
+        text-align: center;
         padding: 10px 0 0 0;
         padding: 1rem 0 0 0;
     }

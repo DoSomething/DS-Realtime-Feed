@@ -31,8 +31,8 @@ $(function() {
                     $('#upcoming-events .tableCell .events').append('<li><div class="date"><p class="day">' + moment(current.start.dateTime).format('DD') + '</p><p class="month">' + moment(current.start.dateTime).format('MMMM') + '</p><p class="time">' + moment(current.start.dateTime).format('h:mm A') + ' to ' + moment(current.end.dateTime).format('h:mm A') + '</p></div><div class="info"><h2>' + current.summary + '</h2><p class="location">' + current.location + '</p></div></li>').find('li').last().css({
                         background: color.background,
                         color: color.text
-                    }).find('.info').css({
-                        "border-left": '2px solid ' + color.text
+                    }).find('.date').css({
+                        "border-right": '2px solid ' + color.text
                     });
                 }
             }
