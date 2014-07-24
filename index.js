@@ -105,6 +105,14 @@ Date.prototype.subMinutes = function(m) {
     return this;
 }
 
+Date.prototype.daysBetween = function(date1, date2) {
+  var one_day=1000*60*60*24;
+  var date1_ms = date1.getTime();
+  var date2_ms = date2.getTime();
+  var difference_ms = date2_ms - date1_ms;
+  return Math.round(difference_ms/one_day);
+}
+
 function getMessages(pageNumber){
   var now = new Date();
   var minAgo = new Date();
@@ -232,7 +240,7 @@ app.get('/events', function(req, res){
 
 //Campaign Hack
 //-------------
-var url = "http://staging.beta.dosomething.org/api/v1/content/362";
+var url = "http://beta.dosomething.org/api/v1/content/2401.json";
 var campaigns = [];
 
 var Camp = function(title, imageURL, signups, daysLeft){
@@ -249,7 +257,9 @@ app.get('/staff-picks', function(req, res){
     .accept('application/json')
     .end(function(dRes){
       var response = JSON.parse(dRes.text);
-      var responseCamp = new Camp(response.title, response.image_header.url.square.raw, response.stats.signups, 1);
+      var date = new Date();
+      var daysLeft = date.daysBetween(date, new Date(response.high_season_end));
+      var responseCamp = new Camp(response.title, response.image_cover.url.square.raw, response.stats.signups, daysLeft);
       campaigns.push(responseCamp);
       res.json(JSON.stringify(campaigns));
     });
