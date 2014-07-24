@@ -15,9 +15,9 @@ $(function() {
     });
 
     $(document).on('click', function() {
-	clearTimeout(slideLooper);
-	slideLooper = null;
-	autoScrolling = false;
+        clearTimeout(slideLooper);
+        slideLooper = null;
+        autoScrolling = false;
     });
 
     var getRandomInt = function(min, max) {
@@ -50,15 +50,15 @@ $(function() {
             }
         });
         $.ajax('/staff-picks', {
-          type: 'GET',
-          success: function(data){
-            var picks = JSON.parse(data);
-            var random = picks[getRandomInt(0, picks.length - 1)];
-            $('#campaign-title').text(random.title);
-            $('#campaign-image').attr('src', random.imageURL);
-            $('.sign-ups').text(random.signups);
-            $('.days-left').text(random.daysLeft);
-          }
+            type: 'GET',
+            success: function(data) {
+                var picks = JSON.parse(data);
+                var random = picks[getRandomInt(0, picks.length - 1)];
+                $('#campaign-title').text(random.title);
+                $('#campaign-image').attr('src', random.imageURL);
+                $('.sign-ups').text(random.signups);
+                $('.days-left').text(random.daysLeft);
+            }
         });
     };
 
@@ -73,28 +73,23 @@ $(function() {
     var maxBoxes = 0;
     var animation = 'flipInX';
     var slideTimes = [10000, 20000, 10000, 10000, 10000];
-    var boxColors = [
-        {
-            "name": "text",
-            "background": "#444444",
-            "text": "#ffffff"
-        },
-        {
-            "name": "signup",
-            "background": "#23b7fb",
-            "text": "#ffffff"
-        },
-        {
-            "name": "report back",
-            "background": "#4e2b63",
-            "text": "#fcd116"
-        },
-        {
-            "name": "campaign",
-            "background": "#fcd116",
-            "text": "#4e2b63"
-        }
-    ];
+    var boxColors = [{
+        "name": "text",
+        "background": "#444444",
+        "text": "#ffffff"
+    }, {
+        "name": "signup",
+        "background": "#23b7fb",
+        "text": "#ffffff"
+    }, {
+        "name": "report back",
+        "background": "#4e2b63",
+        "text": "#fcd116"
+    }, {
+        "name": "campaign",
+        "background": "#fcd116",
+        "text": "#4e2b63"
+    }];
 
     var setMaxBoxes = function() {
         boxes = $('.box');
@@ -119,11 +114,10 @@ $(function() {
             color: colors.text
         });
 
-        if(imgElement){
-          element.addClass('image').append($(text));
-        }
-        else{
-          element.append('<span></span>').find('span').append(text);
+        if (imgElement) {
+            element.addClass('image').append($(text));
+        } else {
+            element.append('<span></span>').find('span').append(text);
         }
 
         setMaxBoxes();
@@ -136,8 +130,7 @@ $(function() {
             }
 
             boxes.eq(getRandomInt(0, boxes.length - 1)).replaceWith(element);
-        }
-        else {
+        } else {
             container.append(element);
         }
         $(element).addClass('animated ' + animation);
@@ -174,17 +167,17 @@ $(function() {
         auto: false
     });
 
-    socket.on('ticker', function (text) {
-	counter.setValue(text);
+    socket.on('ticker', function(text) {
+        counter.setValue(text);
     });
 
     if (autoScrolling) {
-	(function loop() {
-	    slideLooper = setTimeout(function() {
-		$.fn.fullpage.moveSectionDown();
-		current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
-		loop();
-	    }, slideTimes[current]);
-	})();
+        (function loop() {
+            slideLooper = setTimeout(function() {
+                $.fn.fullpage.moveSectionDown();
+                current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
+                loop();
+            }, slideTimes[current]);
+        })();
     }
 });
