@@ -224,7 +224,7 @@ function processUsers(){
     }
     countFile.total = totalUsers;
     fs.writeFile("count.json", JSON.stringify(countFile));
-    pushUserTotal(); //So we don't have to update the ticker manually everytime we change the number
+    pushUserTotal(); 
   });
 }
 
