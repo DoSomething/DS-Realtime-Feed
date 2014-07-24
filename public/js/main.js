@@ -111,7 +111,7 @@ $(function() {
           element.addClass('image').append($(text));
         }
         else{
-          element.append('<span></span>').find('span').text(text);
+          element.append('<span></span>').find('span').append(text);
         }
 
         setMaxBoxes();
