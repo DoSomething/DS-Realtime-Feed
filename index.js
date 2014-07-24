@@ -1,7 +1,9 @@
 var mb_config = require(__dirname + '/config/mb_config.json');
 var mc_config = require(__dirname + '/config/mc_config.json');
 var gc_config = require(__dirname + '/config/gc_config.json');
+var countFile = require(__dirname + '/count.json');
 
+var fs = require("fs");
 var express = require('express');
 var request = require('superagent');
 var app = require('express')();
@@ -12,7 +14,7 @@ var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
 var cheerio = require('cheerio');
 
-var totalUsers = 0;
+var totalUsers = countFile.total;
 var currentTime = new Date();
 
 app.use(express.static(__dirname + '/public'));
@@ -207,8 +209,7 @@ function calculateTotalUsers(callback){
       var $ = cheerio.load(pageHTML);
 		      var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
           var num = parseInt(replaceAll(',', '', data));
-          totalUsers = num;
-          callback();
+          callback(num);
   });
 }
 
@@ -216,9 +217,14 @@ function pushUserTotal(){
   io.emit('ticker', totalUsers, {for: 'everyone'});
 }
 
-function calculateFakeTime(){
-  calculateTotalUsers(function(){
-    setInterval(pushUserTotal, 1000); //So we don't have to update the ticker manually everytime we change the number
+function processUsers(){
+  calculateTotalUsers(function(remoteTotal){
+    if(remoteTotal > totalUsers){
+      totalUsers = remoteTotal;
+    }
+    countFile.total = totalUsers;
+    fs.writeFile("count.json", JSON.stringify(countFile));
+    pushUserTotal(); //So we don't have to update the ticker manually everytime we change the number
   });
 }
 
@@ -269,7 +275,7 @@ app.get('/staff-picks', function(req, res){
 //-----
 http.listen(3000, function(){
   getMessages(1);
-  calculateFakeTime();
-  //setInterval(calculateTotalUsers, 5 * 1000);
+  totalUsers += 100;
+  setInterval(processUsers, 5 * 1000);
   console.log("listening on 3000");
 });

@@ -20,3 +20,5 @@ config.inc
 node_modules
 
 /config
+
+count.json
