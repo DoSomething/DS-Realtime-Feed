@@ -30,7 +30,7 @@ $(function() {
                         current.location = 'No Location Given'
                     }
                     var color = boxColors[getRandomInt(1, boxColors.length - 1)];
-                    $('#upcoming-events .tableCell .events').append('<li><div class="date"><p class="day">' + moment(current.start.dateTime).format('DD') + '</p><p class="month">' + moment(current.start.dateTime).format('MMMM') + '</p><p class="time">' + moment(current.start.dateTime).format('h:mm A') + ' to ' + moment(current.end.dateTime).format('h:mm A') + '</p></div><div class="info"><h2>' + current.summary + '</h2><p class="location">' + current.location + '</p></div></li>').find('li').last().css({
+		    $('#upcoming-events .tableCell .events').empty().append('<li><div class="date"><p class="day">' + moment(current.start.dateTime).format('DD') + '</p><p class="month">' + moment(current.start.dateTime).format('MMMM') + '</p><p class="time">' + moment(current.start.dateTime).format('h:mm A') + ' to ' + moment(current.end.dateTime).format('h:mm A') + '</p></div><div class="info"><h2>' + current.summary + '</h2><p class="location">' + current.location + '</p></div></li>').find('li').last().css({
                         background: color.background,
                         color: color.text
                     }).find('.date').css({
@@ -62,7 +62,7 @@ $(function() {
     var container = $('#feed .tableCell');
     var maxBoxes = 0;
     var animation = 'flipInX';
-    var slideTimes = [10000, 12000, 10000, 10000, 10000];
+    var slideTimes = [10000, 20000, 10000, 10000, 10000];
     var boxColors = [
         {
             "name": "text",
