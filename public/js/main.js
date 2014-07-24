@@ -1,5 +1,6 @@
 $(function() {
-    var hostname = 'http://' + location.hostname + ":" + location.port;
+    var socket = (location.hostname === 'blackangus.dosomething.org') ? io.connect('blackangus.dosomething.org:3000') : io.connect('localhost:3000');
+    var picks = [];
     var socket = io.connect(hostname);
     var picks = [];
 
