@@ -1,5 +1,6 @@
 $(function() {
-    var socket = io.connect('http://localhost:3000');
+    var socketURL = (location.host == "http://blackangus.dosomething.org:3000/" ? 'http://blackangus.dosomething.org:3000/' : 'http://localhost:3000');
+    var socket = io.connect(socketURL);
     var picks = [];
 
     $('.fullpage').fullpage({
