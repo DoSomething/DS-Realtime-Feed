@@ -38,15 +38,17 @@ $(function() {
                 }
             }
         });
-        // $.ajax('/staff-picks', {
-        //   type: 'GET',
-        //   success: function(data){
-        //     var picks = JSON.parse(data);
-        //     var random = picks[getRandomInt(0, picks.length - 1)];
-        //     $('#campaign-title').text(random.title);
-        //     $('#campaign-image').attr('src', random.imageURL);
-        //   }
-        // });
+        $.ajax('/staff-picks', {
+          type: 'GET',
+          success: function(data){
+            var picks = JSON.parse(data);
+            var random = picks[getRandomInt(0, picks.length - 1)];
+            $('#campaign-title').text(random.title);
+            $('#campaign-image').attr('src', random.imageURL);
+            $('.sign-ups').text(random.signups);
+            $('.days-left').text(random.daysLeft);
+          }
+        });
     };
 
     updateEvents();
