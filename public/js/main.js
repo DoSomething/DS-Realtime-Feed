@@ -1,6 +1,8 @@
 $(function() {
-    var socket = io.connect('http://localhost:3000');
+    var socket = (location.hostname === 'blackangus.dosomething.org') ? io.connect('blackangus.dosomething.org:3000') : io.connect('localhost:3000');
     var picks = [];
+
+    var current = 0;
 
     $('.fullpage').fullpage({
         resize: false,
@@ -58,8 +60,7 @@ $(function() {
     var container = $('#feed .tableCell');
     var maxBoxes = 0;
     var animation = 'flipInX';
-    var slideTimes = [2000, 10000, 4000, 4000, 4000];
-    var current = 0;
+    var slideTimes = [8000, 10000, 8000, 8000, 8000];
     var boxColors = [
         {
             "name": "text",
@@ -110,8 +111,10 @@ $(function() {
           element.addClass('image').append($(text));
         }
         else{
-          element.append('<span></span>').find('span').append(text);
+          element.append('<span></span>').find('span').text(text);
         }
+
+        setMaxBoxes();
 
         if (boxes.length >= maxBoxes) {
             if (boxes.length > maxBoxes) {
@@ -163,11 +166,11 @@ $(function() {
         counter.setValue(text);
     });
 
-    // (function loop() {
-    //     setTimeout(function() {
-    //         $.fn.fullpage.moveSectionDown();
-    //         current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
-    //         loop();
-    //     }, slideTimes[current]);
-    // })();
+    (function loop() {
+        setTimeout(function() {
+            $.fn.fullpage.moveSectionDown();
+            current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
+            loop();
+        }, slideTimes[current]);
+    })();
 });
