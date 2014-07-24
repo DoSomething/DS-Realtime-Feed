@@ -112,6 +112,7 @@ img {
 
 #feed .tableCell {
     overflow: auto;
+    height: 100% !important;
 }
 
 .box {

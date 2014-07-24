@@ -1,7 +1,8 @@
 $(function() {
-    var socketURL = (location.host == "http://blackangus.dosomething.org:3000/" ? 'http://blackangus.dosomething.org:3000/' : 'http://localhost:3000');
-    var socket = io.connect(socketURL);
+    var socket = (location.hostname === 'blackangus.dosomething.org') ? io.connect('blackangus.dosomething.org:3000') : io.connect('localhost:3000');
     var picks = [];
+
+    var current = 0;
 
     $('.fullpage').fullpage({
         resize: false,
@@ -61,8 +62,7 @@ $(function() {
     var container = $('#feed .tableCell');
     var maxBoxes = 0;
     var animation = 'flipInX';
-    var slideTimes = [2000, 10000, 4000, 4000, 4000];
-    var current = 0;
+    var slideTimes = [8000, 10000, 8000, 8000, 8000];
     var boxColors = [
         {
             "name": "text",
@@ -116,6 +116,8 @@ $(function() {
           element.append('<span></span>').find('span').append(text);
         }
 
+        setMaxBoxes();
+
         if (boxes.length >= maxBoxes) {
             if (boxes.length > maxBoxes) {
                 boxes.slice(-(boxes.length - maxBoxes)).slideUp(400, function() {
@@ -166,11 +168,11 @@ $(function() {
         counter.setValue(text);
     });
 
-    // (function loop() {
-    //     setTimeout(function() {
-    //         $.fn.fullpage.moveSectionDown();
-    //         current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
-    //         loop();
-    //     }, slideTimes[current]);
-    // })();
+    (function loop() {
+        setTimeout(function() {
+            $.fn.fullpage.moveSectionDown();
+            current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
+            loop();
+        }, slideTimes[current]);
+    })();
 });
