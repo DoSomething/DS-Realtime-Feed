@@ -1,5 +1,10 @@
 $(function() {
+<<<<<<< HEAD
     var socket = (location.hostname === 'blackangus.dosomething.org') ? io.connect('blackangus.dosomething.org:3000') : io.connect('localhost:3000');
+=======
+    var socketURL = (location.host == "http://blackangus.dosomething.org:3000/" ? 'http://blackangus.dosomething.org:3000/' : 'http://localhost:3000');
+    var socket = io.connect(socketURL);
+>>>>>>> FETCH_HEAD
     var picks = [];
 
     var current = 0;
