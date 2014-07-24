@@ -62,7 +62,7 @@ $(function() {
     var container = $('#feed .tableCell');
     var maxBoxes = 0;
     var animation = 'flipInX';
-    var slideTimes = [8000, 10000, 8000, 8000, 8000];
+    var slideTimes = [10000, 12000, 10000, 10000, 10000];
     var boxColors = [
         {
             "name": "text",
