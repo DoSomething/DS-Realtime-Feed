@@ -4,6 +4,8 @@ $(function() {
     var picks = [];
 
     var current = 0;
+    var autoScrolling = true;
+    var slideLooper = null;
 
     $('.fullpage').fullpage({
         resize: false,
@@ -11,6 +13,12 @@ $(function() {
         easing: 'easeInOutQuart',
         scrollingSpeed: 1000,
         navigation: false
+    });
+
+    $(document).on('click', function() {
+	clearTimeout(slideLooper);
+	slideLooper = null;
+	autoScrolling = false;
     });
 
     var getRandomInt = function(min, max) {
@@ -168,14 +176,16 @@ $(function() {
     });
 
     socket.on('ticker', function (text) {
-        counter.setValue(text);
+	counter.setValue(text);
     });
 
-    (function loop() {
-	setTimeout(function() {
-	    $.fn.fullpage.moveSectionDown();
-	    current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
-	    loop();
-	}, slideTimes[current]);
-    })();
+    if (autoScrolling) {
+	(function loop() {
+	    slideLooper = setTimeout(function() {
+		$.fn.fullpage.moveSectionDown();
+		current = ((current + 1) > slideTimes.length - 1) ? 0 : current + 1;
+		loop();
+	    }, slideTimes[current]);
+	})();
+    }
 });
