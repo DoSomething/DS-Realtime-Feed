@@ -224,7 +224,7 @@ function processUsers(){
     }
     countFile.total = totalUsers;
     fs.writeFile("count.json", JSON.stringify(countFile));
-    pushUserTotal(); 
+    pushUserTotal();
   });
 }
 
@@ -275,7 +275,6 @@ app.get('/staff-picks', function(req, res){
 //-----
 http.listen(3000, function(){
   getMessages(1);
-  totalUsers += 100;
   setInterval(processUsers, 5 * 1000);
   console.log("listening on 3000");
 });
