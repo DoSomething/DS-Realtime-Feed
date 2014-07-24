@@ -82,5 +82,22 @@ forever start index.js
 ```
 
 ### Deploying, Logs and Maintenance
+Deploying
+```
+cd /var/www/lobby
+git pull origin master
+forever restart index.js
+```
+
+Logs
+```
+forever logs index.js
+```
+
+Command reference
+```
+forever --help
+```
 
 ## Installation - Local Machine
+TO-DO
