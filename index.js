@@ -232,30 +232,27 @@ app.get('/events', function(req, res){
 
 //Campaign Hack
 //-------------
-var url = "dosomething.org";
+var url = "http://staging.beta.dosomething.org/api/v1/content/362";
 var campaigns = [];
 
-var camp = function(title, imageURL){
+var Camp = function(title, imageURL, signups, daysLeft){
   this.title = title;
   this.imageURL = imageURL;
+  this.signups = signups;
+  this.daysLeft = daysLeft;
 }
 
 app.get('/staff-picks', function(req, res){
-  // request
-  //   .get(url)
-  //   .end(function(dRes){
-  //     var pageHTML = dRes.text;
-  //     var $ = cheerio.load(pageHTML);
-
-  //     $('div.staff-pick').each(function(i, element){
-  //       var imgElement = element.next.next;
-  //       var imgURL = imgElement.attribs['data-src'];
-  //       var title = imgElement.next.next.children[1].children[0].data;
-  //       campaigns.push(new camp(title, imgURL));
-  //     });
-
-  //     res.json(JSON.stringify(campaigns));
-  //   });
+  request
+    .get(url)
+    .type('application/json')
+    .accept('application/json')
+    .end(function(dRes){
+      var response = JSON.parse(dRes.text);
+      var responseCamp = new Camp(response.title, response.image_header.url.square.raw, response.stats.signups, 1);
+      campaigns.push(responseCamp);
+      res.json(JSON.stringify(campaigns));
+    });
 });
 
 //Setup
