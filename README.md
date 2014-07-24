@@ -59,7 +59,7 @@ cd /var/www/lobby
 nano (or editor of choice) default.conf
 ```
 
-Edit the file to look like this, values are in the same order listed in the wiki
+Edit the file to look like this, values are in the same order listed in the [wiki](https://sites.google.com/a/dosomething.org/tech/server/rackspaceprivatecloud-openstack/original-welcome-message?pli=1)
 ```
 IPSec gateway 98.xxx.xxx.xxx (replace with actual IP)
 IPSec ID <redacted>
@@ -100,4 +100,21 @@ forever --help
 ```
 
 ## Installation - Local Machine
-TO-DO
+
+First, follow the instructions located on the tech wiki [here](https://sites.google.com/a/dosomething.org/tech/server/rackspaceprivatecloud-openstack/original-welcome-message?pli=1) to set up VPN access for your computer. This will allow the Dashboard to connect to RabbitMQ and parse the user information that is provided by it.
+Next, run the following in your terminal:
+
+```
+git clone https://github.com/DoSomething/mbc-activityStats.git
+cd mbc-activityStats
+npm install
+```
+
+Next, make sure you download the dashboard config files from <link> and place them in the mbc-activityStats directory.
+
+Finally, run:
+
+```
+node index.js
+open http://localhost:3000
+```
