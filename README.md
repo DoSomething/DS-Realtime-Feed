@@ -118,7 +118,10 @@ cd mbc-activityStats
 npm install
 ```
 
-Next, make sure you download the dashboard config files from <link> and place them in the mbc-activityStats directory.
+Next, make sure you download the dashboard config files from <link> and place them in the mbc-activityStats directory. Also create a count.json file and put the following in it:
+```
+{"total":2593579}
+```
 
 Finally, run:
 
