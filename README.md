@@ -58,6 +58,20 @@ cp /etc/vpnc/default.conf /var/www/lobby
 cd /var/www/lobby
 nano (or editor of choice) default.conf
 ```
+If in Nano
+```
+  cntrl+x
+  y
+  enter
+```
+
+Create base member count file
+```
+cd /var/www/lobby
+touch count.json
+nano count.json
+{"total":2593579}
+```
 
 Edit the file to look like this, values are in the same order listed in the [wiki](https://sites.google.com/a/dosomething.org/tech/server/rackspaceprivatecloud-openstack/original-welcome-message?pli=1)
 ```
@@ -66,12 +80,6 @@ IPSec ID <redacted>
 IPSec secret <redacted>
 Xauth username <redacted>
 Xauth password <redacted>
-```
-If in Nano
-```
-  cntrl+x
-  y
-  enter
 ```
 
 ### Run
