@@ -13,6 +13,7 @@ var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
 var cheerio = require('cheerio');
+var stathat = require('stathat');
 
 var totalUsers = countFile.total;
 var currentTime = new Date();
@@ -279,4 +280,7 @@ http.listen(3000, function(){
   getMessages(1);
   setInterval(processUsers, 5 * 1000);
   console.log("listening on 3000");
+  setInterval(function(){
+    stathat.trackEZCount("mholford@dosomething.org", "Lobby Debug", 1, function(status, json) {});
+  }, 5000);
 });
