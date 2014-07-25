@@ -233,9 +233,11 @@ function processUsers(){
 var apiKey = gc_config.apiKey;
 var calendarID = gc_config.calendarID;
 
+
+
 app.get('/events', function(req, res){
   request
-   .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?key=' + apiKey)
+   .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?orderBy=startTime&singleEvents=true&key=' + apiKey)
    .accept('application/json')
    .type('application/json')
    .end(function(gRes){
