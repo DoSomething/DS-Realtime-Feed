@@ -30,6 +30,25 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
+//Date functions
+Date.prototype.subHours = function(h) {
+   this.setTime(this.getTime() - (h*60*60*1000));
+   return this;
+}
+
+Date.prototype.subMinutes = function(m) {
+    this.setTime(this.getTime() - (m*60000));
+    return this;
+}
+
+Date.prototype.daysBetween = function(date1, date2) {
+  var one_day=1000*60*60*24;
+  var date1_ms = date1.getTime();
+  var date2_ms = date2.getTime();
+  var difference_ms = date2_ms - date1_ms;
+  return Math.round(difference_ms/one_day);
+}
+
 //SocketIO
 //--------
 io.on('connection', function(socket) {
@@ -59,6 +78,10 @@ var conn = amqp.createConnection({
   defaultExchangeName: mb_config.defaultExchangeName
 });
 
+/*
+ * Connect to queue & build HTML elements based off the data, push results
+ * over SocketIO to clients
+ */
 conn.on('ready', function(){
   console.log('rabbit connection ready');
   var q = conn.queue('activityStatsQueue', {
@@ -98,32 +121,18 @@ conn.on('ready', function(){
   });
 });
 
+
 //Mobile Commons
 //--------------
-
-//Txt Messages
 
 var textMessages = [];
 var messageIntervalID = 0;
 
-Date.prototype.subHours = function(h) {
-   this.setTime(this.getTime() - (h*60*60*1000));
-   return this;
-}
-
-Date.prototype.subMinutes = function(m) {
-    this.setTime(this.getTime() - (m*60000));
-    return this;
-}
-
-Date.prototype.daysBetween = function(date1, date2) {
-  var one_day=1000*60*60*24;
-  var date1_ms = date1.getTime();
-  var date2_ms = date2.getTime();
-  var difference_ms = date2_ms - date1_ms;
-  return Math.round(difference_ms/one_day);
-}
-
+/*
+ * Grabs all text messages in XML format from the last minute, converts them to
+ * JSON, builds HTML element and saves them in an array.
+ * Function also supports pagination due to how Mobile Commons sends back data.
+ */
 function getMessages(pageNumber){
   var now = new Date();
   var minAgo = new Date();
@@ -179,6 +188,12 @@ function getMessages(pageNumber){
 
 }
 
+/*
+ * Grabs the latest messages after 61 seconds.
+ * Does not use interval because the timer waits for the last 'GetMessages' to
+ * finish. Uses a seperate function to call getMessages in order to pass the
+ * start page (1)
+ */
 function resetTimer(){
   setTimeout(callGetMessages, 61 * 1000);
 }
@@ -187,6 +202,9 @@ function callGetMessages(){
   getMessages(1);
 }
 
+/*
+ * Sends the txt message at the top of the stack & removes it from the array
+ */
 function sendTextMessage(){
   if(textMessages.length == 0){
     clearInterval(messageIntervalID);
@@ -196,18 +214,29 @@ function sendTextMessage(){
   textMessages.splice(0, 1);
 }
 
+/*
+ * Used to send messages over a period of 1 minute instead of a single large
+ * batch
+ */
 function distributeMessages(){
   var messagesInterval = 60 / textMessages.length;
   messageIntervalID = setInterval(sendTextMessage, messagesInterval * 1000);
 }
 
+
 //Users
 //-----
 
+/*
+ * Function for replacing in a string
+ */
 function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
+/*
+ * Grabs the total users from the Data dashboard and returns it in a callback
+ */
 function calculateTotalUsers(callback){
   var url = "http://dashboards.dosomething.org/";
   var total = 0;
@@ -222,10 +251,17 @@ function calculateTotalUsers(callback){
   });
 }
 
+/*
+ * Pushes the current user total to the client ticker
+ */
 function pushUserTotal(){
   io.emit('ticker', totalUsers, {for: 'everyone'});
 }
 
+/*
+ * Gets the remote total and determines if we should use our local count or the
+ * remote count. Also saves our current count to file.
+ */
 function processUsers(){
   calculateTotalUsers(function(remoteTotal){
     if(remoteTotal > totalUsers){
@@ -237,13 +273,15 @@ function processUsers(){
   });
 }
 
-// Cal. stuff
+
+// Google Cal.
 //-----------
 var apiKey = gc_config.apiKey;
 var calendarID = gc_config.calendarID;
 
-
-
+/*
+ * Returns all of the events in our Google Cal. ordered by start time
+ */
 app.get('/events', function(req, res){
   request
    .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?orderBy=startTime&singleEvents=true&key=' + apiKey)
@@ -255,11 +293,17 @@ app.get('/events', function(req, res){
 });
 
 
-//Campaign Hack
+//Campaigns
 //-------------
 var url = "http://beta.dosomething.org/api/v1/content/2401.json";
 var campaigns = [];
 
+/*
+ * title      The title of the campaign
+ * imageURL   The link to the square high-res campaign photo
+ * signups    The total web signup count
+ * daysLeft   The total days left in the campaign
+ */
 var Camp = function(title, imageURL, signups, daysLeft){
   this.title = title;
   this.imageURL = imageURL;
@@ -267,6 +311,9 @@ var Camp = function(title, imageURL, signups, daysLeft){
   this.daysLeft = daysLeft;
 }
 
+/*
+ * Builds Camp objects out of the current staff picks and returns an array 
+ */
 app.get('/staff-picks', function(req, res){
   request
     .get(url)
@@ -282,8 +329,8 @@ app.get('/staff-picks', function(req, res){
     });
 });
 
-//Setup HTTP
-//----------
+//Setup HTTP & data fetchers
+//--------------------------
 http.listen(3000, function(){
   getMessages(1);
   setInterval(processUsers, 5 * 1000);
