@@ -242,12 +242,12 @@ function calculateTotalUsers(callback){
   var total = 0;
   request
     .get(url)
-    .end(function(res){
+    .end(function(res) {
       var pageHTML = res.text;
       var $ = cheerio.load(pageHTML);
-		      var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
-          var num = parseInt(replaceAll(',', '', data));
-          callback(num);
+      var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
+      var num = parseInt(replaceAll(',', '', data));
+      callback(num);
   });
 }
 
@@ -282,14 +282,34 @@ var calendarID = gc_config.calendarID;
 /*
  * Returns all of the events in our Google Cal. ordered by start time
  */
-app.get('/events', function(req, res){
+app.get('/events', function(req, res) {
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  var date = d.getDate();
+
+  if(month < 9){
+    month = '0' + month;
+  }
+  if(date < 9){
+    date = '0' + date;
+  }
+
+  var midnight = year + '-' + month + '-' + date + 'T00:00:00Z';
+
   request
-   .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events?orderBy=startTime&singleEvents=true&key=' + apiKey)
-   .accept('application/json')
-   .type('application/json')
-   .end(function(gRes){
-     res.json(gRes.res.text);
-   });
+    .get('https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events')
+    .query({
+      singleEvents: true,
+      orderBy: 'startTime',
+      timeMin: midnight,
+      key: apiKey
+    })
+    .accept('application/json')
+    .type('application/json')
+    .end(function(gRes){
+      res.json(gRes.res.text);
+    });
 });
 
 
@@ -312,7 +332,7 @@ var Camp = function(title, imageURL, signups, daysLeft){
 }
 
 /*
- * Builds Camp objects out of the current staff picks and returns an array 
+ * Builds Camp objects out of the current staff picks and returns an array
  */
 app.get('/staff-picks', function(req, res){
   request

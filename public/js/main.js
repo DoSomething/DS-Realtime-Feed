@@ -1,5 +1,5 @@
 $(function() {
-    var socket = (location.hostname === 'blackangus.dosomething.org') ? io.connect('blackangus.dosomething.org:3000') : io.connect('localhost:3000');
+    var socket = io.connect(location.host);
     var picks = [];
 
     var current = 0;
@@ -18,6 +18,10 @@ $(function() {
         clearTimeout(slideLooper);
         slideLooper = null;
         autoScrolling = false;
+    });
+
+    $(document).on('click', '.box', function() {
+        $(this).fadeOut();
     });
 
     var getRandomInt = function(min, max) {
