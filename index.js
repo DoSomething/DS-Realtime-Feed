@@ -1,8 +1,14 @@
+/*
+ * Configs
+ */
 var mb_config = require(__dirname + '/config/mb_config.json');
 var mc_config = require(__dirname + '/config/mc_config.json');
 var gc_config = require(__dirname + '/config/gc_config.json');
 var countFile = require(__dirname + '/count.json');
 
+/*
+ * Modules
+ */
 var fs = require("fs");
 var express = require('express');
 var request = require('superagent');
@@ -24,6 +30,8 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
+//SocketIO
+//--------
 io.on('connection', function(socket) {
   console.log("Client connected");
 
@@ -274,13 +282,10 @@ app.get('/staff-picks', function(req, res){
     });
 });
 
-//Setup
-//-----
+//Setup HTTP
+//----------
 http.listen(3000, function(){
   getMessages(1);
   setInterval(processUsers, 5 * 1000);
   console.log("listening on 3000");
-  setInterval(function(){
-    stathat.trackEZCount("mholford@dosomething.org", "Lobby Debug", 1, function(status, json) {});
-  }, 5000);
 });
