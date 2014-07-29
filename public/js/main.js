@@ -19,20 +19,6 @@ $(function() {
         navigation: false
     });
 
-    // If the user clicks anywhere on the page (that is not inside a box), the slides will stop autoscrolling.
-    // If the user clicks inside a box, the box will disappear
-    $(document).on('click', function(e) {
-        var target = $(e.target);
-        if (target.parents('.box').length || target.is('.box')) {
-            if (target.hasClass('box')) target.fadeOut();
-            else target.parents('.box').fadeOut();
-            return;
-        }
-        clearTimeout(slideLooper);
-        slideLooper = null;
-        autoScrolling = false;
-    });
-
     // Helper get random number function
     var getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -123,6 +109,30 @@ $(function() {
 
     // When the window is resized, calculate the maximum number of boxes that can fit on the screen again
     $(window).on('resize', setMaxBoxes);
+
+    // If the user clicks anywhere on the page (that is not inside a box), the slides will stop autoscrolling.
+    // If the user clicks inside a box, the box will disappear
+    $(document).on('click', function(e) {
+        var target = $(e.target);
+        if (target.parents('.box').length || target.is('.box')) {
+            if (target.hasClass('box')) {
+                target.fadeOut(400, function() {
+                    $(this).remove();
+                });
+            }
+            else {
+                target.parents('.box').fadeOut(400, function() {
+                    $(this).remove();
+                });
+            }
+            boxes = $('.box');
+            setMaxBoxes();
+            return;
+        }
+        clearTimeout(slideLooper);
+        slideLooper = null;
+        autoScrolling = false;
+    });
 
     // Function to create a box on the activity feed slide
     var createBox = function(text, colors, imgElement) {
