@@ -8,8 +8,6 @@ var request = require('superagent');
 var textMessages = [];
 var messageIntervalID = 0;
 
-//Update this
-
 Date.prototype.subMinutes = function(m) {
     this.setTime(this.getTime() - (m*60000));
     return this;
@@ -53,7 +51,7 @@ function getMessages(pageNumber){
               continue;
             }
             if(message['$'].type == "opt_in"){
-              totalUsers++;
+              main.totalUsers++;
             }
             if(message.profile[1].first_name != ''){
               var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";
@@ -106,7 +104,7 @@ function sendTextMessage(message){
     clearInterval(messageIntervalID);
     return;
   }
-  io.emit('text', textMessages[0], {for: 'everyone'});
+  main.sendActivityMessage('text', textMessages[0]);
   textMessages.splice(0, 1);
 }
 

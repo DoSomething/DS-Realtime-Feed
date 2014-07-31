@@ -22,7 +22,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var googleCalHandler = require('./GoogleCalHandler');
-var campaignsHandler = require('./CampaignHandler');
+var campaignHandler = require('./CampaignHandler');
 var messageBrokerHandler = require('./MessageBrokerHandler');
 var mobileCommonsHandler = require('./MobileCommonsHandler');
 var userCountHandler = require('./UserCountHandler');
