@@ -1,4 +1,4 @@
-var main = require('./index');
+var main = require('../index');
 
 var mc_config = main.mc_config;
 

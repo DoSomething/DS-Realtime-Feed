@@ -1,16 +1,16 @@
-//[][][] [][][] [][][] [][][] []   [] [][][] [][][] []    []
-//[]  [] []       []     []   []   []   []     []    []  []
-//[][][] []       []     []    [] []    []     []      []
-//[]  [] []       []     []    [] []    []     []      []
-//[]  [] [][][]   []   [][][]    []   [][][]   []      []
+// [][][] [][][] [][][] [][][] []   [] [][][] [][][] []    []
+// []  [] []       []     []   []   []   []     []    []  []
+// [][][] []       []     []    [] []    []     []      []
+// []  [] []       []     []    [] []    []     []      []
+// []  [] [][][]   []   [][][]    []   [][][]   []      []
 
-//[][][] [][][] [][][] [][]
-//[]     []     []     []  []
-//[][]   [][]   [][]   []  []
-//[]     []     []     []  []
-//[]     [][][] [][][] [][]
+// [][][] [][][] [][][] [][]
+// []     []     []     []  []
+// [][]   [][]   [][]   []  []
+// []     []     []     []  []
+// []     [][][] [][][] [][]
 
-//get it? its made of boxes, like our activity feed. ba-zing.
+// Get it? It's made of boxes, just like our activity feed. Ba-zing!
 
 this.gc_config = require(__dirname + '/config/gc_config.json');
 this.mc_config = require(__dirname + '/config/mc_config.json');
@@ -21,11 +21,11 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var googleCalHandler = require('./GoogleCalHandler');
-var campaignHandler = require('./CampaignHandler');
-var messageBrokerHandler = require('./MessageBrokerHandler');
-var mobileCommonsHandler = require('./MobileCommonsHandler');
-var userCountHandler = require('./UserCountHandler');
+var googleCalHandler = require('handlers/GoogleCalHandler');
+var campaignHandler = require('handlers/CampaignHandler');
+var messageBrokerHandler = require('handlers/MessageBrokerHandler');
+var mobileCommonsHandler = require('handlers/MobileCommonsHandler');
+var userCountHandler = require('handlers/UserCountHandler');
 
 app.use(express.static(__dirname + '/public'));
 
