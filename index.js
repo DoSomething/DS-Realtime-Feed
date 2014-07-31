@@ -18,6 +18,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var googleCalHandler = require('/handlers/GoogleCalHandler');
+var campaignsHandler = require('/handlers/CampaignHandler');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -82,7 +83,9 @@ app.get('/events', function(req, res) {
  * Gets all the current staff pick campaigns and returns in JSON format
  */
 app.get('/staff-picks', function(req, res){
-  //! replace with module
+  campaignHandler.getCampaigns(function onCampaignsGet(campaignResponse){
+    res.json(campaignResponse);
+  });
 });
 
 //Setup HTTP & data fetchers
