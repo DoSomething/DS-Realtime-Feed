@@ -12,9 +12,6 @@
 
 //get it? its made of boxes, like our activity feed. ba-zing.
 
-var countFile = require(__dirname + '/count.json');
-
-var fs = require("fs");
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
@@ -23,8 +20,6 @@ var request = require('superagent');
 var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
-
-var totalUsers = countFile.total;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -71,8 +66,8 @@ this.sendActivityMessage = function (type, message){
 /*
  * Pushes the current user total to the client ticker
  */
-this.pushUserTotal = function (){
-  io.emit('ticker', totalUsers, {for: 'everyone'});
+this.pushUserTotal = function (total){
+  io.emit('ticker', total, {for: 'everyone'});
 }
 
 /*

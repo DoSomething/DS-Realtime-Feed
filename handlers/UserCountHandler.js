@@ -1,5 +1,10 @@
 var countFile = require(__dirname + '/count.json');
 
+var main = require('./index');
+var fs = require("fs");
+
+var totalUsers = countFile.total;
+
 /*
  * Function for replacing in a string
  */
@@ -25,13 +30,6 @@ function calculateTotalUsers(callback){
 }
 
 /*
- * Pushes the current user total to the client ticker
- */
-function pushUserTotal(){
-  io.emit('ticker', totalUsers, {for: 'everyone'});
-}
-
-/*
  * Gets the remote total and determines if we should use our local count or the
  * remote count. Also saves our current count to file.
  */
@@ -42,7 +40,7 @@ function processUsers(){
     }
     countFile.total = totalUsers;
     fs.writeFile("count.json", JSON.stringify(countFile));
-    pushUserTotal();
+    pushUserTotal(totalUsers);
   });
 }
 
