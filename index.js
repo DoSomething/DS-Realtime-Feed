@@ -21,6 +21,8 @@ var amqp = require('amqp');
 var parseString = require('xml2js').parseString;
 var PHPUnserialize = require('php-unserialize');
 
+var googleCalHandler = require('/handlers/GoogleCalHandler');
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
@@ -75,7 +77,9 @@ this.pushUserTotal = function (total){
  * JSON format.
  */
 app.get('/events', function(req, res) {
-  //! replace with module
+  googleCalHandler.getEvents(function onEventGet(eventResponse){
+    res.json(eventResponse);
+  });
 });
 
 /*
