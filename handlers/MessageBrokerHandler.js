@@ -1,5 +1,8 @@
 var mb_config = require(__dirname + '/config/mb_config.json');
 
+var amqp = require('amqp');
+var PHPUnserialize = require('php-unserialize');
+
 var userCounter = require('/handlers/UserCounterHandler');
 var main = require('./index');
 

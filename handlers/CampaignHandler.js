@@ -1,3 +1,5 @@
+var request = require('superagent');
+
 var url = "http://beta.dosomething.org/api/v1/content/2401.json";
 
 /*

@@ -1,5 +1,8 @@
 var mc_config = require(__dirname + '/config/mc_config.json');
 
+var parseString = require('xml2js').parseString;
+var request = require('superagent');
+
 var textMessages = [];
 var messageIntervalID = 0;
 

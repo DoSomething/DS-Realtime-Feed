@@ -16,10 +16,6 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var request = require('superagent');
-var amqp = require('amqp');
-var parseString = require('xml2js').parseString;
-var PHPUnserialize = require('php-unserialize');
 
 var googleCalHandler = require('/handlers/GoogleCalHandler');
 

@@ -1,5 +1,7 @@
 var gc_config = require(__dirname + '/config/gc_config.json');
 
+var request = require('superagent');
+
 var apiKey = gc_config.apiKey;
 var calendarID = gc_config.calendarID;
 

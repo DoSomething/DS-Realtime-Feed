@@ -2,6 +2,7 @@ var countFile = require(__dirname + '/count.json');
 
 var main = require('./index');
 var fs = require("fs");
+var request = require('superagent');
 
 var totalUsers = countFile.total;
 
