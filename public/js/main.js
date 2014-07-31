@@ -1,11 +1,16 @@
 $(function() {
+    // Connect to SocketIO
     var socket = io.connect(location.host);
+
+    // Picks array for storing staff picks returned from server
     var picks = [];
 
+    // Variables for controlling the current slide/slide advancing
     var current = 0;
     var autoScrolling = true;
     var slideLooper = null;
 
+    // Initializing the plugin that is used for the slides
     $('.fullpage').fullpage({
         resize: false,
         loopBottom: true,
@@ -14,20 +19,12 @@ $(function() {
         navigation: false
     });
 
-    $(document).on('click', function() {
-        clearTimeout(slideLooper);
-        slideLooper = null;
-        autoScrolling = false;
-    });
-
-    $(document).on('click', '.box', function() {
-        $(this).fadeOut();
-    });
-
+    // Helper get random number function
     var getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
+    // Function that gets events from the Lobby Dashboard Google Calendar and Staff Picks from the server
     var updateEvents = function() {
         $.ajax('/events', {
             dataType: 'json',
@@ -68,6 +65,7 @@ $(function() {
 
     updateEvents();
 
+    // Get new events and staff picks every hour
     setInterval(updateEvents, 3600000); // 3600000 milliseconds is 1 hour
 
     var boxes = $('.box');
@@ -95,6 +93,7 @@ $(function() {
         "text": "#4e2b63"
     }];
 
+    // Calculate the maximum number of boxes that can fit on the screen
     var setMaxBoxes = function() {
         boxes = $('.box');
         var divisor = boxWidth + boxMargin * 2;
@@ -108,8 +107,34 @@ $(function() {
 
     setMaxBoxes();
 
+    // When the window is resized, calculate the maximum number of boxes that can fit on the screen again
     $(window).on('resize', setMaxBoxes);
 
+    // If the user clicks anywhere on the page (that is not inside a box), the slides will stop autoscrolling.
+    // If the user clicks inside a box, the box will disappear
+    $(document).on('click', function(e) {
+        var target = $(e.target);
+        if (target.parents('.box').length || target.is('.box')) {
+            if (target.hasClass('box')) {
+                target.fadeOut(400, function() {
+                    $(this).remove();
+                });
+            }
+            else {
+                target.parents('.box').fadeOut(400, function() {
+                    $(this).remove();
+                });
+            }
+            boxes = $('.box');
+            setMaxBoxes();
+            return;
+        }
+        clearTimeout(slideLooper);
+        slideLooper = null;
+        autoScrolling = false;
+    });
+
+    // Function to create a box on the activity feed slide
     var createBox = function(text, colors, imgElement) {
         boxes = $('.box');
 
@@ -143,6 +168,9 @@ $(function() {
         });
     };
 
+    /*
+    ** Create boxes based on socket events
+    */
     socket.on('text', function(msg) {
         createBox(msg, boxColors[1], false);
     });
@@ -163,7 +191,7 @@ $(function() {
         createBox(msg, boxColors[3], false);
     });
 
-    // https://github.com/cnanney/css-flip-counter
+    // Counter for current member ticker. Code is from https://github.com/cnanney/css-flip-counter.
     var counter = new flipCounter('counter', {
         value: 0,
         inc: 1,
@@ -175,6 +203,7 @@ $(function() {
         counter.setValue(text);
     });
 
+    // Autoscroller
     if (autoScrolling) {
         (function loop() {
             slideLooper = setTimeout(function() {

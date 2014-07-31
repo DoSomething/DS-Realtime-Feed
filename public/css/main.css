@@ -116,6 +116,7 @@ img {
 }
 
 .box {
+    cursor: pointer;
     width: 200px;
     height: 200px;
     line-height: 200px;
