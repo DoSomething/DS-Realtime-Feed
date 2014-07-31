@@ -1,5 +1,5 @@
 {
-  "name": "DS Realtime Feed",
+  "name": "DS-Realtime-Feed",
   "version": "0.1.0",
   "author": "DoSomething and contributors <developers@dosomething.org>",
   "description": "Real time dashboad of DoSomething transactional (email and SMS) activity stats.",
