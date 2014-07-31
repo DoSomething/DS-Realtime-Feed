@@ -10,6 +10,11 @@ var messageIntervalID = 0;
 
 //Update this
 
+Date.prototype.subMinutes = function(m) {
+    this.setTime(this.getTime() - (m*60000));
+    return this;
+}
+
 /*
  * Grabs all text messages in XML format from the last minute, converts them to
  * JSON, builds HTML element and saves them in an array.
