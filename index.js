@@ -14,6 +14,7 @@
 
 this.gc_config = require(__dirname + '/config/gc_config.json');
 this.mc_config = require(__dirname + '/config/mc_config.json');
+this.mb_config = require(__dirname + '/config/mb_config.json');
 
 var express = require('express');
 var app = require('express')();
@@ -22,6 +23,9 @@ var io = require('socket.io')(http);
 
 var googleCalHandler = require('./GoogleCalHandler');
 var campaignsHandler = require('./CampaignHandler');
+var messageBrokerHandler = require('./MessageBrokerHandler');
+var mobileCommonsHandler = require('./MobileCommonsHandler');
+var userCountHandler = require('./UserCountHandler');
 
 app.use(express.static(__dirname + '/public'));
 
