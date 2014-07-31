@@ -12,13 +12,16 @@
 
 //get it? its made of boxes, like our activity feed. ba-zing.
 
+this.gc_config = require(__dirname + '/config/gc_config.json');
+this.mc_config = require(__dirname + '/config/mc_config.json');
+
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var googleCalHandler = require('/handlers/GoogleCalHandler');
-var campaignsHandler = require('/handlers/CampaignHandler');
+var googleCalHandler = require('./GoogleCalHandler');
+var campaignsHandler = require('./CampaignHandler');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -45,8 +48,6 @@ Date.prototype.daysBetween = function(date1, date2) {
   return Math.round(difference_ms/one_day);
 }
 
-//SocketIO
-//--------
 io.on('connection', function(socket) {
   console.log("Client connected");
 
