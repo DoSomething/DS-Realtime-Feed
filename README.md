@@ -57,9 +57,8 @@ rm -rf config.zip
 Configure VPNC, get the details from the tech wiki (Servers > Rackspace > Accessing your environment):
 
 ```
-cp /etc/vpnc/default.conf /var/www/lobby
-cd /var/www/lobby
-nano (or editor of choice) default.conf
+cp /etc/vpnc/default.conf /etc/vpnc/dashboard.conf
+nano (or editor of choice) dashboard.conf
 ```
 If in Nano
 ```
@@ -90,7 +89,7 @@ Xauth password <redacted>
 
 ```
 cd /var/www/lobby
-vpnc default.conf
+vpnc dashboard.conf
 forever start index.js
 ```
 
@@ -108,6 +107,13 @@ Logs:
 
 ```
 forever logs index.js
+```
+
+Restarting:
+```
+vpnc-disconnect
+vpnc dashboard.conf
+forever restart index.js
 ```
 
 Command reference:
