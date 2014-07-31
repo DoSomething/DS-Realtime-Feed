@@ -91,6 +91,5 @@ app.get('/staff-picks', function(req, res){
 //Setup HTTP & data fetchers
 //--------------------------
 http.listen(3000, function(){
-  getMessages(1);
   console.log("listening on 3000");
 });

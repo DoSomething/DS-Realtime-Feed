@@ -100,3 +100,5 @@ function sendTextMessage(message){
   io.emit('text', textMessages[0], {for: 'everyone'});
   textMessages.splice(0, 1);
 }
+
+getMessages(1);
