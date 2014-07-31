@@ -1,5 +1,8 @@
 var mb_config = require(__dirname + '/config/mb_config.json');
 
+var userCounter = require('/handlers/UserCounterHandler');
+var main = require('./index');
+
 /*
  * Create a amap connection with config settings
  */
@@ -39,15 +42,15 @@ conn.on('ready', function(){
       var activity = serializedMessage.activity;
       switch(activity){
         case "user_register":
-          totalUsers++;
-          io.emit('signup', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + '</p> created an account!</p>', {for: 'everyone'});
+          userCounter.totalUsers++;
+          main.sendActivityMessage('signup', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + '</p> created an account!</p>');
           break;
         case "campaign_signup" :
-          io.emit('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
+          main.sendActivityMessage('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
           break;
         case "campaign_reportback":
-          io.emit('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>", {for: 'everyone'});
-          io.emit('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP, {for: 'everyone'});
+          main.sendActivityMessage('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          main.sendActivityMessage('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP);
           break;
         case "campaign_group_signup":
           break;
