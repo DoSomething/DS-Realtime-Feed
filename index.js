@@ -33,12 +33,6 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
-//Date functions
-Date.prototype.subHours = function(h) {
-   this.setTime(this.getTime() - (h*60*60*1000));
-   return this;
-}
-
 io.on('connection', function(socket) {
   console.log("Client connected");
 
