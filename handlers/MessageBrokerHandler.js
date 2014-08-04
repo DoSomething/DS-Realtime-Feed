@@ -49,7 +49,7 @@ conn.on('ready', function(){
           main.sendActivityMessage('signup', '<p class="name">' + serializedMessage.merge_vars.FNAME + '</p> <p> created an account!</p>');
           break;
         case "campaign_signup" :
-          main.sendActivityMessage('campaign', '<p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for <p>" + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          main.sendActivityMessage('campaign', '<p class="name">' + serializedMessage.merge_vars.FNAME + "</p> <p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
           break;
         case "campaign_reportback":
           main.sendActivityMessage('report back', '<p class="name">' + serializedMessage.merge_vars.FNAME + " </p> <p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
