@@ -21,11 +21,11 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var googleCalHandler = require('handlers/GoogleCalHandler');
-var campaignHandler = require('handlers/CampaignHandler');
-var messageBrokerHandler = require('handlers/MessageBrokerHandler');
-var mobileCommonsHandler = require('handlers/MobileCommonsHandler');
-var userCountHandler = require('handlers/UserCountHandler');
+var googleCalHandler = require(__dirname + '/handlers/GoogleCalHandler');
+var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
+var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler');
+var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
+var userCountHandler = require(__dirname + '/handlers/UserCountHandler');
 
 app.use(express.static(__dirname + '/public'));
 
