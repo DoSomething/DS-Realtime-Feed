@@ -46,13 +46,13 @@ conn.on('ready', function(){
       switch(activity){
         case "user_register":
           userCounter.totalUsers++;
-          main.sendActivityMessage('signup', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + '</p> created an account!</p>');
+          main.sendActivityMessage('signup', '<p class="name">' + serializedMessage.merge_vars.FNAME + '</p> <p> created an account!</p>');
           break;
         case "campaign_signup" :
-          main.sendActivityMessage('campaign', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          main.sendActivityMessage('campaign', '<p class="name">' + serializedMessage.merge_vars.FNAME + "</p> signed up for <p>" + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
           break;
         case "campaign_reportback":
-          main.sendActivityMessage('report back', '<p><p class="name">' + serializedMessage.merge_vars.FNAME + " </p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          main.sendActivityMessage('report back', '<p class="name">' + serializedMessage.merge_vars.FNAME + " </p> <p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
           main.sendActivityMessage('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP);
           break;
         case "campaign_group_signup":
