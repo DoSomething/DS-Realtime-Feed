@@ -185,6 +185,12 @@ $(function() {
 
     socket.on('report back image', function(msg) {
         createBox(msg, boxColors[0], true);
+        $('img.lazy').lazyload({
+            effect: 'fadeIn',
+            load: function() {
+                $(this).removeClass('lazy');
+            }
+        });
     });
 
     socket.on('campaign', function(msg) {

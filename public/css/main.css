@@ -126,6 +126,9 @@ img {
     font-size: 22px;
     font-size: 2.2rem;
     display: inline-block;
+    -webkit-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
 }
 
 .box span {
@@ -134,6 +137,10 @@ img {
     line-height: normal;
     padding: 10px;
     padding: 1rem;
+}
+
+.box span.name {
+    padding: 0;
 }
 
 .box.image {
@@ -146,8 +153,10 @@ img {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
-    height: 100%;
-    width: 100%;
+}
+
+.box.image img.lazy {
+    max-width: 64px;
 }
 
 #counts h1 {
