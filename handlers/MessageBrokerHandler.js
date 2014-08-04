@@ -53,8 +53,11 @@ conn.on('ready', function(){
           break;
         case "campaign_reportback":
           var name = serializedMessage.merge_vars.FNAME == "" ? "Another Do-er" :  serializedMessage.merge_vars.FNAME;
-          main.sendActivityMessage('report back', '<p class="name">' + name + " </p> <p> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
-          main.sendActivityMessage('report back image', serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP);
+          main.sendActivityMessage('report back', '<p><span class="name">' + name + " </span> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          var regex = /<img.*?src="(.*?)"/;
+          var src = regex.exec(serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP)[1];
+          var newImage = '<img class="lazy" data-original="' + src + '" src="/img/loader.svg" />';
+          main.sendActivityMessage('report back image', newImage);
           break;
         case "campaign_group_signup":
           break;
