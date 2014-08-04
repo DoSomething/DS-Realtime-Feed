@@ -1,6 +1,6 @@
 var request = require('superagent');
 
-var main = require('./index');
+var main = require('../index');
 var gc_config = main.gc_config;
 
 var apiKey = gc_config.apiKey;
