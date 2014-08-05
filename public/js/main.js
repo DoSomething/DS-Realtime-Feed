@@ -1,4 +1,8 @@
 $(function() {
+
+    var internalMode = false;
+    var spaceClicks = 0;
+
     // Connect to SocketIO
     var socket = io.connect(location.host);
 
@@ -184,6 +188,9 @@ $(function() {
     });
 
     socket.on('report back image', function(msg) {
+        if(!internalMode){
+          return;
+        }
         createBox(msg, boxColors[0], true);
         $('img.lazy').lazyload({
             effect: 'fadeIn',
@@ -219,4 +226,19 @@ $(function() {
             }, slideTimes[current]);
         })();
     }
+
+    $(document).on('ready', function(){
+      console.log("ready");
+      $(document).keydown(function(event){
+        console.log("keydown");
+        if(event.keyCode == 32){
+            spaceClicks++;
+            console.log(spaceClicks, internalMode);
+            if(spaceClicks == 2){
+              internalMode = true;
+              console.log(internalMode);
+            }
+        }
+      });
+    });
 });
