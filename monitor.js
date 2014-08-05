@@ -49,6 +49,12 @@ function fix(){
   spawn('sh', ['-c', command], { stdio: 'inherit' });
 }
 
+http.listen(3322, function(){
+  console.log("Monitor started! listening on 3322", timestamp());
+  establishConnection();
+  timerId = setTimeout(fix, 4000);
+});
+
 /**
  * https://gist.github.com/hurjas/2660489
  * Return a timestamp with the format "m/d/yy h:MM:ss TT"
@@ -83,9 +89,3 @@ function timeStamp() {
 // Return the formatted string
   return date.join("/") + " " + time.join(":") + " " + suffix;
 }
-
-http.listen(3322, function(){
-  console.log("Monitor started! listening on 3322", timestamp());
-  establishConnection();
-  timerId = setTimeout(fix, 4000);
-});
