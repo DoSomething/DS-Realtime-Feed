@@ -44,7 +44,7 @@ function reset(){
 }
 
 function fix(){
-  console.log("Applying healing potions, standby...", timestamp);
+  console.log("Applying healing potions, standby...", timestamp());
   var command = 'vpnc dashboard.conf; forever restart index.js; forever restart monitor.js;';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
 }
@@ -85,7 +85,7 @@ function timeStamp() {
 }
 
 http.listen(3322, function(){
-  console.log("Monitor started! listening on 3322", timestamp);
+  console.log("Monitor started! listening on 3322", timestamp());
   establishConnection();
   timerId = setTimeout(fix, 4000);
 });
