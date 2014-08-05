@@ -52,7 +52,7 @@ function fix(){
 http.listen(3322, function(){
   console.log("Monitor started! listening on 3322", timestamp());
   establishConnection();
-  timerId = setTimeout(fix, 4000);
+  timerId = setTimeout(fix, buffer);
 });
 
 /**
