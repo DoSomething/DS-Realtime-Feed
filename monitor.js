@@ -11,7 +11,7 @@ var conn;
 var buffer = 1000 * 60 * 2;
 
 function establishConnection(){
-  console.log("Establishing...", timestamp);
+  console.log("Establishing...", timestamp());
   conn = amqp.createConnection({
     host: mb_config.host,
     port: mb_config.port,
@@ -28,18 +28,18 @@ function establishConnection(){
   });
 
   conn.on('ready', function(){
-    console.log("Connected!", timestamp);
+    console.log("Connected!", timestamp());
     reset();
   });
 }
 
 function reset(){
-  console.log("Timer reset started...", timestamp)
+  console.log("Timer reset started...", timestamp());
   setTimeout(function(){
     clearTimeout(timerId);
     timerId = setTimeout(fix, buffer);
     establishConnection();
-    console.log("Timer reset complete!", timestamp)
+    console.log("Timer reset complete!", timestamp());
   }, buffer); //buffer to prevent firing off requests every second
 }
 
