@@ -113,6 +113,7 @@ Xauth password <redacted>
 cd /var/www/lobby
 vpnc dashboard.conf
 forever start index.js
+forever start monitor.js
 ```
 
 ### Deploying, Logs and Maintenance
@@ -123,12 +124,14 @@ Deploying:
 cd /var/www/lobby
 git pull origin master
 forever restart index.js
+forever restart monitor.js (if applicable)
 ```
 
 Logs:
 
 ```
 forever logs index.js
+forever logs monitor.js
 ```
 
 Restarting:
@@ -136,6 +139,7 @@ Restarting:
 vpnc-disconnect
 vpnc dashboard.conf
 forever restart index.js
+forever restart monitor.js (if applicable)
 ```
 
 Command reference:
