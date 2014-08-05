@@ -37,9 +37,9 @@ function reset(){
   console.log("Timer reset started...", timestamp());
   clearTimeout(timerId);
   setTimeout(function(){
+    console.log("Timer reset complete!", timestamp());
     timerId = setTimeout(fix, buffer);
     establishConnection();
-    console.log("Timer reset complete!", timestamp());
   }, buffer); //buffer to prevent firing off requests every second
 }
 
