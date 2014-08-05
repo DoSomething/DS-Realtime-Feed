@@ -8,7 +8,7 @@ var spawn = require('child_process').spawn;
 
 var timerId = -1337;
 var conn;
-var buffer = 1000 * 60 * 2;
+var buffer = 1000 * 60;
 
 function establishConnection(){
   console.log("Establishing...", timestamp());
@@ -35,8 +35,8 @@ function establishConnection(){
 
 function reset(){
   console.log("Timer reset started...", timestamp());
+  clearTimeout(timerId);
   setTimeout(function(){
-    clearTimeout(timerId);
     timerId = setTimeout(fix, buffer);
     establishConnection();
     console.log("Timer reset complete!", timestamp());
