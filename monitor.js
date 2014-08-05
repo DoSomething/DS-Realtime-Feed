@@ -60,7 +60,7 @@ http.listen(3322, function(){
  * Return a timestamp with the format "m/d/yy h:MM:ss TT"
  * @type {Date}
  */
-function timeStamp() {
+function timestamp() {
 // Create a date object with the current time
   var now = new Date();
 
