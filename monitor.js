@@ -89,14 +89,3 @@ function timestamp() {
 // Return the formatted string
   return date.join("/") + " " + time.join(":") + " " + suffix;
 }
-
-
-/*
-
-- Working late last night
-- Monitor script was failing every minute in morning
-- Monitor script was properly restarting everything but
-  services werent connecting with the VPN
-- Hard restart on everything fixed the problem
-
-*/
