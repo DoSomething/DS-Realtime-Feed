@@ -45,7 +45,7 @@ function reset(){
 
 function fix(){
   console.log("Applying healing potions, standby...", timestamp());
-  var command = 'vpnc dashboard.conf; forever restart index.js; forever restart monitor.js;';
+  var command = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf; sleep 5; forever restart index.js; sleep 5; forever restart monitor.js;';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
 }
 
@@ -89,3 +89,14 @@ function timestamp() {
 // Return the formatted string
   return date.join("/") + " " + time.join(":") + " " + suffix;
 }
+
+
+/*
+
+- Working late last night
+- Monitor script was failing every minute in morning
+- Monitor script was properly restarting everything but
+  services werent connecting with the VPN
+- Hard restart on everything fixed the problem
+
+*/
