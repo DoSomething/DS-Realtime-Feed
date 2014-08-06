@@ -227,7 +227,7 @@ $(function() {
     }
 
     $(document).on('keydown', function(e) {
-        if(event.keyCode == 32) {
+        if(e.keyCode == 32) {
             spaceClicks++;
             if (spaceClicks == 2) internalMode = true;
         }
