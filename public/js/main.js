@@ -228,15 +228,11 @@ $(function() {
     }
 
     $(document).on('ready', function(){
-      console.log("ready");
       $(document).keydown(function(event){
-        console.log("keydown");
         if(event.keyCode == 32){
             spaceClicks++;
-            console.log(spaceClicks, internalMode);
             if(spaceClicks == 2){
               internalMode = true;
-              console.log(internalMode);
             }
         }
       });
