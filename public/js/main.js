@@ -171,6 +171,10 @@ $(function() {
         });
     };
 
+    socket.on('reload', function(msg){
+      window.location.reload();
+    });
+
     /*
     ** Create boxes based on socket events
     */

@@ -99,6 +99,10 @@ app.get('/admin/:command/:token', function(req, res){
       deployCode();
       res.send("OK! Deploying the code.");
       break;
+    case "restart-clients":
+      reloadClients();
+      res.send("OK! Reloading ALL the clients.");
+      break;
     default:
       res.send("Hm, you told me to do " + command + " but I have no idea what that means.");
       break;
@@ -123,6 +127,10 @@ function deployCode(){
   var command = 'git pull origin master';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
   setTimeout(restartServers, 5000);
+}
+
+function reloadClients(){
+  io.emit('reload', "", {for: 'everyone'});
 }
 
 //Setup HTTP & data fetchers
