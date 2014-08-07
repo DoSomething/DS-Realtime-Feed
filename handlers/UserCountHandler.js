@@ -40,7 +40,7 @@ function processUsers(){
     if(remoteTotal > this.totalUsers){
       this.totalUsers = remoteTotal;
     }
-    countFile.total = totalUsers;
+    countFile.total = this.totalUsers;
     fs.writeFile("count.json", JSON.stringify(countFile));
     main.pushUserTotal(this.totalUsers);
   });
