@@ -12,6 +12,7 @@
 
 // Get it? It's made of boxes, just like our activity feed. Ba-zing!
 
+var app_config = require(__dirname + '/config/app_config.json');
 this.gc_config = require(__dirname + '/config/gc_config.json');
 this.mc_config = require(__dirname + '/config/mc_config.json');
 this.mb_config = require(__dirname + '/config/mb_config.json');
@@ -20,6 +21,7 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var spawn = require('child_process').spawn;
 
 var googleCalHandler = require(__dirname + '/handlers/GoogleCalHandler');
 var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
@@ -74,8 +76,45 @@ app.get('/staff-picks', function(req, res){
   });
 });
 
+/*
+ * Administration code for Hubot
+ */
+app.get('/admin/:command/:token', function(req, res){
+  var command = req.param("command");
+  var token = req.param("token");
+  if(token != app_config.token){
+    res.send("NOPE.");
+    return;
+  }
+  res.send("OK");
+  switch(command){
+    case "restart-vpn": restartVPN(); break;
+    case "restart-servers": restartServers(); break;
+    case "deploy": deployCode(); break;
+    default: break;
+  }
+});
+
+function restartVPN(){
+  var command = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf;';
+  spawn('sh', ['-c', command], { stdio: 'inherit' });
+}
+
+function restartServers(){
+  var command = 'forever restart index.js; sleep 5; forever restart monitor.js';
+  spawn('sh', ['-c', command], { stdio: 'inherit' });
+}
+
+function deployCode(){
+  var command = 'git pull origin master';
+  spawn('sh', ['-c', command], { stdio: 'inherit' });
+  setTimeout(restartServers, 5000);
+}
+
 //Setup HTTP & data fetchers
 //--------------------------
 http.listen(3000, function(){
   console.log("listening on 3000");
+  var command = 'forever start monitor.js;';
+  spawn('sh', ['-c', command], { stdio: 'inherit' });
 });

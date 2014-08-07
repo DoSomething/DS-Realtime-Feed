@@ -41,7 +41,6 @@ function processUsers(){
       totalUsers = remoteTotal;
     }
     countFile.total = totalUsers;
-    console.log(totalUsers);
     fs.writeFile("count.json", JSON.stringify(countFile));
     main.pushUserTotal(totalUsers);
   });
