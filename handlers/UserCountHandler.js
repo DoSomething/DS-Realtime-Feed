@@ -5,7 +5,7 @@ var fs = require("fs");
 var request = require('superagent');
 var cheerio = require('cheerio');
 
-var totalUsers = countFile.total;
+this.totalUsers = countFile.total;
 
 /*
  * Function for replacing in a string
