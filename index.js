@@ -86,12 +86,22 @@ app.get('/admin/:command/:token', function(req, res){
     res.send("NOPE.");
     return;
   }
-  res.send("OK");
   switch(command){
-    case "restart-vpn": restartVPN(); break;
-    case "restart-servers": restartServers(); break;
-    case "deploy": deployCode(); break;
-    default: break;
+    case "restart-vpn":
+      restartVPN();
+      res.send("OK! Restarting the VPN.");
+      break;
+    case "restart-servers":
+      restartServers();
+      res.send("OK! Restarting the servers.");
+      break;
+    case "deploy":
+      deployCode();
+      res.send("OK! Deploying the code.");
+      break;
+    default:
+      res.send("Hm, you told me to do " + command + " but I have no idea what that means.");
+      break;
   }
 });
 
