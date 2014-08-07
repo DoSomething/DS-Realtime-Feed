@@ -95,6 +95,10 @@ app.get('/admin/:command/:token', function(req, res){
   }
 });
 
+/*
+ * Various functions to execute shell commands for
+ * server management
+ */
 function restartVPN(){
   var command = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf;';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
