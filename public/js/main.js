@@ -1,5 +1,4 @@
 $(function() {
-
     var internalMode = false;
     var spaceClicks = 0;
 
@@ -227,14 +226,10 @@ $(function() {
         })();
     }
 
-    $(document).on('ready', function(){
-      $(document).keydown(function(event){
-        if(event.keyCode == 32){
+    $(document).on('keydown', function(e) {
+        if(e.keyCode == 32) {
             spaceClicks++;
-            if(spaceClicks == 2){
-              internalMode = true;
-            }
+            if (spaceClicks == 2) internalMode = true;
         }
-      });
     });
 });
