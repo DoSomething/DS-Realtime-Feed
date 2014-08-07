@@ -1,4 +1,5 @@
 var main = require('../index');
+var userCounter = require('./UserCountHandler');
 
 var mc_config = main.mc_config;
 
@@ -51,7 +52,7 @@ function getMessages(pageNumber){
               continue;
             }
             if(message['$'].type == "opt_in"){
-              main.totalUsers++;
+              userCounter.increaseMemberCount();
             }
             if(message.profile[1].first_name != ''){
               var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";

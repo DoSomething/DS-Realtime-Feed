@@ -4,8 +4,7 @@ var main = require('../index');
 var fs = require("fs");
 var request = require('superagent');
 var cheerio = require('cheerio');
-
-this.totalUsers = countFile.total;
+var totalUsers = countFile.total;
 
 /*
  * Function for replacing in a string
@@ -27,6 +26,7 @@ function calculateTotalUsers(callback){
       var $ = cheerio.load(pageHTML);
       var data = $('#total_member_count').text().replace("CURRENT MEMBERS: ", "");
       var num = parseInt(replaceAll(',', '', data));
+      //console.log(num);
       callback(num);
   });
 }
@@ -37,13 +37,18 @@ function calculateTotalUsers(callback){
  */
 function processUsers(){
   calculateTotalUsers(function(remoteTotal){
-    if(remoteTotal > this.totalUsers){
-      this.totalUsers = remoteTotal;
+    if(remoteTotal > totalUsers){
+      totalUsers = remoteTotal;
     }
-    countFile.total = this.totalUsers;
+    countFile.total = totalUsers;
+    console.log(totalUsers);
     fs.writeFile("count.json", JSON.stringify(countFile));
-    main.pushUserTotal(this.totalUsers);
+    main.pushUserTotal(totalUsers);
   });
+}
+
+this.increaseMemberCount = function(){
+  totalUsers++;
 }
 
 setInterval(processUsers, 5 * 1000);
