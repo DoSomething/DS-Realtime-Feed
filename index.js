@@ -119,6 +119,6 @@ function deployCode(){
 //--------------------------
 http.listen(3000, function(){
   console.log("listening on 3000");
-  var command = 'forever start monitor.js;';
+  var command = 'forever stop monitor.js; sleep 5; forever start monitor.js';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
 });
