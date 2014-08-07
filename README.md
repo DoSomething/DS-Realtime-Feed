@@ -35,5 +35,7 @@ The syntax is the following,
 
 The commands are,
 deploy -> pulls the latest code from master branch and restarts server
+
 restart-servers -> restarts the web server & monitor script
+
 restart-vpn -> in the event the monitor script fails, this will force restart the vpn. Note, you will probably have to also restart the servers in order for them to reconnect.
