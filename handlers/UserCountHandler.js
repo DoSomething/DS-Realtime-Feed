@@ -37,12 +37,12 @@ function calculateTotalUsers(callback){
  */
 function processUsers(){
   calculateTotalUsers(function(remoteTotal){
-    if(remoteTotal > totalUsers){
-      totalUsers = remoteTotal;
+    if(remoteTotal > this.totalUsers){
+      this.totalUsers = remoteTotal;
     }
     countFile.total = totalUsers;
     fs.writeFile("count.json", JSON.stringify(countFile));
-    main.pushUserTotal(totalUsers);
+    main.pushUserTotal(this.totalUsers);
   });
 }
 
