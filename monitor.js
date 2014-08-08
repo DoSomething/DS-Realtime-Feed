@@ -1,10 +1,12 @@
-mb_config = require(__dirname + '/config/mb_config.json');
+var mb_config = require(__dirname + '/config/mb_config.json');
+var app_config = require(__dirname + '/config/app_config.json');
 
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var amqp = require('amqp');
 var spawn = require('child_process').spawn;
+var stathat = require('node-stathat');
 
 var timerId = -1337;
 var conn;
@@ -45,6 +47,7 @@ function reset(){
 
 function fix(){
   console.log("Applying healing potions, standby...", timestamp());
+  stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - heal", 1, function(status, json) {});
   var command = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf; sleep 5; forever restart index.js; sleep 5; forever restart monitor.js;';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
 }

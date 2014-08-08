@@ -22,6 +22,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var spawn = require('child_process').spawn;
+var stathat = require('node-stathat');
 
 var googleCalHandler = require(__dirname + '/handlers/GoogleCalHandler');
 var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
@@ -36,8 +37,8 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket) {
+  stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - connect", 1, function(status, json) {});
   console.log("Client connected");
-
   socket.on('disconnect', function(){
     console.log('Client disconnected');
   });
@@ -47,6 +48,7 @@ io.on('connection', function(socket) {
  * Sends an activity message to all connected clients
  */
 this.sendActivityMessage = function (type, message){
+  stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - message", 1, function(status, json) {});
   io.emit(type, message, {for: 'everyone'});
 }
 
