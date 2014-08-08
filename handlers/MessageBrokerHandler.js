@@ -46,18 +46,17 @@ conn.on('ready', function(){
       switch(activity){
         case "user_register":
           userCounter.increaseMemberCount();
-          main.sendActivityMessage('signup', '<p class="name">' + serializedMessage.merge_vars.FNAME + '</p> <p> created an account!</p>');
+          main.sendActivityMessage('signup', serializedMessage.merge_vars.FNAME);
           break;
         case "campaign_signup" :
-          main.sendActivityMessage('campaign', '<p class="name">' + serializedMessage.merge_vars.FNAME + "</p> <p> signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!</p>");
+          main.sendActivityMessage('campaign', serializedMessage.merge_vars.FNAME + ":" + serializedMessage.merge_vars.CAMPAIGN_TITLE);
           break;
         case "campaign_reportback":
           var name = serializedMessage.merge_vars.FNAME == "" ? "Another Do-er" :  serializedMessage.merge_vars.FNAME;
-          main.sendActivityMessage('report back', '<span class="name">' + name + " </span> reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!");
+          main.sendActivityMessage('report back', name + ":" + serializedMessage.merge_vars.CAMPAIGN_TITLE);
           var regex = /<img.*?src="(.*?)"/;
           var src = regex.exec(serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP)[1];
-          var newImage = '<img class="lazy" data-original="' + src + '" src="/img/loader.svg" />';
-          main.sendActivityMessage('report back image', newImage);
+          main.sendActivityMessage('report back image', src);
           break;
         case "campaign_group_signup":
           break;

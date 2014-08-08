@@ -55,8 +55,7 @@ function getMessages(pageNumber){
               userCounter.increaseMemberCount();
             }
             if(message.profile[1].first_name != ''){
-              var string = '<p><p class="name">' + message.profile[1].first_name + "</p> sent us a text message!</p>";
-              textMessages.push(string);
+              textMessages.push(message.profile[1].first_name;);
             }
           }
 
