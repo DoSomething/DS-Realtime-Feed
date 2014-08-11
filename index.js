@@ -12,10 +12,8 @@
 
 // Get it? It's made of boxes, just like our activity feed. Ba-zing!
 
-var app_config = require(__dirname + '/config/app_config.json');
-this.gc_config = require(__dirname + '/config/gc_config.json');
-this.mc_config = require(__dirname + '/config/mc_config.json');
-this.mb_config = require(__dirname + '/config/mb_config.json');
+this.app_config = require(__dirname + '/config/app_config.json');
+var app_config = this.app_config;
 
 var express = require('express');
 var app = require('express')();
@@ -37,7 +35,7 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket) {
-  stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - connect", 1, function(status, json) {});
+  stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - connect", 1, function(status, json) {});
   console.log("Client connected");
   socket.on('disconnect', function(){
     console.log('Client disconnected');
@@ -48,7 +46,7 @@ io.on('connection', function(socket) {
  * Sends an activity message to all connected clients
  */
 this.sendActivityMessage = function (type, message){
-  stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - message", 1, function(status, json) {});
+  stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - message", 1, function(status, json) {});
   io.emit(type, message, {for: 'everyone'});
 }
 
@@ -133,7 +131,7 @@ function deployCode(res){
   spawn('sh', ['-c', deployCommand], { stdio: 'inherit' }).on('exit', function(code){
     spawn('sh', ['-c', restartCommand], { stdio: 'inherit' }).on('exit', function(code){
       console.log("hi");
-      stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - deploy", 1, function(status, json) {});
+      stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - deploy", 1, function(status, json) {});
       res.send("Code has been deployed and servers have restarted!");
     });
   });
