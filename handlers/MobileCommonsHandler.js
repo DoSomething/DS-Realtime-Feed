@@ -1,7 +1,7 @@
 var main = require('../index');
 var userCounter = require('./UserCountHandler');
 
-var mc_config = main.mc_config;
+var app_config = main.app_config;
 
 var parseString = require('xml2js').parseString;
 var request = require('superagent');
@@ -26,7 +26,7 @@ function getMessages(pageNumber){
 
   request
     .get('https://secure.mcommons.com/api/messages')
-    .auth(mc_config.user, mc_config.pass)
+    .auth(app_config.mobile_commons.user, app_config.mobile_commons.pass)
     .query({start_time: minAgo.toISOString(), include_profile: 'false', end_time: now.toISOString(), limit: '100', page: pageNumber, include_profile: 'true'})
     .buffer()
     .accept('xml')

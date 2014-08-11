@@ -4,24 +4,24 @@ var PHPUnserialize = require('php-unserialize');
 var userCounter = require('./UserCountHandler');
 var main = require('../index');
 
-var mb_config = main.mb_config;
+var app_config = main.app_config;
 
 /*
  * Create a amap connection with config settings
  */
 var conn = amqp.createConnection({
-  host: mb_config.host,
-  port: mb_config.port,
-  login: mb_config.login,
-  password: mb_config.password,
-  connectionTimeout: mb_config.connectionTimeout,
-  authMechanism: mb_config.authMechanism,
-  vhost: mb_config.vhost,
-  noDelay: mb_config.noDelay,
-  ssl: { enabled : mb_config.ssl_enabled }
+  host: app_config.message_broker.host,
+  port: app_config.message_broker.port,
+  login: app_config.message_broker.login,
+  password: app_config.message_broker.password,
+  connectionTimeout: app_config.message_broker.connectionTimeout,
+  authMechanism: app_config.message_broker.authMechanism,
+  vhost: app_config.message_broker.vhost,
+  noDelay: app_config.message_broker.noDelay,
+  ssl: { enabled : app_config.message_broker.ssl_enabled }
 },
 {
-  defaultExchangeName: mb_config.defaultExchangeName
+  defaultExchangeName: app_config.message_broker.defaultExchangeName
 });
 
 /*
@@ -31,10 +31,10 @@ var conn = amqp.createConnection({
 conn.on('ready', function(){
   console.log('rabbit connection ready');
   var q = conn.queue('activityStatsQueue', {
-    passive: mb_config.passive,
-    durable: mb_config.durable,
-    exclusive: mb_config.exclusive,
-    autoDelete: mb_config.autoDelete
+    passive: app_config.message_broker.passive,
+    durable: app_config.message_broker.durable,
+    exclusive: app_config.message_broker.exclusive,
+    autoDelete: app_config.message_broker.autoDelete
   }, function (q) {
     console.log('Queue ' + q.name + ' is open');
 
