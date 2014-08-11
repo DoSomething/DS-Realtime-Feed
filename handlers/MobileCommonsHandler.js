@@ -55,7 +55,7 @@ function getMessages(pageNumber){
               userCounter.increaseMemberCount();
             }
             if(message.profile[1].first_name != ''){
-              textMessages.push(message.profile[1].first_name;);
+              textMessages.push(message.profile[1].first_name);
             }
           }
 
@@ -99,12 +99,12 @@ function distributeMessages(){
 /*
  * Sends the txt message at the top of the stack & removes it from the array
  */
-function sendTextMessage(message){
+function sendTextMessage(){
   if(textMessages.length == 0){
     clearInterval(messageIntervalID);
     return;
   }
-  main.sendActivityMessage('text', textMessages[0]);
+  main.sendActivityMessage('text', textMessages[0] + " sent us a text message!");
   textMessages.splice(0, 1);
 }
 

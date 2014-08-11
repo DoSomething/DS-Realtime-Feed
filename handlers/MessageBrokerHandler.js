@@ -46,14 +46,14 @@ conn.on('ready', function(){
       switch(activity){
         case "user_register":
           userCounter.increaseMemberCount();
-          main.sendActivityMessage('signup', serializedMessage.merge_vars.FNAME);
+          main.sendActivityMessage('signup', serializedMessage.merge_vars.FNAME + " created an account!");
           break;
         case "campaign_signup" :
-          main.sendActivityMessage('campaign', serializedMessage.merge_vars.FNAME + ":" + serializedMessage.merge_vars.CAMPAIGN_TITLE);
+          main.sendActivityMessage('campaign', serializedMessage.merge_vars.FNAME + " signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!");
           break;
         case "campaign_reportback":
           var name = serializedMessage.merge_vars.FNAME == "" ? "Another Do-er" :  serializedMessage.merge_vars.FNAME;
-          main.sendActivityMessage('report back', name + ":" + serializedMessage.merge_vars.CAMPAIGN_TITLE);
+          main.sendActivityMessage('report back', name + " reported back for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!");
           var regex = /<img.*?src="(.*?)"/;
           var src = regex.exec(serializedMessage.merge_vars.REPORTBACK_IMAGE_MARKUP)[1];
           main.sendActivityMessage('report back image', src);
