@@ -90,20 +90,16 @@ app.get('/admin/:command/:token', function(req, res){
   }
   switch(command){
     case "restart-vpn":
-      restartVPN();
-      res.send("OK! Restarting the VPN.");
+      restartVPN(res);
       break;
     case "restart-servers":
-      restartServers();
-      res.send("OK! Restarting the servers.");
+      restartServers(res);
       break;
     case "deploy":
-      deployCode();
-      res.send("OK! Deploying the code.");
+      deployCode(res);
       break;
     case "restart-clients":
-      reloadClients();
-      res.send("OK! Reloading ALL the clients.");
+      reloadClients(res);
       break;
     default:
       res.send("Hm, you told me to do " + command + " but I have no idea what that means.");
@@ -115,24 +111,35 @@ app.get('/admin/:command/:token', function(req, res){
  * Various functions to execute shell commands for
  * server management
  */
-function restartVPN(){
-  var command = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf;';
-  spawn('sh', ['-c', command], { stdio: 'inherit' });
+
+var vpnCommand = 'vpnc-disconnect; sleep 5; vpnc dashboard.conf;';
+var restartCommand = 'forever restart index.js; sleep 5; forever restart monitor.js';
+var deployCommand = 'git pull origin master';
+
+function restartVPN(res){
+  spawn('sh', ['-c', vpnCommand], { stdio: 'inherit' }).on('exit', function(code){
+    res.send("VPN has been restarted");
+  });
 }
 
-function restartServers(){
-  var command = 'forever restart index.js; sleep 5; forever restart monitor.js';
-  spawn('sh', ['-c', command], { stdio: 'inherit' });
+function restartServers(res){
+  spawn('sh', ['-c', command], { stdio: 'inherit' }).on('exit', function(code){
+    res.send("Sever has been restarted");
+  });
 }
 
-function deployCode(){
-  var command = 'git pull origin master';
-  spawn('sh', ['-c', command], { stdio: 'inherit' });
-  setTimeout(restartServers, 5000);
+function deployCode(res){
+  spawn('sh', ['-c', deployCommand], { stdio: 'inherit' }).on('exit', function(code){
+    spawn('sh', ['-c', restartCommand], { stdio: 'inherit' }).on('exit', function(code){
+      stathat.trackEZCount(app_config.stathat_email, "dsrealtimefeed - deploy", 1, function(status, json) {});
+      res.send("Code has been deployed and servers have restarted!");
+    });
+  });
 }
 
-function reloadClients(){
+function reloadClients(res){
   io.emit('reload', "", {for: 'everyone'});
+  res.send("Clients have been told to reload");
 }
 
 //Setup HTTP & data fetchers
