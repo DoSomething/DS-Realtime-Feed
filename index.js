@@ -85,6 +85,7 @@ app.get('/admin/:command/:token', function(req, res){
   var command = req.param("command");
   var token = req.param("token");
   if(token != app_config.token){
+    console.log(token);
     res.send("NOPE.");
     return;
   }
