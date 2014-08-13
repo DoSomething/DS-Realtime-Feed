@@ -27,7 +27,7 @@ function getMessages(pageNumber){
   request
     .get('https://secure.mcommons.com/api/messages')
     .auth(app_config.mobile_commons.user, app_config.mobile_commons.pass)
-    .query({start_time: minAgo.toISOString(), include_profile: 'false', end_time: now.toISOString(), limit: '100', page: pageNumber, include_profile: 'true'})
+    .query({start_time: minAgo.toISOString(), include_profile: 'false', end_time: now.toISOString(), limit: '1000', page: pageNumber, include_profile: 'true'})
     .buffer()
     .accept('xml')
     .type('xml')
