@@ -36,6 +36,15 @@ $(function() {
                 var jsonData = JSON.parse(data);
                 var current = null;
                 var number = (jsonData.items.length > 3) ? 3 : jsonData.items.length;
+                if(number == 0){
+                  $('#upcoming-events').remove();
+                  return;
+                }
+                else{
+                  if($('#upcoming-events').length == 0){
+                    $('.fullpage').append('<div class="section padding" id="upcoming-events"><h1>Upcoming Events</h1><ul class="events"></ul></div>');
+                  }
+                }
                 var events = $('#upcoming-events .tableCell .events');
                 events.empty();
                 for (var i = 0; i < number; i++) {
