@@ -130,7 +130,6 @@ function restartServers(res){
 function deployCode(res){
   spawn('sh', ['-c', deployCommand], { stdio: 'inherit' }).on('exit', function(code){
     spawn('sh', ['-c', restartCommand], { stdio: 'inherit' }).on('exit', function(code){
-      console.log("hi");
       stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - deploy", 1, function(status, json) {});
       res.send("Code has been deployed and servers have restarted!");
     });
