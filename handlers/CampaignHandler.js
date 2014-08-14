@@ -32,9 +32,7 @@ var Camp = function(title, imageURL, signups, daysLeft){
  */
 function getCampaigns(){
   getIds(function(ids){
-    console.log("Got ID's?");
     getCampaignData(0, ids, function(campaignResults){
-      console.log("BOOM results: " + campaignResults);
       main.pushCampaigns(campaignResults);
       campaigns = [];
       setTimeout(getCampaigns, 1000 * 1);
@@ -78,7 +76,7 @@ function getCampaignData(index, ids, callback){
         nextCampaign(index, ids, callback);
         return;
       }
-      console.log("response processing");
+      
       var date = new Date();
       var daysLeft = date.daysBetween(date, new Date(response.high_season_end));
       if(daysLeft <= 0){
@@ -92,7 +90,6 @@ function getCampaignData(index, ids, callback){
 }
 
 function nextCampaign(index, ids, callback){
-  console.log("Next");
   var newIn = index + 1;
   getCampaignData(newIn, ids, callback);
 }
