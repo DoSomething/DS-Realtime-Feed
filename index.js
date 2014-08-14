@@ -57,8 +57,8 @@ this.pushUserTotal = function (total){
   io.emit('ticker', total, {for: 'everyone'});
 }
 
-this.pushCampaigns = function(){
-  io.emit('campaigns', JSON.stringify(campaignHandler.campaigns), {for: 'everyone'});
+this.pushCampaigns = function(results){
+  io.emit('campaigns', results, {for: 'everyone'});
 }
 
 /*
