@@ -1,9 +1,12 @@
 var request = require('superagent');
 
-var url = "http://beta.dosomething.org/api/v1/content/2401.json";
+var contentUrl = "http://beta.dosomething.org/api/v1/content/";
+var listUrl = "http://stage.dosomething.org/api/v1/campaigns.json?parameters[is_staff_pick]=1";
+
+var campaigns = [];
 
 Date.prototype.daysBetween = function(date1, date2) {
-  var one_day=1000*60*60*24;
+  var one_day= 1000 * 60 * 60 * 24;
   var date1_ms = date1.getTime();
   var date2_ms = date2.getTime();
   var difference_ms = date2_ms - date1_ms;
@@ -27,17 +30,65 @@ var Camp = function(title, imageURL, signups, daysLeft){
  * Builds Camp objects out of the current staff picks and returns an array
  */
 this.getCampaigns = function(callback){
-  var campaigns = [];
+  getIds(function(ids){
+    getCampaignData(0, ids, function(campaignResults){
+      console.log("done");
+      callback(campaignResults);
+      campaigns = [];
+    });
+  });
+}
+
+function getIds(callback){
+  var ids = [];
   request
-    .get(url)
+    .get(listUrl)
     .type('application/json')
     .accept('application/json')
-    .end(function(dRes){
-      var response = JSON.parse(dRes.text);
+    .end(function(res){
+      var list = JSON.parse(res.text);
+      for(var index = 0; index < list.length; index++){
+        ids.push(list[index].nid);
+      }
+      callback(ids);
+    });
+}
+
+function getCampaignData(index, ids, callback){
+  if(index > ids.length){
+    callback(JSON.stringify(campaigns));
+    return;
+  }
+  request
+    .get(contentUrl + ids[index] + ".json")
+    .type('application/json')
+    .accept('application/json')
+    .end(function(res){
+      var response = JSON.parse(res.text);
+
+      //For staging (temp)
+      if(response[0] == false){
+        nextCampaign(index, ids, callback);
+        return;
+      }
+      if(response.image_cover == undefined){
+        nextCampaign(index, ids, callback);
+        return;
+      }
+
       var date = new Date();
       var daysLeft = date.daysBetween(date, new Date(response.high_season_end));
+      if(daysLeft <= 0){
+        nextCampaign(index, ids, callback);
+        return;
+      }
       var responseCamp = new Camp(response.title, response.image_cover.url.square.raw, response.stats.signups, daysLeft);
       campaigns.push(responseCamp);
-      callback(JSON.stringify(campaigns));
+      nextCampaign(index, ids, callback);
     });
+}
+
+function nextCampaign(index, ids, callback){
+  var newIn = index + 1;
+  getCampaignData(newIn, ids, callback);
 }
