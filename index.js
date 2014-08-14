@@ -57,6 +57,10 @@ this.pushUserTotal = function (total){
   io.emit('ticker', total, {for: 'everyone'});
 }
 
+this.pushCampaigns = function(){
+  io.emit('campaigns', JSON.stringify(campaignHandler.campaigns), {for: 'everyone'});
+}
+
 /*
  * Returns all of the events in our Google Cal. ordered by start time in
  * JSON format.

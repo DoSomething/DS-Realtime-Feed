@@ -1,4 +1,5 @@
 var request = require('superagent');
+var main = require('../index');
 
 var contentUrl = "http://beta.dosomething.org/api/v1/content/";
 var listUrl = "http://stage.dosomething.org/api/v1/campaigns.json?parameters[is_staff_pick]=1";
@@ -29,12 +30,12 @@ var Camp = function(title, imageURL, signups, daysLeft){
 /*
  * Builds Camp objects out of the current staff picks and returns an array
  */
-this.getCampaigns = function(callback){
+function getCampaigns(){
   getIds(function(ids){
     getCampaignData(0, ids, function(campaignResults){
-      console.log("done");
-      callback(campaignResults);
+      main.pushCampaigns(campaignResults);
       campaigns = [];
+      setTimeout(getCampaigns, 1000 * 120);
     });
   });
 }
@@ -92,3 +93,5 @@ function nextCampaign(index, ids, callback){
   var newIn = index + 1;
   getCampaignData(newIn, ids, callback);
 }
+
+getCampaigns();
