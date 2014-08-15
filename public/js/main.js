@@ -242,8 +242,11 @@ $(function() {
     $(document).on('keydown', function(e) {
         if(e.keyCode == 32) {
             spaceClicks++;
-            if (spaceClicks == 2){
+            if (spaceClicks % 2 == 0){
                internalMode = true;
+            }
+            else{
+              internalMode = false;
             }
         }
     });
