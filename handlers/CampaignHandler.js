@@ -35,7 +35,7 @@ function getCampaigns(){
     getCampaignData(0, ids, function(campaignResults){
       main.pushCampaigns(campaignResults);
       campaigns = [];
-      setTimeout(getCampaigns, 1000 * 1);
+      setTimeout(getCampaigns, 1000);
     });
   });
 }
@@ -76,7 +76,7 @@ function getCampaignData(index, ids, callback){
         nextCampaign(index, ids, callback);
         return;
       }
-      
+
       var date = new Date();
       var daysLeft = date.daysBetween(date, new Date(response.high_season_end));
       if(daysLeft <= 0){
