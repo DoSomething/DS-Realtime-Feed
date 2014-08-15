@@ -242,7 +242,9 @@ $(function() {
     $(document).on('keydown', function(e) {
         if(e.keyCode == 32) {
             spaceClicks++;
-            if (spaceClicks == 2) internalMode = true;
+            if (spaceClicks == 2){
+               internalMode = true;
+            }
         }
     });
 });
