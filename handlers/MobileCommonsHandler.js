@@ -51,9 +51,7 @@ function getMessages(pageNumber){
             if(message.profile[1] == undefined){
               continue;
             }
-            if(message['$'].type == "opt_in"){
-              userCounter.increaseMemberCount();
-            }
+
             if(message.profile[1].first_name != ''){
               textMessages.push(message.profile[1].first_name);
             }

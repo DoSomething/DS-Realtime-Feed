@@ -28,6 +28,8 @@ var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler')
 var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
 var userCountHandler = require(__dirname + '/handlers/UserCountHandler');
 
+var localMemberCount = 0;
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
@@ -37,9 +39,7 @@ app.get('/', function(req, res){
 io.on('connection', function(socket) {
   stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - connect", 1, function(status, json) {});
   console.log("Client connected");
-  socket.on('disconnect', function(){
-    console.log('Client disconnected');
-  });
+  socket.emit('ticker', localMemberCount);
 });
 
 /*
@@ -47,18 +47,19 @@ io.on('connection', function(socket) {
  */
 this.sendActivityMessage = function (type, message){
   stathat.trackEZCount(app_config.stathat.stathat_email, "dsrealtimefeed - message", 1, function(status, json) {});
-  io.emit(type, message, {for: 'everyone'});
+  io.emit(type, message);
 }
 
 /*
  * Pushes the current user total to the client ticker
  */
 this.pushUserTotal = function (total){
-  io.emit('ticker', total, {for: 'everyone'});
+  localMemberCount = total;
+  io.emit('ticker', localMemberCount);
 }
 
 this.pushCampaigns = function(results){
-  io.emit('campaigns', results, {for: 'everyone'});
+  io.emit('campaigns', results);
 }
 
 /*

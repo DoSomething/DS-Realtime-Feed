@@ -45,8 +45,6 @@ conn.on('ready', function(){
       var activity = serializedMessage.activity;
       switch(activity){
         case "user_register":
-          userCounter.increaseMemberCount();
-          main.sendActivityMessage('signup', serializedMessage.merge_vars.FNAME + " created an account!");
           break;
         case "campaign_signup" :
           main.sendActivityMessage('campaign', serializedMessage.merge_vars.FNAME + " signed up for " + serializedMessage.merge_vars.CAMPAIGN_TITLE + "!");
