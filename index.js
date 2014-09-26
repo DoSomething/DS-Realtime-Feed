@@ -28,7 +28,7 @@ var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler')
 var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
 var userCountHandler = require(__dirname + '/handlers/UserCountHandler');
 
-var localMemberCount = 0;
+var localMemberCount = 2,911,538;
 
 app.use(express.static(__dirname + '/public'));
 
