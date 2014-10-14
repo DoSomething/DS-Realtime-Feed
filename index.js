@@ -83,14 +83,15 @@ app.get('/staff-picks', function(req, res){
   });
 });
 
-app.post('/setcount', function(req, res){
-  var data = JSON.parse(req.body);
-  if(data.password != app_config.variable_password){
+app.post('/setcount/:total/:password', function(req, res){
+  var remoteTotal = req.param('total');
+  var password = req.param('password');
+  if(password != app_config.variable_password){
     res.send("NOPE.");
     return;
   }
-  if(localMemberCount < data.total){
-    localMemberCount = data.total;
+  if(localMemberCount < remoteTotal){
+    localMemberCount = remoteTotal;
   }
   res.send("OKAY");
 });
