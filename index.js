@@ -21,12 +21,14 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var spawn = require('child_process').spawn;
 var stathat = require('node-stathat');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 var googleCalHandler = require(__dirname + '/handlers/GoogleCalHandler');
 var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
 var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler');
 var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
-var userCountHandler = require(__dirname + '/handlers/UserCountHandler');
 
 var localMemberCount = 0;
 
@@ -79,6 +81,16 @@ app.get('/staff-picks', function(req, res){
   campaignHandler.getCampaigns(function onCampaignsGet(campaignResponse){
     res.json(campaignResponse);
   });
+});
+
+app.post('/setcount', function(req, res){
+  var data = JSON.prase(req.body);
+  if(data.password != app_config.variable_password){
+    res.send("NOPE.");
+    return;
+  }
+  localMemberCount = data.total;
+  res.send("OKAY");
 });
 
 /*
