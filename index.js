@@ -89,7 +89,9 @@ app.post('/setcount', function(req, res){
     res.send("NOPE.");
     return;
   }
-  localMemberCount = data.total;
+  if(localMemberCount < data.total){
+    localMemberCount = data.total;
+  }
   res.send("OKAY");
 });
 
