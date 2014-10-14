@@ -30,7 +30,7 @@ var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
 var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler');
 var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
 
-var localMemberCount = 10;
+var localMemberCount = 0;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -84,7 +84,7 @@ app.get('/staff-picks', function(req, res){
 });
 
 app.post('/setcount', function(req, res){
-  var data = JSON.prase(req.body);
+  var data = JSON.parse(req.body);
   if(data.password != app_config.variable_password){
     res.send("NOPE.");
     return;
