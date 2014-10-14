@@ -1,5 +1,4 @@
 var main = require('../index');
-var userCounter = require('./UserCountHandler');
 
 var app_config = main.app_config;
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "amqp": "^0.2.0",
+    "body-parser": "^1.9.0",
     "cheerio": "^0.17.0",
     "express": "^4.4.1",
     "node-stathat": "^1.0.0",

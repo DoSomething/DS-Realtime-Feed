@@ -1,7 +1,5 @@
 var amqp = require('amqp');
 var PHPUnserialize = require('php-unserialize');
-
-var userCounter = require('./UserCountHandler');
 var main = require('../index');
 
 var app_config = main.app_config;
