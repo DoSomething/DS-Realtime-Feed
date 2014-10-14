@@ -30,7 +30,7 @@ var campaignHandler = require(__dirname + '/handlers/CampaignHandler');
 var messageBrokerHandler = require(__dirname + '/handlers/MessageBrokerHandler');
 var mobileCommonsHandler = require(__dirname + '/handlers/MobileCommonsHandler');
 
-var localMemberCount;
+var localMemberCount = 10;
 
 app.use(express.static(__dirname + '/public'));
 

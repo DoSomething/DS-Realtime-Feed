@@ -174,10 +174,8 @@ $(function() {
     });
 
     socket.on('campaigns', function(msg){
-      //console.log(msg);
       var campaigns = JSON.parse(msg);
       var random = campaigns[getRandomInt(0, campaigns.length - 1)];
-      console.log(random);
       $('#campaign-title').text(random.title);
       $('#campaign-image').attr('src', random.imageURL);
       $('.sign-ups').text(random.signups);
@@ -225,7 +223,7 @@ $(function() {
     });
 
     socket.on('ticker', function(text) {
-        counter.setValue(text);
+        counter.setValue(text + "");
     });
 
     // Autoscroller
