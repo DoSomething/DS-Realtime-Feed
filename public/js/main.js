@@ -248,4 +248,19 @@ $(function() {
             }
         }
     });
+
+    var getCTLMessages = function(){
+        console.log("test");
+        $.ajax('/ctl-messages', {
+            dataType: 'json',
+            type: 'GET',
+            success: function(data) {
+                $('#ctl-messages').text(data.total + " Messages Exchanged");
+            }
+        });
+    }
+
+    getCTLMessages();
+    setInterval(getCTLMessages, 300 * 1000);
+
 });

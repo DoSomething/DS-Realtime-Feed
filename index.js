@@ -22,6 +22,7 @@ var io = require('socket.io')(http);
 var spawn = require('child_process').spawn;
 var stathat = require('node-stathat');
 var bodyParser = require('body-parser');
+var request = require('superagent');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
@@ -81,6 +82,15 @@ app.get('/staff-picks', function(req, res){
   campaignHandler.getCampaigns(function onCampaignsGet(campaignResponse){
     res.json(campaignResponse);
   });
+});
+
+app.get('/ctl-messages', function(req, res){
+  request
+   .get("http://crisistextline.org/trends/data/messages.txt")
+   .end(function(response){
+      var total = response.text;
+      res.json({total: total});
+   });
 });
 
 app.post('/setcount/:total/:password', function(req, res){
