@@ -21,6 +21,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var spawn = require('child_process').spawn;
 var stathat = require('node-stathat');
+var cheerio = require('cheerio');
 var bodyParser = require('body-parser');
 var request = require('superagent');
 app.use(bodyParser.json());
@@ -107,6 +108,18 @@ app.post('/setcount/:total/:password', function(req, res){
   res.send("OKAY");
 });
 
+function tempMemberUpdate(){
+  request
+   .get('https://www.dosomething.org/')
+   .end(function(res){
+      var $ = cheerio.load(res.text);
+      var onlyNumbers = $('.title').text().replace(/\D/g,'');
+      var total = parseInt(onlyNumbers);
+      localMemberCount = total;
+      io.emit('ticker', localMemberCount);
+   });
+}
+
 /*
  * Administration code for Hubot
  */
@@ -175,6 +188,8 @@ function reloadClients(res){
 //Setup HTTP & data fetchers
 //--------------------------
 http.listen(3000, function(){
+  tempMemberUpdate();
+  setInterval(tempMemberUpdate, 30 * 1000);
   console.log("listening on 3000");
   var command = 'forever stop monitor.js; sleep 5; forever start monitor.js';
   spawn('sh', ['-c', command], { stdio: 'inherit' });
