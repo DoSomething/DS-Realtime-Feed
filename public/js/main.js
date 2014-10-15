@@ -255,7 +255,7 @@ $(function() {
             dataType: 'json',
             type: 'GET',
             success: function(data) {
-                $('#ctl-messages').text(data.total + " Messages Exchanged");
+                $('#ctl-messages').text(data.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
             }
         });
     }
