@@ -102,6 +102,7 @@ app.post('/setcount/:total/:password', function(req, res){
   }
   if(localMemberCount < remoteTotal){
     localMemberCount = remoteTotal;
+    io.emit('ticker', localMemberCount);
   }
   res.send("OKAY");
 });
