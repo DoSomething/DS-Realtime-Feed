@@ -1,6 +1,6 @@
 {
   "name": "DS-Realtime-Feed",
-  "version": "2.0",
+  "version": "2.0.0",
   "author": "DoSomething and contributors <developers@dosomething.org>",
   "description": "Real time dashboad of DoSomething activity.",
   "private": true,
