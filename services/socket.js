@@ -1,3 +1,7 @@
+/*
+ * SocketIO service. Used for socket communication with the client.
+ */
+
 var io;
 var callbacks = [];
 
