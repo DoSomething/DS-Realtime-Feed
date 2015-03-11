@@ -1,10 +1,7 @@
-var router;
-
 module.exports = function(router){
-  this.router = router;
-  init();
-}
 
-function init() {
+  router.get('/', function(req, res) {
+    res.sendfile('index.html');
+  });
 
 }
