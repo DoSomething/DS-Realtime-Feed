@@ -1,7 +1,6 @@
 /*
  * Drupal service. Used for REST requests to the DS Drupal API.
  * Offers auth & non auth requests.
- * TODO: Test!
  */
 
 var request = require('superagent');

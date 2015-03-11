@@ -30,6 +30,7 @@ this.service_google = require(__dirname + '/services/google.js');
 this.service_message_broker = require(__dirname + '/services/message_broker.js');
 this.service_socekt = require(__dirname + '/services/socket.js')(http);
 this.service_mobile_commons = require(__dirname + '/services/mobile_commons.js');
+this.service_data = require(__dirname + '/services/data.js');
 
 console.log("Loading internal modules...");
 this.module_static = require(__dirname + '/modules/static.js');
@@ -44,5 +45,5 @@ app.get('/', function(req, res){
 //Setup HTTP & data fetchers
 var PORT = process.env.PORT || 3000;
 http.listen(PORT, function(){
-  console.log("listening on " + PORT);
+  console.log("Listening on " + PORT);
 });
