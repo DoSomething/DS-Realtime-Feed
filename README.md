@@ -23,3 +23,5 @@ This project displays activity across the DoSomething.org web and mobile service
 ## Upcoming Events
 
 ![Upcoming Events](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/upcoming-events.png)
+
+foreman start -e config/variables.env
