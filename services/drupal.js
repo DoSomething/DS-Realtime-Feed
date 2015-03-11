@@ -1,6 +1,12 @@
+/*
+ * Drupal service. Used for REST requests to the DS Drupal API.
+ * Offers auth & non auth requests.
+ * TODO: Test!
+ */
+
 var request = require('superagent');
 
-var BASE_URL = "https://dosomething.org";
+var BASE_URL = "https://www.dosomething.org";
 var API_VERSION = "/api/v1/";
 var API_USERNAME = process.env.DRUPAL_USERNAME;
 var API_PASSWORD = process.env.DRUPAL_PASSWORD;
@@ -13,9 +19,9 @@ var API_PASSWORD = process.env.DRUPAL_PASSWORD;
  * @param Object data
  * @param Function callback
  */
-function authGet(url, data, callback) {
+this.authGet = function(url, data, callback) {
 	request
-	 .post(BASE_URL + API_VERSION + "/auth/login")
+	 .post(BASE_URL + API_VERSION + "auth/login")
 	 .set('Content-Type', 'application/json')
 	 .set('Accept', 'application/json')
 	 .send({"username": API_USERNAME, "password": API_PASSWORD})
@@ -45,9 +51,9 @@ function authGet(url, data, callback) {
  * @param Object data
  * @param Function callback
  */
-function authPost(url, data, callback) {
+this.authPost = function(url, data, callback) {
   request
-   .post(BASE_URL + API_VERSION + "/auth/login")
+   .post(BASE_URL + API_VERSION + "auth/login")
    .set('Content-Type', 'application/json')
    .set('Accept', 'application/json')
    .send({"username": API_USERNAME, "password": API_PASSWORD})
@@ -77,7 +83,7 @@ function authPost(url, data, callback) {
  * @param Object data
  * @param Function callback
  */
-function get(url, data, callback) {
+this.get = function(url, data, callback) {
   request
     .get(BASE_URL + API_VERSION + url)
     .set('Accept', 'application/json')
@@ -98,7 +104,7 @@ function get(url, data, callback) {
  * @param Object data
  * @param Function callback
  */
-function post(url, data, callback) {
+this.post = function(url, data, callback) {
   request
     .post(BASE_URL + API_VERSION + url)
     .set('Accept', 'application/json')

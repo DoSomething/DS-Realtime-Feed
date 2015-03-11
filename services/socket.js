@@ -25,7 +25,7 @@ function init(){
  *
  * @param Function callback
  */
-function registerCallback(callback, prefix) {
+this.registerCallback = function(callback, prefix) {
   callbacks.push(callback);
 }
 
@@ -35,7 +35,7 @@ function registerCallback(callback, prefix) {
  * @param String prefix
  * @param String msg
  */
-function broadcastMessage(prefix, msg) {
+this.broadcastMessage = function(prefix, msg) {
   io.emit(prefix, msg);
 }
 
