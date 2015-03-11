@@ -12,9 +12,6 @@
 
 // Get it? It's made of boxes, just like our feed.
 
-console.log("Loading config...");
-//need to redo this, use ENV files and put them in a diff. private repo -- use forman to start the app, solves everything
-
 console.log("Loading global modules...");
 var express = require('express');
 var app = require('express')();
