@@ -26,9 +26,9 @@ this.authGet = function(url, data, callback) {
 	 .send({"username": API_USERNAME, "password": API_PASSWORD})
 	 .end(function(res){
   	  var raw = res.body;
-  	 	drupalToken = raw.token;
-  	 	drupalSessid = raw.sessid;
-  	 	drupalSessionName = raw.session_name;
+			var drupalToken = raw.token;
+  	 	var drupalSessid = raw.sessid;
+  	 	var drupalSessionName = raw.session_name;
     	request
         .get(BASE_URL + API_VERSION + url)
         .set('Accept', 'application/json')
@@ -57,10 +57,10 @@ this.authPost = function(url, data, callback) {
    .set('Accept', 'application/json')
    .send({"username": API_USERNAME, "password": API_PASSWORD})
    .end(function(res){
-      var raw = res.body;
-      drupalToken = raw.token;
-      drupalSessid = raw.sessid;
-      drupalSessionName = raw.session_name;
+			var raw = res.body;
+			var drupalToken = raw.token;
+			var drupalSessid = raw.sessid;
+			var drupalSessionName = raw.session_name;
       request
         .post(BASE_URL + API_VERSION + url)
         .set('Accept', 'application/json')
