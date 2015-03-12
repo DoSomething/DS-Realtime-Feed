@@ -1,8 +1,8 @@
 {
   "name": "DS-Realtime-Feed",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "author": "DoSomething and contributors <developers@dosomething.org>",
-  "description": "Real time dashboad of DoSomething transactional (email and SMS) activity stats.",
+  "description": "Real time dashboad of DoSomething activity.",
   "private": true,
   "repository": {
     "type": "git",
@@ -19,8 +19,8 @@
     "superagent": "^0.18.0",
     "xml2js": "^0.4.4"
   },
-  "license": "GNU",
+  "license": "MIT",
   "engines": {
-    "node": ">=0.6"
+    "node": "v0.10.x"
   }
 }
