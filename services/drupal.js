@@ -87,8 +87,6 @@ this.get = function(url, data, callback) {
     .get(BASE_URL + API_VERSION + url)
     .set('Accept', 'application/json')
     .set("Content-type", "application/json")
-    .set("X-CSRF-Token", drupalToken)
-    .set("Cookie", drupalSessionName + "=" + drupalSessid)
     .send(data)
     .end(function(res){
       callback(res.body);
@@ -108,8 +106,6 @@ this.post = function(url, data, callback) {
     .post(BASE_URL + API_VERSION + url)
     .set('Accept', 'application/json')
     .set("Content-type", "application/json")
-    .set("X-CSRF-Token", drupalToken)
-    .set("Cookie", drupalSessionName + "=" + drupalSessid)
     .send(data)
     .end(function(res){
       callback(res.body);
