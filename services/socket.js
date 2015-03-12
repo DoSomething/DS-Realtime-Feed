@@ -7,13 +7,6 @@ var callbacks = [];
 
 module.exports = function(http){
   io = require('socket.io')(http);
-  init();
-}
-
-/*
- * Called after SocketIO initilization.
- */
-function init(){
   io.on('connection', function(socket) {
     notify();
   });
