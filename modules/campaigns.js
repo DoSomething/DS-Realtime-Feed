@@ -2,7 +2,7 @@ module.exports = function(app, router){
 
   router.get('/', function(req, res) {
     app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
-      var randomCampaign = campaignListRes[getRandomInt(campaignListRes.length - 1, 0)];
+      var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
         var campaignData = {
           title: campaignRes.title,
@@ -13,7 +13,7 @@ module.exports = function(app, router){
       });
     });
   });
-  
+
 }
 
 function getRandomInt(min, max) {
