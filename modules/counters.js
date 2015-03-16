@@ -1,3 +1,5 @@
+var QUERY_TOTAL_USERS = "select total from overall.total";
+
 var request = require('superagent');
 
 module.exports = function(app, router){
@@ -12,7 +14,9 @@ module.exports = function(app, router){
   });
 
   router.get('/dosomething', function(req, res) {
-    //@TODO
+    app.service_data.performQuery(QUERY_TOTAL_USERS, function(rows) {
+      //@TODO: Get the total from row & send back in JSON
+    });
   });
 
 }
