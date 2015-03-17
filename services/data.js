@@ -16,6 +16,9 @@ var connection = mysql.createConnection({
 this.performQuery = function(query, callback) {
   connection.connect();
   connection.query(query, function(err, rows, fields) {
+    if(err) {
+      console.log(err);
+    }
     callback(rows);
   });
   connection.end();

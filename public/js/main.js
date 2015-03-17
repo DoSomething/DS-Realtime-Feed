@@ -251,7 +251,7 @@ $(function() {
 
     var getCTLMessages = function(){
         console.log("test");
-        $.ajax('/ctl-messages', {
+        $.ajax('/modules/counters/ctl', {
             dataType: 'json',
             type: 'GET',
             success: function(data) {

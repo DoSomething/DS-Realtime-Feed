@@ -15,7 +15,8 @@ module.exports = function(app, router){
 
   router.get('/dosomething', function(req, res) {
     app.service_data.performQuery(QUERY_TOTAL_USERS, function(rows) {
-      //@TODO: Get the total from row & send back in JSON
+      console.log(rows);
+      res.json(rows);
     });
   });
 
