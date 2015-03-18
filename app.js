@@ -48,7 +48,7 @@ app.use('/module/campaigns', router_campaigns);
 this.module_campaigns = require(__dirname + '/modules/campaigns')(this, router_campaigns);
 
 app.get('/', function(req, res){
-  res.sendfile('index.html');
+  res.redirect('/module/static');
 });
 
 //Setup HTTP & data fetchers
