@@ -23,7 +23,9 @@ app.use(express.static(__dirname + '/public'));
 
 console.log("Loading services...");
 this.service_drupal = require(__dirname + '/services/drupal');
-this.service_message_broker = require(__dirname + '/services/message_broker');
+var router_message_broker = express.Router();
+app.use('/service/message_broker', router_message_broker);
+this.service_message_broker = require(__dirname + '/services/message_broker')(router_message_broker);
 this.service_socket = require(__dirname + '/services/socket')(http);
 this.service_mobile_commons = require(__dirname + '/services/mobile_commons');
 this.service_data = require(__dirname + '/services/data');
