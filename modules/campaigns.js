@@ -1,16 +1,24 @@
 module.exports = function(app, router){
 
-  router.get('/', function(req, res) {
+  router.get('/staff-pick', function(req, res) {
     app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
       var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
         var campaignData = {
           title: campaignRes.title,
           image: campaignRes.image_cover.url.square.raw,
-          signups: campaignRes.stats.signups
+          signups: campaignRes.stats.signups,
+          nid: campaignRes.nid
         };
-        res.json(JSON.stringify(campaignData));
+        res.json(campaignData);
       });
+    });
+  });
+
+  router.get('/reportbacks/:nid', function(req, res) {
+    var nid = req.params.nid;
+    app.service_drupal.get('campaigns/' + nid + '/gallery', {}, function(reportbackRes) {
+      res.json(reportbackRes);
     });
   });
 
