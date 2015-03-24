@@ -17,8 +17,17 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var bodyParser = require('body-parser');
+var sassMiddleWare = require('node-sass-middleware');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(
+  sassMiddleWare({
+    src: __dirname + '/sass',
+    dest: __dirname + '/public',
+    outputStyle: 'compressed',
+    debug: true
+  })
+);
 app.use(express.static(__dirname + '/public'));
 
 console.log("Loading services...");
@@ -28,7 +37,6 @@ app.use('/service/message_broker', router_message_broker);
 this.service_message_broker = require(__dirname + '/services/message_broker')(router_message_broker);
 this.service_socket = require(__dirname + '/services/socket')(http);
 this.service_mobile_commons = require(__dirname + '/services/mobile_commons');
-this.service_data = require(__dirname + '/services/data');
 
 console.log("Loading internal modules...");
 var router_static = express.Router();

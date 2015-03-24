@@ -1,4 +1,4 @@
-module.exports = function(app, router){  
+module.exports = function(app, router){
   getMobileData(app);
   setTimeout(function(){
     getMobileData(app);

@@ -14,8 +14,8 @@ module.exports = function(app, router){
   });
 
   router.get('/dosomething', function(req, res) {
-    app.service_data.performQuery(QUERY_TOTAL_USERS, function(rows) {
-      res.json(rows[0]);
+    app.service_drupal.post('users/get_member_count', {}, function(drupalRes) {
+      res.json(drupalRes.formatted);
     });
   });
 

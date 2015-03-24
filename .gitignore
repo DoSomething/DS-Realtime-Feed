@@ -1,17 +1,5 @@
-# Ignore configuration files that may contain sensitive information.
-mb-config.inc
-mb-secure-config.inc
-
-# Ignore composer working files
-composer.phar
-composer.lock
-/vendor/
-
-# Ignore testing working files
-tests/phpunit.xml
-
-# Ignore config settings with sensitive account creds
-config.inc
+# Ignore configuration files that contain sensitive information.
+variables.env
 
 # Ignore OSX system files
 .DS_Store
@@ -19,4 +7,5 @@ config.inc
 # Ignore Node modules folder
 node_modules
 
-variables.env
+# Ignore compiled css
+public/main.css

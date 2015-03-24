@@ -1,14 +1,5 @@
 $(document).on('ready', function() {
 
-  // Initializing the plugin that is used for the slides
-  $('.fullpage').fullpage({
-      resize: false,
-      loopBottom: true,
-      easing: 'easeInOutQuart',
-      scrollingSpeed: 1000,
-      navigation: false
-  });
-
   var counter = new flipCounter('counter', {
       value: 0,
       inc: 1,
@@ -19,8 +10,7 @@ $(document).on('ready', function() {
   function update() {
     updateCTLCount();
     updateDosomethingCount();
-    var nid = updateStaffPick();
-    updateReportbacks(nid);
+    updateStaffPick();
     updateFeaturedMembers();
   }
 
@@ -32,7 +22,7 @@ $(document).on('ready', function() {
 
   function updateDosomethingCount() {
     $.get('/module/counters/dosomething', function(data) {
-      counter.setValue(data.total);
+      counter.setValue(data.toString().replace(/,/g, ''));
     });
   }
 
@@ -42,12 +32,12 @@ $(document).on('ready', function() {
       $('#campaign-image').attr('src', data.image);
       $('.sign-ups').text(data.signups);
       $('.days-left').text(data.daysLeft);
-      return data.nid;
+      updateReportbacks(data.nid);
     });
   }
 
   function updateReportbacks(nid) {
-    $('/module/campaigns/reportbacks/' + nid, function(data) {
+    $.get('/module/campaigns/reportbacks/' + nid, function(data) {
 
     });
   }
@@ -57,7 +47,7 @@ $(document).on('ready', function() {
   }
 
   setTimeout(function() {
-    $.fn.fullpage.moveSectionDown();
+    //move page down
   }, 5000);
 
   update();

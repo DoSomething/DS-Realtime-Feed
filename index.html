@@ -7,65 +7,56 @@
     <link rel="icon" sizes="196x154" href="/img/icon.png">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/flipcounter.css">
-    <link rel="stylesheet" href="/css/jquery.fullPage.css">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="../main.css">
     <title>DoSomething.org Realtime Feed</title>
 </head>
 <body>
-    <div class="fullpage">
-
-        <div class="section" id="title">
-            <img src="/img/logo.png" alt="Our Logo">
-            <h1>Welcome!</h1>
-        </div>
-
-        <div class="section padding" id="feed"></div>
-
-        <div class="section" id="counts">
-            <h1>Current Member Count</h1>
-            <div class="counter-wrapper">
-                <ul class="flip-counter default" id="counter"></ul>
-            </div>
-        </div>
-
-        <div class="section padding" id="campaigns">
-            <div class="wrapper">
-                <div class="staff-pick">
-                    <div class="tile--wrapper">
-                        <article class="tile tile--campaign">
-                            <div class="wrapper">
-                                <p class="__flag">Staff Pick Performance</p>
-                                <div class="tile__meta">
-                                    <h1 id="campaign-title" class="__title"></h1>
-                                </div>
-                                <img alt="Staff Pick" id="campaign-image" />
-                            </div>
-                        </article>
-                    </div><div class="stats">
-                        <h3>Sign Ups</h3>
-                        <h1 class="sign-ups"></h1>
-                        <h3>Days Left</h3>
-                        <h1 class="days-left"></h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section padding" id="ctl">
-            <img src="/img/ctllogo.png" alt="CTL Logo" style="width: 50%">
-            <br>
-            <h1 id="ctl-messages">Messages Exchanged</h1>
-            <h4>messages exchanged since August 1, 2013<h4>
-        </div>
-
+  <div class="section slide_dosomething">
+    <div class="wrapper">
+      <img src="/img/logo.png" alt="Our Logo">
+      <h1>Welcome!</h1>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/jquery-1.11.1.min.js"></script>
-    <script src="/js/jquery-ui-1.10.4.min.js"></script>
-    <script src="/js/jquery.fullPage.min.js"></script>
-    <script src="/js/jquery.lazyload.min.js"></script>
-    <script src="/js/flipcounter.js"></script>
-    <script src="/js/moment.min.js"></script>
-    <script src="/js/main.js"></script>
+  </div>
+
+  <div class="section-padding slide_feed"></div>
+
+  <div class="section slide_counts">
+    <div class="wrapper">
+      <h1>Current Member Count</h1>
+      <div class="counter-wrapper">
+        <ul class="flip-counter default" id="counter"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-padding slide_campaigns">
+    <div class="wrapper">
+      <div class="campaign-details">
+        <p>Staff Pick Performance</p>
+        <img alt="Staff Pick" id="campaign-image" />
+      </div>
+      <div class="campaign-stats">
+        <h1 id="campaign-title"></h1>
+        <h1 class="sign-ups"></h1>
+        <h3>Sign Ups</h3>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="section section-padding slide_ctl">
+    <img src="/img/ctllogo.png" alt="CTL Logo" style="width: 50%">
+    <h1 id="ctl-messages">Messages Exchanged</h1>
+    <h4>messages exchanged since August 1, 2013<h4>
+  </div>
+  -->
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/jquery-1.11.1.min.js"></script>
+  <script src="/js/jquery-ui-1.10.4.min.js"></script>
+  <script src="/js/jquery.fullPage.min.js"></script>
+  <script src="/js/jquery.lazyload.min.js"></script>
+  <script src="/js/flipcounter.js"></script>
+  <script src="/js/moment.min.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>
