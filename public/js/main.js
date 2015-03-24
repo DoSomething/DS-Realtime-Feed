@@ -22,7 +22,7 @@ $(document).on('ready', function() {
 
   function updateDosomethingCount() {
     $.get('/module/counters/dosomething', function(data) {
-      counter.setValue(data.total);
+      counter.setValue(data.toString().replace(/,/g, ''));
     });
   }
 

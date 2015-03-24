@@ -15,8 +15,7 @@ module.exports = function(app, router){
 
   router.get('/dosomething', function(req, res) {
     app.service_drupal.post('users/get_member_count', {}, function(drupalRes) {
-      console.log(drupalRes);
-      res.json(drupalRes);
+      res.json(drupalRes.formatted);
     });
   });
 
