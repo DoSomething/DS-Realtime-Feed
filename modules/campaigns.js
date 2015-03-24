@@ -6,7 +6,7 @@ module.exports = function(app, router){
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
         var campaignData = {
           title: campaignRes.title,
-          image: campaignRes.image_cover.url.square.raw,
+          image: campaignRes.image_cover.src,
           signups: campaignRes.stats.signups,
           nid: campaignRes.nid
         };
