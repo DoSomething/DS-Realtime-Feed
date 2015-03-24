@@ -7,6 +7,20 @@ $(document).on('ready', function() {
       auto: false
   });
 
+  var slides = ['slide_dosomething', 'slide_counts', 'slide_campaigns', 'slide_ctl'];
+  var slideIndex = 0;
+
+  setInterval(function slideUpdate() {
+    if(slideIndex >= slides.length){
+      slideIndex = 0;
+    }
+    var slide = slides[slideIndex];
+    $('html, body').animate({
+      scrollTop: $('.' + slide).offset().top
+    }, 1000);
+    slideIndex++;
+  }, 5 * 1000);
+
   function update() {
     updateCTLCount();
     updateDosomethingCount();
