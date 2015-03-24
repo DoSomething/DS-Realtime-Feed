@@ -1,3 +1,214 @@
+@font-face {
+  font-family: 'Proxima Nova Light';
+  font-weight: 400;
+  src: url('../fonts/Proxima Nova/ProximaNova-Light.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova SBold';
+  font-weight: 600;
+  src: url('../fonts/Proxima Nova/ProximaNova-Sbold.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova Bold';
+  font-weight: 700;
+  src: url('../fonts/Proxima Nova/ProximaNova-Bold.otf');
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
+  margin: 0 0 20px;
+  font: 300 18px 'Proxima Nova Light';
+}
+
+ul, ol {
+  padding-left: 40px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
 h1 {
-  color: blue;
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.section_padding {
+  padding: 20px;
+}
+
+.wrapper {
+  @include vertical-align;
+}
+
+.slide_dosomething {
+  background: #23B7FB;
+
+  h1 {
+    font-family: 'Proxima Nova Bold';
+    display: inline-block;
+    margin: 0 0 0 20px;
+    font-size: 130px;
+    color: white;
+  }
+
+  img {
+    max-width: 200px;
+    display: inline-block;
+  }
+}
+
+.slide_counts {
+  background: url(../img/counter-background.jpg) no-repeat 0 0 fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  h1 {
+    font-family: 'Proxima Nova Bold';
+    font-size: 80px;
+    color: white;
+    margin-bottom: -20px;
+    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  ul {
+    padding-left: 0;
+  }
+}
+
+.slide_feed {
+  .tableCell {
+    overflow: auto;
+    height: 100% !important;
+  }
+}
+
+.box {
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  margin: 5px;
+  word-wrap: break-word;
+  font-size: 22px;
+  display: inline-block;
+  -webkit-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    padding: 10px;
+
+    .name {
+      padding: 0;
+    }
+  }
+
+  .image {
+    padding: 0;
+
+    img {
+      position: relative;
+      top: -1px;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+
+      .lazy {
+        max-width: 64px;
+      }
+    }
+  }
+}
+
+.slide_campaigns {
+
+  #campaign-title {
+    font-weight: 700;
+    padding-bottom: 64px;
+    font-size: 48px;
+  }
+
+  .campaign-block {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+  }
+
+  .campaign-details {
+    @extend .campaign-block;
+
+    img {
+      width: 450px;
+      height: 450px;
+      margin-left: 15%;
+    }
+
+    p {
+      background-color: #FACC3A;
+      text-transform: uppercase;
+      padding: 10px;
+      position: absolute;
+      left: 11.5%;
+    }
+
+  }
+
+  .campaign-stats {
+    @extend .campaign-block;
+    margin-top: 100px;
+
+    .sign-ups, h3 {
+      font-size: 42px;
+      display: inline;
+      padding-right: 8px;
+    }
+
+  }
+
 }
