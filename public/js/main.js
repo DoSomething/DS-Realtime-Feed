@@ -69,7 +69,6 @@ $(document).on('ready', function() {
       console.log(members[0]);
       $('.member').each(function(index) {
         var chosenMember = members[Math.floor(Math.random()*members.length)]; //Its the chosen one!
-        console.log(chosenMember);
         members.splice(members.indexOf(chosenMember), 1);
         $(this).find('h2').text(chosenMember.title);
         $(this).find('h3').text(chosenMember.subtitle);

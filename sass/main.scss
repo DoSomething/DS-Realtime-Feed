@@ -82,7 +82,6 @@ img {
 }
 
 .slide_dosomething {
-  @extend .section;
   background: #23B7FB;
 
   h1 {
@@ -100,7 +99,6 @@ img {
 }
 
 .slide_counts {
-  @extend .section;
   background: url(../img/counter-background.jpg) no-repeat 0 0 fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -169,7 +167,6 @@ img {
 }
 
 .slide_campaigns {
-  @extend .section;
 
   #campaign-title {
     font-weight: 700;
@@ -217,7 +214,6 @@ img {
 }
 
 .slide_ctl {
-  @extend .section;
 
   h1 {
     padding-top: 36px;
@@ -231,36 +227,36 @@ img {
 }
 
 .slide_members {
-  @extend .section;
 
   h1 {
     padding-bottom: 32px;
   }
 
-  .member {
-    display: inline-block;
-    width: 25%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 8px;
+}
 
-    h2 {
-      margin-top: 8px;
-      margin-bottom: 0;
-      color: #4e2b63;
-      font-family: 'Proxima Nova Bold';
-    }
+.member {
+  display: inline-block;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
 
-    h3 {
-      min-height: 2.5em;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
-
-    img {
-      width: 250px;
-      height: 250px;
-    }
-
+  h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #4e2b63;
+    font-family: 'Proxima Nova Bold';
   }
+
+  h3 {
+    min-height: 2.5em;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  img {
+    width: 250px;
+    height: 250px;
+  }
+
 }
