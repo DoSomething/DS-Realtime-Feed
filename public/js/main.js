@@ -1,3 +1,10 @@
+var slideLoopId;
+
+// For dev'in and test'in
+function stopSlideLoop() {
+  clearTimeout(slideLoopId);
+}
+
 $(document).on('ready', function() {
 
   var counter = new flipCounter('counter', {
@@ -7,10 +14,10 @@ $(document).on('ready', function() {
       auto: false
   });
 
-  var slides = ['slide_dosomething', 'slide_counts', 'slide_campaigns', 'slide_ctl'];
+  var slides = ['slide_dosomething', 'slide_counts', 'slide_campaigns', 'slide_members', 'slide_ctl'];
   var slideIndex = 0;
 
-  setInterval(function slideUpdate() {
+  slideLoopId = setInterval(function slideUpdate() {
     if(slideIndex >= slides.length){
       slideIndex = 0;
     }
@@ -57,12 +64,19 @@ $(document).on('ready', function() {
   }
 
   function updateFeaturedMembers() {
-
+    $.get('/data/featured_members.json', function(data) {
+      var members = data.members;
+      console.log(members[0]);
+      $('.member').each(function(index) {
+        var chosenMember = members[Math.floor(Math.random()*members.length)]; //Its the chosen one!
+        members.splice(members.indexOf(chosenMember), 1);
+        $(this).find('h2').text(chosenMember.title);
+        $(this).find('h3').text(chosenMember.subtitle);
+        $(this).find('p').text(chosenMember.copy);
+        $(this).find('img').attr('src', chosenMember.photo_url);
+      });
+    });
   }
-
-  setTimeout(function() {
-    //move page down
-  }, 5000);
 
   update();
   setTimeout(update, 60 * 1000);

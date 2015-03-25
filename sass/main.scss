@@ -225,3 +225,38 @@ img {
   }
 
 }
+
+.slide_members {
+
+  h1 {
+    padding-bottom: 32px;
+  }
+
+}
+
+.member {
+  display: inline-block;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+
+  h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #4e2b63;
+    font-family: 'Proxima Nova Bold';
+  }
+
+  h3 {
+    min-height: 2.5em;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  img {
+    width: 250px;
+    height: 250px;
+  }
+
+}

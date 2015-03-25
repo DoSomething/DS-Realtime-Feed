@@ -4,9 +4,17 @@ module.exports = function(app, router){
     app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
       var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
+        var imgUrl;
+        if(campaignRes.imageCover == undefined){
+          imgUrl = '/img/logo.png';
+          console.log("Broken Campaign Image? " + campaignRes.title);
+        }
+        else{
+          imgUrl = campaignRes.image_cover.src
+        }
         var campaignData = {
           title: campaignRes.title,
-          image: campaignRes.image_cover.src,
+          image: imgUrl,
           signups: campaignRes.stats.signups,
           nid: campaignRes.nid
         };
