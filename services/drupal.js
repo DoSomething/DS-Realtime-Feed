@@ -96,9 +96,9 @@ this.get = function(url, data, callback) {
     .send(data)
     .end(function(res){
       callback(res.body);
-			if(res.status != 200){
-				app.service_stathat.trackCount('bad_drupal_request', 1);
-			}
+      if(res.status != 200){
+			  app.service_stathat.trackCount('bad_drupal_request', 1);
+      }
     });
 }
 
