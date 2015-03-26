@@ -39,7 +39,7 @@ this.authGet = function(url, data, callback) {
         .end(function(res){
           callback(res.body);
 					if(res.status != 200){
-					  app.service_stathat.trackCount('bad_drupal_request', 1);
+						app.service_stathat.trackCount('bad_drupal_request', 1);
 					}
         });
    });
@@ -74,7 +74,7 @@ this.authPost = function(url, data, callback) {
         .end(function(res){
           callback(res.body);
 					if(res.status != 200){
-					  app.service_stathat.trackCount('bad_drupal_request', 1);
+						app.service_stathat.trackCount('bad_drupal_request', 1);
 					}
         });
    });
@@ -97,7 +97,7 @@ this.get = function(url, data, callback) {
     .end(function(res){
       callback(res.body);
 			if(res.status != 200){
-			  app.service_stathat.trackCount('bad_drupal_request', 1);
+				app.service_stathat.trackCount('bad_drupal_request', 1);
 			}
     });
 }
@@ -119,7 +119,7 @@ this.post = function(url, data, callback) {
     .end(function(res){
       callback(res.body);
 			if(res.status != 200){
-			  app.service_stathat.trackCount('bad_drupal_request', 1);
+				app.service_stathat.trackCount('bad_drupal_request', 1);
 			}
     });
 }
