@@ -14,7 +14,7 @@ $(document).on('ready', function() {
       auto: false
   });
 
-  var slides = ['slide_dosomething', 'slide_counts', 'slide_campaigns', 'slide_members', 'slide_ctl'];
+  var slides = ['slide-dosomething', 'slide-counts', 'slide-campaigns', 'slide-members', 'slide-ctl'];
   var slideIndex = 0;
 
   slideLoopId = setInterval(function slideUpdate() {
@@ -49,8 +49,8 @@ $(document).on('ready', function() {
 
   function updateStaffPick() {
     $.get('/module/campaigns/staff-pick', function(data) {
-      $('#campaign-title').text(data.title);
-      $('#campaign-image').attr('src', data.image);
+      $('#campaign__title').text(data.title);
+      $('#campaign__image').attr('src', data.image);
       $('.sign-ups').text(data.signups);
       $('.days-left').text(data.daysLeft);
       updateReportbacks(data.nid);
@@ -66,7 +66,6 @@ $(document).on('ready', function() {
   function updateFeaturedMembers() {
     $.get('/data/featured_members.json', function(data) {
       var members = data.members;
-      console.log(members[0]);
       $('.member').each(function(index) {
         var chosenMember = members[Math.floor(Math.random()*members.length)]; //Its the chosen one!
         members.splice(members.indexOf(chosenMember), 1);
