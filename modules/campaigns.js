@@ -5,7 +5,7 @@ module.exports = function(app, router){
       var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
         var imgUrl;
-        if(campaignRes.imageCover == undefined){
+        if(campaignRes.image_cover == undefined){
           imgUrl = '/img/logo.png';
           console.log("Broken Campaign Image? " + campaignRes.title);
         }
