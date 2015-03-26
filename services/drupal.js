@@ -19,17 +19,17 @@ var API_PASSWORD = process.env.DRUPAL_PASSWORD;
  * @param Function callback
  */
 this.authGet = function(url, data, callback) {
-	request
-	 .post(BASE_URL + API_VERSION + "auth/login")
-	 .set('Content-Type', 'application/json')
-	 .set('Accept', 'application/json')
-	 .send({"username": API_USERNAME, "password": API_PASSWORD})
-	 .end(function(res){
-  	  var raw = res.body;
-			var drupalToken = raw.token;
-  	 	var drupalSessid = raw.sessid;
-  	 	var drupalSessionName = raw.session_name;
-    	request
+  request
+   .post(BASE_URL + API_VERSION + "auth/login")
+   .set('Content-Type', 'application/json')
+   .set('Accept', 'application/json')
+   .send({"username": API_USERNAME, "password": API_PASSWORD})
+   .end(function(res){
+      var raw = res.body;
+      var drupalToken = raw.token;
+       var drupalSessid = raw.sessid;
+       var drupalSessionName = raw.session_name;
+      request
         .get(BASE_URL + API_VERSION + url)
         .set('Accept', 'application/json')
         .set("Content-type", "application/json")
@@ -38,9 +38,9 @@ this.authGet = function(url, data, callback) {
         .send(data)
         .end(function(res){
           callback(res.body);
-					if(res.status != 200){
-						app.service_stathat.trackCount('bad_drupal_request', 1);
-					}
+          if(res.status != 200){
+            app.service_stathat.trackCount('bad_drupal_request', 1);
+          }
         });
    });
 }
@@ -60,10 +60,10 @@ this.authPost = function(url, data, callback) {
    .set('Accept', 'application/json')
    .send({"username": API_USERNAME, "password": API_PASSWORD})
    .end(function(res){
-			var raw = res.body;
-			var drupalToken = raw.token;
-			var drupalSessid = raw.sessid;
-			var drupalSessionName = raw.session_name;
+      var raw = res.body;
+      var drupalToken = raw.token;
+      var drupalSessid = raw.sessid;
+      var drupalSessionName = raw.session_name;
       request
         .post(BASE_URL + API_VERSION + url)
         .set('Accept', 'application/json')
@@ -73,9 +73,9 @@ this.authPost = function(url, data, callback) {
         .send(data)
         .end(function(res){
           callback(res.body);
-					if(res.status != 200){
-						app.service_stathat.trackCount('bad_drupal_request', 1);
-					}
+          if(res.status != 200){
+            app.service_stathat.trackCount('bad_drupal_request', 1);
+          }
         });
    });
 }
@@ -97,7 +97,7 @@ this.get = function(url, data, callback) {
     .end(function(res){
       callback(res.body);
       if(res.status != 200){
-			  app.service_stathat.trackCount('bad_drupal_request', 1);
+        app.service_stathat.trackCount('bad_drupal_request', 1);
       }
     });
 }
@@ -118,8 +118,8 @@ this.post = function(url, data, callback) {
     .send(data)
     .end(function(res){
       callback(res.body);
-			if(res.status != 200){
-				app.service_stathat.trackCount('bad_drupal_request', 1);
-			}
+      if(res.status != 200){
+        app.service_stathat.trackCount('bad_drupal_request', 1);
+      }
     });
 }
