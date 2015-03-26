@@ -17,6 +17,7 @@ function getMobileData(app){
   app.service_mobile_commons.authGet('messages', mobileCommonsParams, function(response) {
     var messages = response.response.messages[0].message;
     if(messages == undefined){
+      app.service_stathat.trackCount('undefined_mobile_commons', 1);
       return;
     }
     messages.forEach(function(element, index, array) {
