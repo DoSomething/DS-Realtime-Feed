@@ -1,5 +1,3 @@
-var QUERY_TOTAL_USERS = "select total from overall.total";
-
 var request = require('superagent');
 
 module.exports = function(app, router){

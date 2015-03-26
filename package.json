@@ -9,14 +9,10 @@
     "url": "https://github.com/DoSomething/DS-Realtime-Feed"
   },
   "dependencies": {
-    "amqp": "^0.2.0",
     "body-parser": "^1.9.0",
-    "cheerio": "^0.17.0",
     "express": "^4.4.1",
-    "mysql": "^2.5.5",
     "node-sass-middleware": "^0.5.0",
     "node-stathat": "^1.0.0",
-    "php-unserialize": "0.0.1",
     "socket.io": "^1.0.4",
     "superagent": "^0.18.0",
     "xml2js": "^0.4.4"

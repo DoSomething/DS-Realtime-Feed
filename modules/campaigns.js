@@ -8,6 +8,7 @@ module.exports = function(app, router){
         if(campaignRes.image_cover == undefined){
           imgUrl = '/img/logo.png';
           console.log("Broken Campaign Image? " + campaignRes.title);
+          app.service_stathat.trackCount('broken_image', 1);
         }
         else{
           imgUrl = campaignRes.image_cover.src

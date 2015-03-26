@@ -37,6 +37,7 @@ app.use('/service/message_broker', router_message_broker);
 this.service_message_broker = require(__dirname + '/services/message_broker')(router_message_broker);
 this.service_socket = require(__dirname + '/services/socket')(http);
 this.service_mobile_commons = require(__dirname + '/services/mobile_commons');
+this.service_stathat = require(__dirname + '/services/stathat');
 
 console.log("Loading internal modules...");
 var router_static = express.Router();
