@@ -1,0 +1,208 @@
+@font-face {
+  font-family: 'Proxima Nova Light';
+  font-weight: 400;
+  src: url('../fonts/Proxima Nova/ProximaNova-Light.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova SBold';
+  font-weight: 600;
+  src: url('../fonts/Proxima Nova/ProximaNova-Sbold.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova Bold';
+  font-weight: 700;
+  src: url('../fonts/Proxima Nova/ProximaNova-Bold.otf');
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
+  margin: 0 0 20px;
+  font: 300 18px 'Proxima Nova Light';
+}
+
+ul, ol {
+  padding-left: 40px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  @include vertical-align;
+}
+
+.slide-dosomething {
+  background: #23B7FB;
+
+  h1 {
+    font-family: 'Proxima Nova Bold';
+    display: inline-block;
+    margin: 0 0 0 20px;
+    font-size: 130px;
+    color: white;
+  }
+
+  img {
+    max-width: 200px;
+    display: inline-block;
+  }
+}
+
+.slide-counts {
+  background: url(../img/counter-background.jpg) no-repeat 0 0 fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  h1 {
+    font-family: 'Proxima Nova Bold';
+    font-size: 80px;
+    color: white;
+    margin-bottom: -20px;
+    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  ul {
+    padding-left: 0;
+  }
+}
+
+.slide-campaigns {
+
+  #campaign__title {
+    font-weight: 700;
+    padding-bottom: 64px;
+    font-size: 48px;
+  }
+
+  .campaign__block {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+  }
+
+  .campaign__details {
+
+    img {
+      width: 450px;
+      height: 450px;
+      margin-left: 15%;
+    }
+
+    p {
+      background-color: #FACC3A;
+      text-transform: uppercase;
+      padding: 10px;
+      position: absolute;
+      left: 11.5%;
+    }
+
+  }
+
+  .campaign__stats {
+    margin-top: 100px;
+
+    .sign-ups, h3 {
+      font-size: 42px;
+      display: inline;
+      padding-right: 8px;
+    }
+
+  }
+
+}
+
+.slide-ctl {
+
+  h1 {
+    padding-top: 36px;
+    font-size: 48px;
+  }
+
+  h4 {
+    font-size: 26px;
+  }
+
+}
+
+.slide-members {
+
+  h1 {
+    padding-bottom: 32px;
+  }
+
+}
+
+.member {
+  display: inline-block;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+
+  h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #4e2b63;
+    font-family: 'Proxima Nova Bold';
+  }
+
+  h3 {
+    min-height: 2.5em;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  img {
+    width: 250px;
+    height: 250px;
+  }
+
+}
