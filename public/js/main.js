@@ -16,7 +16,6 @@ $(document).on('ready', function() {
 
   $('.box-container').each(function(index) {
     var totalBoxes = calculateBoxesPerSection('.box-container');
-    console.log(totalBoxes);
     for(var index = 0; index < totalBoxes; index++) {
       buildBoxes($(this));
     }
