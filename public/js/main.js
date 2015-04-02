@@ -14,7 +14,15 @@ $(document).on('ready', function() {
       auto: false
   });
 
-  var slides = ['slide-dosomething', 'slide-counts', 'slide-campaigns', 'slide-members', 'slide-ctl'];
+  $('.box-container').each(function(index) {
+    var totalBoxes = calculateBoxesPerSection('.box-container');
+    console.log(totalBoxes);
+    for(var index = 0; index < totalBoxes; index++) {
+      buildBoxes($(this));
+    }
+  });
+
+  var slides = ['slide-dosomething', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-ctl'];
   var slideIndex = 0;
 
   slideLoopId = setInterval(function slideUpdate() {
@@ -58,8 +66,18 @@ $(document).on('ready', function() {
   }
 
   function updateReportbacks(nid) {
+    var totalBoxes = calculateBoxesPerSection(".slide-reportbacks");
     $.get('/module/campaigns/reportbacks/' + nid, function(data) {
-
+      for(var index = 0; index < data.length; index++) {
+        if(index >= totalBoxes) {
+          return;
+        }
+        var dataIndex = Math.floor(Math.random() * data.length);
+        var reportback = data[dataIndex];
+        data.splice(dataIndex, 1);
+        var image = '<img src="' + reportback.src + '" />';
+        updateBox('reportback-image', image, $('.slide-reportbacks'));
+      }
     });
   }
 
@@ -75,6 +93,29 @@ $(document).on('ready', function() {
         $(this).find('img').attr('src', chosenMember.photo_url);
       });
     });
+  }
+
+  function buildBoxes(container) {
+    var templateStart = '<div class="box"><div class="wrapper">';
+    var templateEnd = '</div></div>';
+    container.append(templateStart + templateEnd);
+  }
+
+  function updateBox(type, content, container) {
+    var box = $(container.children()[Math.floor(Math.random()*container.children().length)]);
+    var wrapper = $(box.children()[0]);
+    wrapper.empty();
+    wrapper.append(content);
+    box.removeClass();
+    box.addClass('box');
+    box.addClass(type);
+  }
+
+  function calculateBoxesPerSection(sectionClass) {
+    var boxSize = 150 + 24; //150 is box width, 24 is total left/right margins
+    var wideBoxes = $(sectionClass).width() / boxSize;
+    var tallBoxes = $(sectionClass).height() / boxSize;
+    return parseInt(wideBoxes * tallBoxes);
   }
 
   update();
