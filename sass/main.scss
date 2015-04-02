@@ -206,3 +206,23 @@ img {
   }
 
 }
+
+.box {
+  width: 150px;
+  height: 150px;
+  margin: 12px;
+  text-align: center;
+  float: left;
+  display: inline-block;
+
+  p {
+    padding: 4px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+
+}
