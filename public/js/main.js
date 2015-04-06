@@ -21,6 +21,7 @@ $(document).on('ready', function() {
     }
   });
 
+  // Used for the member map, converts alpha 2 ISO to alpha 3
   var codes = {};
   Papa.parse('/data/ISOCodes.csv', {
     download: true,
@@ -177,7 +178,7 @@ $(document).on('ready', function() {
   }
 
   function calculateBoxesPerSection(sectionClass) {
-    var boxSize = 150 + 30; //150 is box width, 24 is total left/right margins
+    var boxSize = 150 + 30; //150 is box width, 24 is total left/right margins & an extra 6 to prevent overflow
     var wideBoxes = $(sectionClass).width() / boxSize;
     var tallBoxes = $(sectionClass).height() / boxSize;
     return parseInt(wideBoxes * tallBoxes);
