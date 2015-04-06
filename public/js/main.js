@@ -171,7 +171,7 @@ $(document).on('ready', function() {
   }
 
   function calculateBoxesPerSection(sectionClass) {
-    var boxSize = 150 + 12; //150 is box width, 24 is total left/right margins
+    var boxSize = 150 + 30; //150 is box width, 24 is total left/right margins
     var wideBoxes = $(sectionClass).width() / boxSize;
     var tallBoxes = $(sectionClass).height() / boxSize;
     return parseInt(wideBoxes * tallBoxes);
