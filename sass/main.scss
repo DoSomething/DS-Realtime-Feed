@@ -226,3 +226,49 @@ img {
   }
 
 }
+
+.slide-tmi {
+  background: url(../img/tmi-background.jpg) no-repeat 0 0 fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  img {
+    width: initial;
+    height: initial;
+  }
+
+  h1, h3 {
+    font-family: 'Proxima Nova Bold';
+    color: white;
+    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);
+    margin-bottom: 0;
+    display: inline;
+  }
+
+  h1 {
+    font-size: 80px;
+  }
+
+  h3 {
+    font-size: 46px;
+  }
+
+  .clients {
+
+    h3 {
+      display: block;
+      padding-top: 16px;
+      color: #111;
+      text-shadow: none;
+      font-family: 'Proxima Nova Light';
+    }
+
+    img {
+      display: inline-block;
+      padding: 8px;
+    }
+  }
+
+}
