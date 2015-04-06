@@ -160,14 +160,20 @@ $(document).on('ready', function() {
     container.append(templateStart + templateEnd);
   }
 
+  var boxIndex = 0;
   function updateBox(type, content, container) {
-    var box = $(container.children()[Math.floor(Math.random()*container.children().length)]);
+    var children = $(container.children());
+    if(children.length < boxIndex){
+      boxIndex = 0;
+    }
+    var box = $(children[boxIndex]);
     var wrapper = $(box.children()[0]);
     wrapper.empty();
     wrapper.append(content);
     box.removeClass();
     box.addClass('box');
     box.addClass(type);
+    boxIndex++;
   }
 
   function calculateBoxesPerSection(sectionClass) {
