@@ -7,13 +7,6 @@ function stopSlideLoop() {
 
 $(document).on('ready', function() {
 
-  var counter = new flipCounter('counter', {
-      value: 0,
-      inc: 1,
-      pace: 1000,
-      auto: false
-  });
-
   $('.box-container').each(function(index) {
     var totalBoxes = calculateBoxesPerSection('.box-container');
     for(var index = 0; index < totalBoxes; index++) {
@@ -63,7 +56,8 @@ $(document).on('ready', function() {
 
   function updateDosomethingCount() {
     $.get('/module/counters/dosomething', function(data) {
-      counter.setValue(data.toString().replace(/,/g, ''));
+      var rawVal = data.toString().replace(/,/g, '');
+      updateCounter(rawVal, $('#member_counter'));
     });
   }
 
@@ -182,6 +176,13 @@ $(document).on('ready', function() {
     var wideBoxes = $(sectionClass).width() / boxSize;
     var tallBoxes = $(sectionClass).height() / boxSize;
     return parseInt(wideBoxes * tallBoxes);
+  }
+
+  function updateCounter(number, container) {
+    container.empty();
+    for(var index = 0; index < number.length; index++) {
+      container.append('<li>' + number.charAt(index) + '</li>');
+    }
   }
 
   update();
