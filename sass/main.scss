@@ -111,7 +111,22 @@ img {
 
   ul {
     padding-left: 0;
+    padding-top: 48px;
   }
+
+  li {
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+    min-width: 91px;
+    font-size: 100px;
+    background-color: #00B3F4;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Proxima Nova Bold';
+  }
+
 }
 
 .slide-campaigns {
