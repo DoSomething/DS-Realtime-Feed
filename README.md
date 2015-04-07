@@ -1,27 +1,19 @@
 # DoSomething.org Real Time Activity Feed
 
-This project displays activity across the DoSomething.org web and mobile services.
-
-# Screenshots
-
-## Title
+This application showcases activity across the DoSomething.org web and mobile services along with it's affiliate organizations.
 
 ![Title](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/title.png)
 
-## Activity Feed
+![ActivityFeed](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/activity-feed.png)
 
-![Activity Feed](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/activity-feed.png)
+![MemberCount](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/member-count.png)
 
-## Member Count
+![StaffPicks](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/staff-picks.png)
 
-![Member Count](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/member-count.png)
+![Map](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/map.png)
 
-## Staff Picks
+![Ctl](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/ctl.png)
 
-![Staff Picks](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/staff-picks.png)
+![Members](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/member-superlatives.png)
 
-## Upcoming Events
-
-![Upcoming Events](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/upcoming-events.png)
-
-foreman start -e config/variables.env
+![Tmi](https://raw.github.com/DoSomething/DS-Realtime-Feed/master/screenshots/tmi.png)
