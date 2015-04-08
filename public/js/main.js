@@ -62,12 +62,24 @@ $(document).on('ready', function() {
   }
 
   function updateStaffPick() {
-    $.get('/module/campaigns/staff-pick', function(data) {
-      $('#campaign__title').text(data.title);
-      $('#campaign__image').attr('src', data.image);
-      $('.sign-ups').text(data.signups);
-      $('.days-left').text(data.daysLeft);
-      updateReportbacks(data.nid);
+    $('.campaign__block').each(function() {
+      var block = $(this);
+      $.get('/module/campaigns/random-campaign', function(data) {
+        if(data.title == undefined) {
+          updateStaffPick();
+          return;
+        }
+        console.log(data.title, data.staffpick);
+        block.find('h1').text(data.title);
+        block.find('img').attr('src', data.image);
+        if(!data.staffpick) {
+          block.find('p').hide();
+        }
+        else{
+          block.find('p').show();
+        }
+        updateReportbacks(data.nid);
+      });
     });
   }
 
@@ -158,7 +170,7 @@ $(document).on('ready', function() {
   var boxIndex = 0;
   function updateBox(type, content, container) {
     var children = $(container.children());
-    if(children.length < boxIndex){
+    if(boxIndex >= children.length){
       boxIndex = 0;
     }
     var box = $(children[boxIndex]);
