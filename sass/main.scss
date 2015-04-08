@@ -141,9 +141,6 @@ img {
     display: inline-block;
     vertical-align: top;
     width: 45%;
-  }
-
-  .campaign__details {
 
     img {
       width: 450px;
@@ -155,21 +152,17 @@ img {
       background-color: #FACC3A;
       text-transform: uppercase;
       padding: 10px;
-      position: absolute;
-      left: 11.5%;
+      position: absolute;      
     }
 
   }
 
-  .campaign__stats {
-    margin-top: 100px;
+  .campaign__block-left p {
+    left: 11.5%;
+  }
 
-    .sign-ups, h3 {
-      font-size: 42px;
-      display: inline;
-      padding-right: 8px;
-    }
-
+  .campaign__block-right p {
+    left: 57%;
   }
 
 }
