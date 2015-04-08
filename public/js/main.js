@@ -69,7 +69,6 @@ $(document).on('ready', function() {
           updateStaffPick();
           return;
         }
-        console.log(data.title, data.staffpick);
         block.find('h1').text(data.title);
         block.find('img').attr('src', data.image);
         if(!data.staffpick) {
