@@ -1,4 +1,14 @@
 module.exports = function(app, router){
+  app.service_message_broker.registerCallback(function(mb_data) {
+    var data = {
+      activity: mb_data['activity'],
+      name: mb_data['merge_vars']['FNAME'],
+    }
+    if(data.activity != "user_register") {
+      data['campaign'] = mb_data['merge_vars']['CAMPAIGN_TITLE'];
+    }
+    app.service_socket.broadcastMessage('event', data);
+  });  
   getMobileData(app);
   setTimeout(function(){
     getMobileData(app);

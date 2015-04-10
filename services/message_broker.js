@@ -12,6 +12,8 @@ module.exports = function(router) {
     callbacks.push(callback);
   }
 
+  return message_broker;
+
 }
 
 function notify(data) {
