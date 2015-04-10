@@ -26,7 +26,12 @@ $(document).on('ready', function() {
     }
   });
 
-  var slides = ['slide-dosomething', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-map', 'slide-ctl', 'slide-tmi'];
+  var socket = io.connect(location.host);
+  socket.on('event', function(data) {
+    handleUserEvent(data);
+  })
+
+  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-map', 'slide-ctl', 'slide-tmi'];
   var slideIndex = 0;
 
   slideLoopId = setInterval(function slideUpdate() {
@@ -62,7 +67,7 @@ $(document).on('ready', function() {
   }
 
   function updateStaffPick() {
-    $('.campaign__block').each(function() {
+    $('.campaign-block').each(function() {
       var block = $(this);
       $.get('/module/campaigns/random-campaign', function(data) {
         if(data.title == undefined) {
@@ -82,6 +87,7 @@ $(document).on('ready', function() {
     });
   }
 
+  var reportbackBoxIndex = 0;
   function updateReportbacks(nid) {
     var totalBoxes = calculateBoxesPerSection(".slide-reportbacks");
     $.get('/module/campaigns/reportbacks/' + nid, function(data) {
@@ -93,7 +99,8 @@ $(document).on('ready', function() {
         var reportback = data[dataIndex];
         data.splice(dataIndex, 1);
         var image = '<img src="' + reportback.src + '" />';
-        updateBox('reportback-image', image, $('.slide-reportbacks'));
+        updateBox('box--reportback_image', image, $('.slide-reportbacks'), reportbackBoxIndex);
+        reportbackBoxIndex++;
       }
     });
   }
@@ -160,26 +167,43 @@ $(document).on('ready', function() {
     });
   }
 
+  var userBoxIndex = 0;
+  function handleUserEvent(data) {
+    var container = $('.slide-feed');
+    var children = container.children();
+    if(userBoxIndex >= children.length){
+      userBoxIndex = 0;
+    }
+    var name = data.name || "Another Do-er";
+    switch(data.activity) {
+      case "user_register":
+        updateBox('box--register', '<p><strong>' + name + "</strong> created an account!</p>", container, userBoxIndex);
+        break;
+      case "campaign_signup":
+        updateBox('box--signup', '<p><strong>' + name + "</strong> signed up for " + data.campaign + "</p>", container, userBoxIndex);
+        break;
+      case "campaign_reportback":
+        updateBox('box--reportback', '<p><strong>' + name + "</strong> reported back for " + data.campaign + "</p>", container, userBoxIndex);
+        break;
+    }
+    userBoxIndex++
+  }
+
   function buildBoxes(container) {
     var templateStart = '<div class="box"><div class="wrapper">';
     var templateEnd = '</div></div>';
     container.append(templateStart + templateEnd);
   }
 
-  var boxIndex = 0;
-  function updateBox(type, content, container) {
+  function updateBox(type, content, container, index) {
     var children = $(container.children());
-    if(boxIndex >= children.length){
-      boxIndex = 0;
-    }
-    var box = $(children[boxIndex]);
+    var box = $(children[index]);
     var wrapper = $(box.children()[0]);
     wrapper.empty();
     wrapper.append(content);
     box.removeClass();
     box.addClass('box');
     box.addClass(type);
-    boxIndex++;
   }
 
   function calculateBoxesPerSection(sectionClass) {
