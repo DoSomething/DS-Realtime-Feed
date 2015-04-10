@@ -8,7 +8,7 @@ module.exports = function(app, router){
       data['campaign'] = mb_data['merge_vars']['CAMPAIGN_TITLE'];
     }
     app.service_socket.broadcastMessage('event', data);
-  });  
+  });
   getMobileData(app);
   setTimeout(function(){
     getMobileData(app);

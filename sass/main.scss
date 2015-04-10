@@ -131,13 +131,7 @@ img {
 
 .slide-campaigns {
 
-  #campaign__title {
-    font-weight: 700;
-    padding-bottom: 64px;
-    font-size: 48px;
-  }
-
-  .campaign__block {
+  .campaign-block {
     display: inline-block;
     vertical-align: top;
     width: 45%;
@@ -152,16 +146,16 @@ img {
       background-color: #FACC3A;
       text-transform: uppercase;
       padding: 10px;
-      position: absolute;      
+      position: absolute;
     }
 
   }
 
-  .campaign__block-left p {
+  .campaign-block--left p {
     left: 11.5%;
   }
 
-  .campaign__block-right p {
+  .campaign-block--right p {
     left: 57%;
   }
 
@@ -233,6 +227,21 @@ img {
     display: inline-block;
   }
 
+}
+
+.box--reportback {
+  background-color: #444;
+  color: #fff;
+}
+
+.box--signup {
+  background-color: #fcd116;
+  color: #4e2b63;
+}
+
+.box--register {
+  background-color: #23b7fb;
+  color: #fff;
 }
 
 .slide-tmi {
