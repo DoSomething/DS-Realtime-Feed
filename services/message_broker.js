@@ -5,7 +5,8 @@ module.exports = function(router) {
   var message_broker = {};
 
   router.post('/', function(req, res) {
-    notify("");
+    notify(req.data);
+    res.json(["OKAY", 200]);
   });
 
   message_broker.registerCallback = function(callback) {
