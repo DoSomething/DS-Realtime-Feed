@@ -5,7 +5,6 @@ module.exports = function(router) {
   var message_broker = {};
 
   router.post('/', function(req, res) {
-    console.log("YES: " + req.body);
     notify(req.body);
     res.json(["OKAY", 200]);
   });

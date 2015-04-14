@@ -169,7 +169,6 @@ $(document).on('ready', function() {
 
   var userBoxIndex = 0;
   function handleUserEvent(data) {
-    console.log(data);
     var container = $('.slide-feed');
     var children = container.children();
     if(userBoxIndex >= children.length){
