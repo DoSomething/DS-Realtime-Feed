@@ -1,7 +1,7 @@
 module.exports = function(app, router){
 
   router.get('/random-campaign', function(req, res) {
-    app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
+    app.service_drupal.get('campaigns.json?is_staff_pick=1', {}, function(campaignListRes) {
       var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
       app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
         var imgUrl;
