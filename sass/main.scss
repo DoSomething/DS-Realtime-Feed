@@ -32,7 +32,6 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6, ul, ol, blockquote, p {
-  margin: 0 0 20px;
   font: 300 18px 'Proxima Nova Light';
 }
 
@@ -105,7 +104,6 @@ img {
     font-family: 'Proxima Nova Bold';
     font-size: 80px;
     color: white;
-    margin-bottom: -20px;
     text-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);
   }
 
@@ -177,7 +175,10 @@ img {
 .slide-members {
 
   h1 {
-    padding-bottom: 32px;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
   }
 
 }
