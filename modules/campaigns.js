@@ -1,26 +1,24 @@
 module.exports = function(app, router){
 
   router.get('/random-campaign', function(req, res) {
-    app.service_drupal.get('campaigns.json?is_staff_pick=1', {}, function(campaignListRes) {
-      var randomCampaign = campaignListRes[getRandomInt(0, campaignListRes.length - 1)];
-      app.service_drupal.get('content/' + randomCampaign.nid, {}, function(campaignRes) {
-        var imgUrl;
-        if(campaignRes.image_cover == undefined){
-          imgUrl = '/img/logo.png';
-          console.log("Broken Campaign Image? " + campaignRes.title);
-          app.service_stathat.trackCount('broken_image', 1);
-        }
-        else{
-          imgUrl = campaignRes.image_cover.src
-        }
-        var campaignData = {
-          title: campaignRes.title,
-          image: imgUrl,
-          nid: campaignRes.nid,
-          staffpick: randomCampaign.is_staff_pick
-        };
-        res.json(campaignData);
-      });
+    app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
+      var randomCampaign = campaignListRes.data[getRandomInt(0, campaignListRes.data.length - 1)];
+      var imgUrl;
+      if(randomCampaign.cover_image == undefined){
+        imgUrl = '/img/logo.png';
+        console.log("Broken Campaign Image? " + campaignRes.title);
+        app.service_stathat.trackCount('broken_image', 1);
+      }
+      else{
+        imgUrl = randomCampaign.cover_image.default.uri;
+      }
+      var campaignData = {
+        title: randomCampaign.title,
+        image: imgUrl,
+        nid: randomCampaign.id,
+        staffpick: randomCampaign.is_staff_pick
+      };
+      res.json(campaignData);
     });
   });
 
