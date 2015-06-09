@@ -4,7 +4,7 @@ module.exports = function(app, router){
     app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
       var campaigns = [];
       for(var i = 0; i < 2; i++) {
-        campaigns.push(campaignListRes.data.splice(getRandomInt(0, campaignListRes.data.length - 1), 1)[0]);
+        campaigns.push(buildCampaignData(campaignListRes.data.splice(getRandomInt(0, campaignListRes.data.length - 1), 1)[0]));
       }
       res.json(campaigns);
     });
@@ -21,20 +21,20 @@ module.exports = function(app, router){
 
 function buildCampaignData(rawData) {
   var imgUrl;
-  if(randomCampaign.cover_image == undefined){
+  if(rawData.cover_image == undefined){
     imgUrl = '/img/logo.png';
-    console.log("Broken Campaign Image? " + campaignRes.title);
-    app.service_stathat.trackCount('broken_image', 1);
+    console.log("Broken Campaign Image? " + rawData.title);
   }
   else{
-    imgUrl = randomCampaign.cover_image.default.uri;
+    imgUrl = rawData.cover_image.default.uri;
   }
   var campaignData = {
-    title: randomCampaign.title,
+    title: rawData.title,
     image: imgUrl,
-    nid: randomCampaign.id,
-    staffpick: randomCampaign.is_staff_pick
+    nid: rawData.id,
+    staffpick: rawData.is_staff_pick
   };
+  return campaignData;
 }
 
 function getRandomInt(min, max) {
