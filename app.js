@@ -59,6 +59,10 @@ var router_campaigns = express.Router();
 app.use('/module/campaigns', router_campaigns);
 this.module_campaigns = require(__dirname + '/modules/campaigns')(this, router_campaigns);
 
+var router_twitter = express.Router();
+app.use('/module/twitter', router_twitter);
+this.module_twitter = require(__dirname + '/modules/twitter')(this, router_twitter);
+
 app.get('/', function(req, res){
   res.redirect('/module/static');
 });
