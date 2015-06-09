@@ -38,6 +38,9 @@ this.service_message_broker = require(__dirname + '/services/message_broker')(ro
 this.service_socket = require(__dirname + '/services/socket')(http);
 this.service_mobile_commons = require(__dirname + '/services/mobile_commons');
 this.service_stathat = require(__dirname + '/services/stathat');
+var router_social = express.Router();
+app.use('/services/social', router_social);
+this.service_social = require(__dirname + '/services/social')(router_social);
 
 console.log("Loading internal modules...");
 var router_static = express.Router();
