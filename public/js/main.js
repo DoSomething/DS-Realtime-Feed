@@ -67,22 +67,24 @@ $(document).on('ready', function() {
   }
 
   function updateStaffPick() {
-    $('.campaign-block').each(function() {
-      var block = $(this);
-      $.get('/module/campaigns/random-campaign', function(data) {
-        if(data.title == undefined) {
+    var blocks = $('.campaign-block');
+    $.get('/module/campaigns/random-campaigns', function(data) {
+      data.forEach(function(element, index, array) {
+        var block = $(blocks[index]);
+        console.log(block);
+        if(element.title == undefined) {
           updateStaffPick();
           return;
         }
-        block.find('h1').text(data.title);
-        block.find('img').attr('src', data.image);
-        if(!data.staffpick) {
+        block.find('h1').text(element.title);
+        block.find('img').attr('src', element.image);
+        if(!element.staffpick) {
           block.find('p').hide();
         }
         else{
           block.find('p').show();
         }
-        updateReportbacks(data.nid);
+        updateReportbacks(element.nid);
       });
     });
   }
