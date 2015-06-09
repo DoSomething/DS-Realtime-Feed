@@ -1,24 +1,12 @@
 module.exports = function(app, router){
 
-  router.get('/random-campaign', function(req, res) {
+  router.get('/random-campaigns', function(req, res) {
     app.service_drupal.get('campaigns.json?parameters[is_staff_pick]=1', {}, function(campaignListRes) {
-      var randomCampaign = campaignListRes.data[getRandomInt(0, campaignListRes.data.length - 1)];
-      var imgUrl;
-      if(randomCampaign.cover_image == undefined){
-        imgUrl = '/img/logo.png';
-        console.log("Broken Campaign Image? " + campaignRes.title);
-        app.service_stathat.trackCount('broken_image', 1);
+      var campaigns = [];
+      for(var i = 0; i < 2; i++) {
+        campaigns.push(campaignListRes.data.splice(getRandomInt(0, campaignListRes.data.length - 1), 1)[0]);
       }
-      else{
-        imgUrl = randomCampaign.cover_image.default.uri;
-      }
-      var campaignData = {
-        title: randomCampaign.title,
-        image: imgUrl,
-        nid: randomCampaign.id,
-        staffpick: randomCampaign.is_staff_pick
-      };
-      res.json(campaignData);
+      res.json(campaigns);
     });
   });
 
@@ -29,6 +17,24 @@ module.exports = function(app, router){
     });
   });
 
+}
+
+function buildCampaignData(rawData) {
+  var imgUrl;
+  if(randomCampaign.cover_image == undefined){
+    imgUrl = '/img/logo.png';
+    console.log("Broken Campaign Image? " + campaignRes.title);
+    app.service_stathat.trackCount('broken_image', 1);
+  }
+  else{
+    imgUrl = randomCampaign.cover_image.default.uri;
+  }
+  var campaignData = {
+    title: randomCampaign.title,
+    image: imgUrl,
+    nid: randomCampaign.id,
+    staffpick: randomCampaign.is_staff_pick
+  };
 }
 
 function getRandomInt(min, max) {
