@@ -71,7 +71,6 @@ $(document).on('ready', function() {
     $.get('/module/campaigns/random-campaigns', function(data) {
       data.forEach(function(element, index, array) {
         var block = $(blocks[index]);
-        console.log(block);
         if(element.title == undefined) {
           updateStaffPick();
           return;
