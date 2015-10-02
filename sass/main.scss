@@ -93,6 +93,22 @@ img {
   }
 }
 
+.slide-coke {
+  background: url(../img/coke.png) no-repeat 0 0 fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.falling-text {
+  top: 0;
+  font-size: 18px;
+  position: absolute;
+  color: #FFFFFF;
+  text-shadow: -1px 6px 5px rgba(150, 150, 150, 0.5);
+}
+
 .slide-counts {
   background: url(../img/counter-background.jpg) no-repeat 0 0 fixed;
   -webkit-background-size: cover;
