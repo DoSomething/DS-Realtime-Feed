@@ -31,7 +31,7 @@ $(document).on('ready', function() {
     handleUserEvent(data);
   })
 
-  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-map', 'slide-ctl', 'slide-tmi'];
+  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-map', 'slide-tmi'];
   var slideIndex = 0;
 
   slideLoopId = setInterval(function slideUpdate() {
@@ -46,17 +46,10 @@ $(document).on('ready', function() {
   }, 5 * 1000);
 
   function update() {
-    updateCTLCount();
     updateDosomethingCount();
     updateStaffPick();
     updateFeaturedMembers();
     updateMemberMap();
-  }
-
-  function updateCTLCount() {
-    $.get('/module/counters/ctl', function(data) {
-      $('#ctl-messages').text(data.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-    });
   }
 
   function updateDosomethingCount() {
