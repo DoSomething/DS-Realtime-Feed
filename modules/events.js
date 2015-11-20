@@ -37,6 +37,9 @@ function getMobileData(app){
       return;
     }
     messages.forEach(function(element, index, array) {
+      if(element.profile[1] == undefined) {
+        return;
+      }
       var firstName = element.profile[1].first_name;
       if(firstName != ''){
         app.service_socket.broadcastMessage("events_mobile", firstName);

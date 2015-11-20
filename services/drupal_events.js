@@ -5,6 +5,7 @@ module.exports = function(router) {
   var events = {};
 
   router.post('/', function(req, res) {
+    console.log("hi");
     notify(req.body);
     res.json(["OKAY", 200]);
   });
