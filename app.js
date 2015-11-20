@@ -41,6 +41,9 @@ this.service_stathat = require(__dirname + '/services/stathat');
 var router_social = express.Router();
 app.use('/services/social', router_social);
 this.service_social = require(__dirname + '/services/social')(router_social);
+var router_drupal_events = express.Router();
+app.use('/services/drupal', router_drupal_events);
+this.service_drupal_events = require(__dirname + '/services/drupal_events')(router_drupal_events);
 
 console.log("Loading internal modules...");
 var router_static = express.Router();

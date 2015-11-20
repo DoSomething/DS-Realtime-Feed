@@ -18,16 +18,11 @@ $(document).on('ready', function() {
   socket.on('event', function(data) {
     handleUserEvent(data);
   })
+  socket.on('web-visit', function(data) {
+    handleWebVisit(data.code);
+  });
 
   var globePoints = [];
-  for(var i = 0; i < 10; i++) {
-    var id = getRandomArbitrary(0, 100000);
-    var point = {id: id, code: "US", offX: getRandomArbitrary(-10, 10), offY: getRandomArbitrary(-10, 10)};
-    globePoints.push(point);
-    setTimeout(function(id, point) {
-      globePoints.splice(globePoints.indexOf(point), 1);
-    }, 5000, id, point);
-  }
   drawGlobe();
 
   var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-globe', 'slide-tmi'];
@@ -213,7 +208,7 @@ $(document).on('ready', function() {
 
                 context.beginPath();
                 context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
-                context.fillStyle = "#FFF";
+                context.fillStyle = element.color;
                 context.fill();
                 element.lastX = projectedPoints[0];
               });
@@ -244,6 +239,16 @@ $(document).on('ready', function() {
         break;
     }
     userBoxIndex++
+  }
+
+  var visitColors = ['#fcd116', '#FFF', '#999', '#ddd', '#ff4747'];
+  function handleWebVisit(code) {
+    var id = getRandomArbitrary(0, 100000);
+    var point = {id: id, code: code, offX: getRandomArbitrary(-10, 10), offY: getRandomArbitrary(-10, 10), color: visitColors[Math.floor(Math.random()*visitColors.length)]};
+    globePoints.push(point);
+    setTimeout(function(id, point) {
+      globePoints.splice(globePoints.indexOf(point), 1);
+    }, 5000, id, point);
   }
 
   function buildBoxes(container) {

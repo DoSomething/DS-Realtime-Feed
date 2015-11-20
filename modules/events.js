@@ -1,4 +1,5 @@
 module.exports = function(app, router){
+
   app.service_message_broker.registerCallback(function(mb_data) {
     var data = {
       activity: mb_data['activity'],
@@ -9,6 +10,11 @@ module.exports = function(app, router){
     }
     app.service_socket.broadcastMessage('event', data);
   });
+
+  app.service_drupal_events.registerCallback(function(data) {
+    app.service_socket.broadcastMessage('web-visit', data);
+  });
+
   getMobileData(app);
   setTimeout(function(){
     getMobileData(app);
