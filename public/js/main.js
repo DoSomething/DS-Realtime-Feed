@@ -14,24 +14,23 @@ $(document).on('ready', function() {
     }
   });
 
-  // Used for the member map, converts alpha 2 ISO to alpha 3
-  var codes = {};
-  Papa.parse('/data/ISOCodes.csv', {
-    download: true,
-    complete: function(results) {
-      var rawData = results.data;
-      rawData.forEach(function(element, index, array) {
-        codes[element[0]] = element[1];
-      });
-    }
-  });
-
   var socket = io.connect(location.host);
   socket.on('event', function(data) {
     handleUserEvent(data);
   })
 
-  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-map', 'slide-tmi'];
+  var globePoints = [];
+  for(var i = 0; i < 10; i++) {
+    var id = getRandomArbitrary(0, 100000);
+    var point = {id: id, code: "US", offX: getRandomArbitrary(-10, 10), offY: getRandomArbitrary(-10, 10)};
+    globePoints.push(point);
+    setTimeout(function(id, point) {
+      globePoints.splice(globePoints.indexOf(point), 1);
+    }, 5000, id, point);
+  }
+  drawGlobe();
+
+  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-globe', 'slide-tmi'];
   var slideIndex = 0;
 
   slideLoopId = setInterval(function slideUpdate() {
@@ -49,7 +48,7 @@ $(document).on('ready', function() {
     updateDosomethingCount();
     updateStaffPick();
     updateFeaturedMembers();
-    updateMemberMap();
+    updateGlobe();
   }
 
   function updateDosomethingCount() {
@@ -114,52 +113,115 @@ $(document).on('ready', function() {
     });
   }
 
-  function updateMemberMap() {
-    $('#map_container').empty();
-    Papa.parse('/data/members_by_country.csv', {
-      download: true,
-      complete: function(results) {
-        var rawData = results.data;
-        var data = {};
-        for(var index = 1; index <= rawData.length; index++) { //Skip the first row
-          if(rawData[index] == undefined || rawData[index][0] == ""){
-            continue;
-          }
-          var fill = "veryLight";
-          var totalMembers = parseInt(rawData[index][1].split(',').join(' ').replace(/ /g,''));
-          if(totalMembers == 0) {
-            continue;
-          }
-          if(totalMembers >= 10000) {
-            fill = "veryHeavy";
-          }
-          else if(totalMembers >= 5000) {
-            fill = "heavy";
-          }
-          else if(totalMembers >= 1000) {
-            fill = "medium";
-          }
-          else if(totalMembers >= 500) {
-            fill = "light";
-          }
-          var rawISO = rawData[index][0];
-          data[codes[rawISO]] = {fillKey: fill};
-        }
-        map = new Datamap({
-          element: document.getElementById("map_container"),
-          projection: 'mercator',
-          fills: {
-            defaultFill: '#EDEAEF',
-            veryLight: "#836B92",
-            light: "#715582",
-            medium: "#604073",
-            heavy: "#4e2b63",
-            veryHeavy: "#3E224F"
-          },
-          data : data
+  function updateGlobe() {
+
+  }
+
+  function drawGlobe() {
+    var width = $(window).width();
+    var height = $(window).height() * .75;
+    var radius = height / 2 - 5;
+    var scale = radius;
+    var velocity = .02;
+    var projection = d3.geo.orthographic()
+      .translate([width / 2, height / 2])
+      .scale(scale)
+      .clipAngle(90);
+    var canvas = d3.select('.slide-globe').append('canvas')
+      .attr("width", width)
+      .attr("height", height);
+    var context = canvas.node().getContext("2d");
+    var path = d3.geo.path()
+      .projection(projection)
+      .context(context);
+    d3.json("/data/world-110m.json", function(error, world) {
+        if (error) throw error;
+        d3.json("/data/country_codes.json", function(error, country_codes) {
+          if (error) throw error;
+          d3.json("/data/world_atlas.json", function(error, atlas) {
+            if (error) throw error;
+
+            var land = topojson.feature(world, world.objects.land);
+            var countries = topojson.feature(world, world.objects.countries);
+            console.log(countries);
+
+            var countriesComplete = {};
+
+            atlas.fixed = {};
+            atlas.forEach(function(element, index, array) {
+              atlas.fixed[element.id] = element;
+            });
+            country_codes.fixed = {};
+            country_codes.data.forEach(function(element, index, array) {
+              country_codes.fixed[element.name] = element;
+            });
+
+            countries.fixed = {};
+            countries.features.forEach(function(element, index, array ) {
+              // console.log(element);
+              var id = element.id;
+              var fixed = atlas.fixed[id];
+              if (fixed == undefined) {
+                return;
+              }
+              var countryName = atlas.fixed[id].name;
+              var fixed = country_codes.fixed[countryName];
+              if (fixed == undefined) {
+                console.log(countryName);
+                return;
+              }
+              var countryCode = fixed.code;
+              var geometry = element.geometry;
+              countries.fixed[countryCode] = element;
+              countriesComplete[countryCode] = {id: id, name: countryName, code: countryCode, geometry: geometry};
+            });
+
+            console.log(countriesComplete);
+
+            d3.timer(function(elapsed) {
+              context.fillStyle = "#FFF";
+              context.fillRect(0, 0, width, height);
+
+              velocity = .05;
+              projection.rotate([velocity * elapsed, 0]);
+
+              context.beginPath();
+              context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI, true);
+              context.lineWidth = .5;
+              context.fillStyle = "#23b7fb";
+              context.fill();
+
+              for (var code in countriesComplete) {
+                var c = countriesComplete[code];
+                context.beginPath();
+                path(c.geometry);
+                context.fillStyle = "#4e2b63";
+                context.fill();
+              }
+
+              globePoints.forEach(function(element, index, array) {
+                var center = d3.geo.centroid(countries.fixed[element.code]);
+                var projectedPoints = projection(center);
+
+                if (element.lastX == undefined) {
+                  element.lastX = 0;
+                }
+                else if(element.lastX > projectedPoints[0]) {
+                  element.lastX = projectedPoints[0];
+                  return;
+                }
+
+                context.beginPath();
+                context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
+                context.fillStyle = "#FFF";
+                context.fill();
+                element.lastX = projectedPoints[0];
+              });
+
+            });
+          });
         });
-      }
-    });
+      });
   }
 
   var userBoxIndex = 0;
@@ -213,6 +275,13 @@ $(document).on('ready', function() {
     for(var index = 0; index < number.length; index++) {
       container.append('<li>' + number.charAt(index) + '</li>');
     }
+  }
+
+  /**
+   * Returns a random number between min (inclusive) and max (exclusive)
+   */
+  function getRandomArbitrary(min, max) {
+      return Math.random() * (max - min) + min;
   }
 
   update();
