@@ -1,11 +1,11 @@
 var callbacks = [];
+var cors = require('cors');
 
 module.exports = function(router) {
 
   var events = {};
 
-  router.post('/', function(req, res) {
-    console.log("hi");
+  router.post('/', cors(), function(req, res) {
     notify(req.body);
     res.json(["OKAY", 200]);
   });
