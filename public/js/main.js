@@ -28,16 +28,18 @@ $(document).on('ready', function() {
   var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-globe', 'slide-tmi'];
   var slideIndex = 0;
 
-  slideLoopId = setInterval(function slideUpdate() {
-    if(slideIndex >= slides.length){
-      slideIndex = 0;
-    }
-    var slide = slides[slideIndex];
-    $('html, body').animate({
-      scrollTop: $('.' + slide).offset().top
-    }, 1000);
-    slideIndex++;
-  }, 5 * 1000);
+  if (!window.location.hash) {
+    slideLoopId = setInterval(function slideUpdate() {
+      if(slideIndex >= slides.length){
+        slideIndex = 0;
+      }
+      var slide = slides[slideIndex];
+      $('html, body').animate({
+        scrollTop: $('.' + slide).offset().top
+      }, 1000);
+      slideIndex++;
+    }, 5 * 1000);
+  }
 
   function update() {
     updateDosomethingCount();
