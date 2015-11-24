@@ -208,10 +208,16 @@ $(document).on('ready', function() {
                   return;
                 }
 
-                context.beginPath();
-                context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
-                context.fillStyle = element.color;
-                context.fill();
+                if (element.hide > 0) {
+                  element.hide -= 1;
+                }
+                else {
+                  context.beginPath();
+                  context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
+                  context.fillStyle = element.color;
+                  context.fill();                  
+                }
+
                 element.lastX = projectedPoints[0];
               });
 
@@ -246,7 +252,7 @@ $(document).on('ready', function() {
   var visitColors = ['#fcd116', '#FFF', '#999', '#ddd', '#ff4747'];
   function handleWebVisit(code) {
     var id = getRandomArbitrary(0, 100000);
-    var point = {id: id, code: code, offX: getRandomArbitrary(-10, 10), offY: getRandomArbitrary(-10, 10), color: visitColors[Math.floor(Math.random()*visitColors.length)]};
+    var point = {id: id, code: code, offX: getRandomArbitrary(-10, 10), offY: getRandomArbitrary(-10, 10), color: visitColors[Math.floor(Math.random()*visitColors.length)], hide: 4};
     globePoints.push(point);
     setTimeout(function(id, point) {
       globePoints.splice(globePoints.indexOf(point), 1);
