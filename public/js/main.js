@@ -250,7 +250,7 @@ $(document).on('ready', function() {
     globePoints.push(point);
     setTimeout(function(id, point) {
       globePoints.splice(globePoints.indexOf(point), 1);
-    }, 5000, id, point);
+    }, 10000, id, point);
   }
 
   function buildBoxes(container) {
