@@ -50,10 +50,10 @@ $(document).on('ready', function() {
   }
 
   function updateDosomethingHoliday() {
-    var links = ['fireplace.gif', 'polar_bear.gif'];
+    var links = ['fireplace', 'polar_bear', 'adele', 'cat', 'cats', 'christmas', 'dance', 'dancing', 'grinch', 'jingle', 'perfect', 'polar_bear_2', 'samuel', 'singing', 'snowman', 'whosithis', 'elf1', 'elf2', 'elf3'];
     var link = links[Math.floor(Math.random()*links.length)];
     var gifUrl = "../img/" + link;
-    $('.frame').css('background-image', 'url("' + gifUrl + '")');
+    $('.frame').css('background-image', 'url("' + gifUrl + '.gif")');
   }
 
   function updateDosomethingCount() {
@@ -306,6 +306,6 @@ $(document).on('ready', function() {
   }
 
   update();
-  setTimeout(update, 60 * 1000);
+  setInterval(update, 3 * 1000);
 
 });
