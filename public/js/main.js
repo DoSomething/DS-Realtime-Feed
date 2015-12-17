@@ -23,9 +23,9 @@ $(document).on('ready', function() {
   });
 
   var globePoints = [];
-  drawGlobe();
+  // drawGlobe();
 
-  var slides = ['slide-dosomething', 'slide-feed', 'slide-counts', 'slide-campaigns', 'slide-reportbacks', 'slide-members', 'slide-globe', 'slide-tmi'];
+  var slides = ['slide-holidays'];
   var slideIndex = 0;
 
   if (!window.location.hash) {
@@ -38,14 +38,22 @@ $(document).on('ready', function() {
         scrollTop: $('.' + slide).offset().top
       }, 1000);
       slideIndex++;
-    }, 5 * 1000);
+    }, 3 * 1000);
   }
 
   function update() {
-    updateDosomethingCount();
-    updateStaffPick();
-    updateFeaturedMembers();
-    updateGlobe();
+    updateDosomethingHoliday();
+    // updateDosomethingCount();
+    // updateStaffPick();
+    // updateFeaturedMembers();
+    // updateGlobe();
+  }
+
+  function updateDosomethingHoliday() {
+    var links = ['fireplace.gif', 'polar_bear.gif'];
+    var link = links[Math.floor(Math.random()*links.length)];
+    var gifUrl = "../img/" + link;
+    $('.frame').css('background-image', 'url("' + gifUrl + '")');
   }
 
   function updateDosomethingCount() {
@@ -215,7 +223,7 @@ $(document).on('ready', function() {
                   context.beginPath();
                   context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
                   context.fillStyle = element.color;
-                  context.fill();                  
+                  context.fill();
                 }
 
                 element.lastX = projectedPoints[0];

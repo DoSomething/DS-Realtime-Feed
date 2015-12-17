@@ -290,3 +290,36 @@ img {
   }
 
 }
+
+.slide-holidays{
+
+  h1 {
+    color: #FFF;
+    font-size: 124px;
+    text-shadow: -1px -6px 8px rgba(0, 0, 0, 1);
+    margin-top: 10px;
+    animation-duration: 4s;
+  }
+
+  img {
+    max-width: 200px;
+    display: inline;
+  }
+
+  .frame {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+}
