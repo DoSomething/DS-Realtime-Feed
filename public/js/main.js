@@ -215,7 +215,7 @@ $(document).on('ready', function() {
                   context.beginPath();
                   context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
                   context.fillStyle = element.color;
-                  context.fill();                  
+                  context.fill();
                 }
 
                 element.lastX = projectedPoints[0];
@@ -298,6 +298,6 @@ $(document).on('ready', function() {
   }
 
   update();
-  setTimeout(update, 60 * 1000);
+  setInterval(update, 30 * 1000);
 
 });
