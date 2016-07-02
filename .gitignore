@@ -1,5 +1,5 @@
 # Ignore configuration files that contain sensitive information.
-variables.env
+.env
 
 # Ignore OSX system files
 .DS_Store
