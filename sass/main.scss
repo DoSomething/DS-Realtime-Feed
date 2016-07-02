@@ -1,9 +1,6 @@
-// Primary
 $blue: #23b7fb;
 $purple: #4e2b63;
 $yellow: #fcd116;
-
-// Grayscale
 $black: #000;
 $off-black: #222;
 $dark-gray: #444;
@@ -11,6 +8,7 @@ $med-gray: #999;
 $light-gray: #ddd;
 $off-white: #f6f6f6;
 $white: #fff;
+$base-spacing: 16px;
 
 html, body, {
   margin: 0;
@@ -31,6 +29,18 @@ html, body, {
     left: 0;
     width: 30%;
     background: $white;
+
+    .dashboard__header {
+      padding: $base-spacing;
+      height: 20%;
+      text-align: center;
+
+      img {
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+      }
+    }
   }
 
   .dashboard__gallery {
