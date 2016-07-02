@@ -30,8 +30,21 @@ app.use(express.static(`${__dirname}/public`));
 app.use(express.static(`${__dirname}/node_modules/@dosomething/forge/dist`));
 app.use(express.static(`${__dirname}/node_modules/@dosomething/forge/assets`));
 
+var drupal = require(`${__dirname}/drupal`);
+
 app.get('/', function(req, res){
   res.render('app', {production: process.env.PRODUCTION});
+});
+
+app.post('/stats/members', function(req, res) {
+  drupal.post('users/get_member_count', {}, function(data) {
+    if (!data.formatted) {
+      res.send("Error");
+      return;
+    }
+
+    res.send(data.formatted);
+  });
 });
 
 var PORT = process.env.PORT || 5000;

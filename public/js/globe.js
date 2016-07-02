@@ -1,4 +1,4 @@
-function Globe() {
+function GlobeInit() {
   var module = {};
 
   var globePoints = [];
@@ -17,8 +17,8 @@ function Globe() {
     }, 10000, id, point);
   }
 
-  module.draw = function() {
-    var $logo = $('.dashboard__header img');
+  function draw() {
+    var $logo = $('.card.-header img');
     var width = $logo.width();
     var height = $logo.height();
     var radius = height / 2 - 5;
@@ -125,5 +125,6 @@ function Globe() {
       });
   }
 
+  draw();
   return module;
 }
