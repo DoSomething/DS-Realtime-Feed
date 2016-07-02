@@ -18,7 +18,7 @@ function GlobeInit() {
   }
 
   function draw() {
-    var $logo = $('.card.-header img');
+    var $logo = $('.dashboard__header img');
     var width = $logo.width();
     var height = $logo.height();
     var radius = height / 2 - 5;

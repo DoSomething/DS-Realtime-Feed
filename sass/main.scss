@@ -31,6 +31,18 @@ html, body, {
     background: $white;
   }
 
+  .dashboard__header {
+    padding: $base-spacing;
+    height: 20%;
+    text-align: center;
+
+    img {
+      width: 40%;
+      height: 100%;
+      display: inline-block;
+    }
+  }
+
   .dashboard__gallery {
     right: 0;
     width: 70%;
@@ -39,19 +51,6 @@ html, body, {
 
   .dashboard__stats {
     margin-top: $base-spacing;
-  }
-}
-
-.card {
-  padding: $base-spacing;
-  height: 20%;
-  text-align: center;
-
-  &.-header {
-    img {
-      width: 40%;
-      height: 100%;
-      display: inline-block;
-    }
+    text-align: center;
   }
 }
