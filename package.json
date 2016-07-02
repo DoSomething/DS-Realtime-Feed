@@ -1,25 +1,28 @@
 {
   "name": "DS-Realtime-Feed",
-  "version": "2.0.0",
-  "author": "DoSomething and contributors <developers@dosomething.org>",
+  "version": "3.0.0",
+  "author": "Joe Kent <joe@dosomething.org>",
   "description": "Real time dashboad of DoSomething activity.",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/DoSomething/DS-Realtime-Feed"
   },
+  "scripts": {
+    "preinstall": "npm config set python python2.7"
+  },
   "dependencies": {
+    "@dosomething/forge": "^6.7.4",
     "body-parser": "^1.9.0",
-    "cors": "^2.7.1",
     "express": "^4.4.1",
-    "node-sass-middleware": "^0.5.0",
-    "node-stathat": "^1.0.0",
+    "express-handlebars": "^3.0.0",
+    "node-sass-middleware": "^0.9.8",
     "socket.io": "^1.0.4",
-    "superagent": "^0.18.0",
+    "superagent": "^2.0.0",
     "xml2js": "^0.4.4"
   },
   "license": "MIT",
   "engines": {
-    "node": "v0.10.x"
+    "node": "v4.4.x"
   }
 }
