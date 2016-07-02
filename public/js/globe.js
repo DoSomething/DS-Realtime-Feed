@@ -44,7 +44,6 @@ function Globe() {
 
             var land = topojson.feature(world, world.objects.land);
             var countries = topojson.feature(world, world.objects.countries);
-            console.log(countries);
 
             var countriesComplete = {};
 
@@ -59,7 +58,6 @@ function Globe() {
 
             countries.fixed = {};
             countries.features.forEach(function(element, index, array ) {
-              // console.log(element);
               var id = element.id;
               var fixed = atlas.fixed[id];
               if (fixed == undefined) {
@@ -68,7 +66,6 @@ function Globe() {
               var countryName = atlas.fixed[id].name;
               var fixed = country_codes.fixed[countryName];
               if (fixed == undefined) {
-                console.log(countryName);
                 return;
               }
               var countryCode = fixed.code;
@@ -76,8 +73,6 @@ function Globe() {
               countries.fixed[countryCode] = element;
               countriesComplete[countryCode] = {id: id, name: countryName, code: countryCode, geometry: geometry};
             });
-
-            console.log(countriesComplete);
 
             d3.timer(function(elapsed) {
               context.fillStyle = "#FFF";
