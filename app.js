@@ -72,7 +72,7 @@ app.post('/services/message-broker', function(req, res) {
   res.json(["OKAY", 200]);
 });
 
-app.post('services/drupal', cors(), function(req, res) {
+app.post('/services/drupal', cors(), function(req, res) {
   io.emit('visit', req.body);
   res.json(["OKAY", 200]);
 });
