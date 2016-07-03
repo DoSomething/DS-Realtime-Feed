@@ -49,7 +49,7 @@ function buildNotification(name, type, photo, action) {
 exports.parseMessageBroker = function(data) {
   var name = data['merge_vars']['FNAME'];
   var type = data['activity'];
-  var photo = "/images/logo.svg";
+  var photo = "/img/logo.svg";
   var action = "";
 
   switch (type) {
