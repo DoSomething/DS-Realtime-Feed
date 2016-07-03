@@ -19,7 +19,7 @@ function broadcastNotification(notification) {
   if (io == undefined) {
     return;
   }
-  
+
   io.emit('notification', notification);
 }
 
@@ -51,7 +51,7 @@ exports.parseMessageBroker = function(data) {
   var type = data['activity'];
   var photo = "/images/logo.svg";
   var action = "";
-
+  
   switch (type) {
     case 'user_register':
       action = "Created an account"

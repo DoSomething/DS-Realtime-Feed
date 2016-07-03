@@ -59,7 +59,7 @@ app.get('/notifications/recent', function(req, res) {
 });
 
 // Legacy URL that Message Broker pushes too
-app.post('/services/message_broker', function(req, res) {
+app.post('/services/message-broker', function(req, res) {
   var notif = notifications.parseMessageBroker(req.body);
   res.json(["OKAY", 200]);
 });
