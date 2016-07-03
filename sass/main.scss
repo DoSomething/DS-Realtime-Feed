@@ -60,9 +60,9 @@ html, body, {
 }
 
 .card {
-  width: 100%;
+  width: 80%;
   max-width: 600px;
-  height: 128px;
+  min-height: 128px;
   margin: $base-spacing auto;
   background-color: $light-gray;
 
@@ -81,10 +81,12 @@ html, body, {
 
     h1 {
       font-size: 42px;
+      font-size: 1.5vw;
     }
 
     p {
       font-size: 24px;
+      font-size: 1vw;
     }
   }
 
@@ -95,5 +97,9 @@ html, body, {
   &.-campaign_reportback {
     background-color: $purple;
     color: $white;
+
+    h1 {
+      color: $white !important;
+    }
   }
 }

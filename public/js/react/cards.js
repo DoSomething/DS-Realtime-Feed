@@ -19,9 +19,9 @@ var Notifications = React.createClass({
     };
   },
   push: function(notification) {
-    this.state.notifications.push(notification);
+    this.state.notifications.unshift(notification);
     if (this.state.notifications.length > 5) {
-      this.state.notifications.shift();
+      this.state.notifications.pop();
     }
     this.forceUpdate(); // Would avoid this but React doesn't seem to detect the state change
   },

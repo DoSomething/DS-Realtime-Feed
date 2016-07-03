@@ -24,10 +24,10 @@ function broadcastNotification(notification) {
 }
 
 function addNotification(notification) {
-  notifications.push(notification);
+  notifications.unshift(notification);
 
   if (notifications.length > 5) {
-    notifications.shift();
+    notifications.pop();
   }
 
   broadcastNotification(notification);
