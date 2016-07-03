@@ -64,18 +64,25 @@ var Cube = React.createClass({
     for (var i = 0; i < 6; i++) {
       this.getPhoto(i);
     }
+
+    this.updateTimer = setTimeout(function() {
+      this.setState({
+        rotate: false
+      });
+    }.bind(this), 6 * 1000);
   },
   componentDidMount: function() {
     this.requests = [];
-    this.rotateLoop = setInterval(this.rotate, 6 * 1000);
+    this.rotate();
+    this.rotateLoop = setInterval(this.rotate, 12 * 1000);
   },
   componentWillUnmount: function() {
     if (this.rotateLoop) {
       clearTimeout(this.rotateLoop);
     }
 
-    if (this.updateLoop) {
-      clearTimeout(this.updateLoop);
+    if (this.updateTimer) {
+      clearTimeout(this.updateTimer);
     }
 
     if (this.requests) {
@@ -85,7 +92,7 @@ var Cube = React.createClass({
     }
   },
   render: function() {
-    var flip = (this.state.rotate ? (Math.random() > 0.5 ? "-flip_1" : "-flip_2") : "");
+    var flip = (this.state.rotate ? (Math.random() > 0.5 ? "-flip_1" : "-flip_2") : "idle");
     return (
       <div className="dashboard__scene">
         <div className={"cube " + flip}>
