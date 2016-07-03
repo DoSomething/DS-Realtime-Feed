@@ -16,54 +16,76 @@ var Cube = React.createClass({
         {
           id: 0,
           side: "front",
-          photo: "/images/logo.svg"
+          photo: "/images/logo.svg",
+          request: undefined
         },
         {
           id: 1,
           side: "back",
-          photo: ""
+          photo: "",
+          request: undefined
         },
         {
           id: 2,
           side: "left",
-          photo: ""
+          photo: "",
+          request: undefined
         },
         {
           id: 3,
           side: "right",
-          photo: ""
+          photo: "",
+          request: undefined
         },
         {
           id: 4,
           side: "top",
-          photo: ""
+          photo: "",
+          request: undefined
         },
         {
           id: 5,
           side: "bottom",
-          photo: ""
+          photo: "",
+          request: undefined
         }
       ]
     };
   },
-  getPhoto: function(index) {
-    var request = $.get('/reportbacks', function (rb) {
+  getPhoto: function(index, callback) {
+    // Try to let the existing request finish instead
+    if (this.state.faces[index].request != undefined) {
+      return;
+    }
+
+    this.state.faces[index].request = $.get('/reportbacks', function (rb) {
       this.state.faces[index].photo = rb;
+      this.state.faces[index].request = undefined;
+      if (callback) {
+        callback(index);
+      }
     }.bind(this));
-    this.requests.push(request);
+  },
+  setPhotos: function(callback) {
+    for (var i = 0; i < 6; i++) {
+      this.getPhoto(i, function(index) {
+        if (index == 5) {
+          // re-render to make sure the photo state changes are in place
+          this.forceUpdate();
+          if (callback) {
+            callback();
+          }
+        }
+      }.bind(this));
+    }
   },
   rotate: function() {
-    // re-render to make sure the photo state changes are in place
-    this.forceUpdate();
-
     // rotate the cube & change the photo
     this.setState({
       rotate: true
     });
 
-    for (var i = 0; i < 6; i++) {
-      this.getPhoto(i);
-    }
+    this.setPhotos();
 
     this.updateTimer = setTimeout(function() {
       this.setState({
@@ -73,8 +95,10 @@ var Cube = React.createClass({
   },
   componentDidMount: function() {
     this.requests = [];
-    this.rotate();
-    this.rotateLoop = setInterval(this.rotate, 12 * 1000);
+    this.setPhotos(function() {
+      this.rotate();
+      this.rotateLoop = setInterval(this.rotate, 12 * 1000);
+    }.bind(this));
   },
   componentWillUnmount: function() {
     if (this.rotateLoop) {
@@ -86,8 +110,10 @@ var Cube = React.createClass({
     }
 
     if (this.requests) {
-      for (var request of this.requests) {
-        request.abort();
+      for (var face of this.state.faces) {
+        if (face.request != undefined) {
+          face.request.abort();
+        }
       }
     }
   },

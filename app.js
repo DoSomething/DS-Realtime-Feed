@@ -64,6 +64,7 @@ app.get('/stats/members', function(req, res) {
 
 app.get('/reportbacks', function(req, res) {
   drupal.get('reportbacks', {random: true, count: 1}, function(data) {
+    // console.log("Got drupal data"); Show Diego how long this takes...
     if (data == undefined || !data.data || !data.data[0]) {
       res.send('/images/logo.svg');
       return;
