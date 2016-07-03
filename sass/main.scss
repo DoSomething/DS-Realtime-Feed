@@ -9,6 +9,7 @@ $light-gray: #ddd;
 $off-white: #f6f6f6;
 $white: #fff;
 $base-spacing: 16px;
+$box-shadow: 0 2px 12px rgba(#000, 0.3);
 
 html, body, {
   margin: 0;
@@ -62,9 +63,11 @@ html, body, {
 .card {
   width: 80%;
   max-width: 600px;
-  min-height: 128px;
+  height: 128px;
+  overflow: hidden;
   margin: $base-spacing auto;
   background-color: $light-gray;
+  box-shadow: $box-shadow;
 
   .card__photo, .card__body {
     display: inline-block;
@@ -101,6 +104,12 @@ html, body, {
 
     h1 {
       color: $white !important;
+    }
+  }
+
+  &.-user_register {
+    img {
+      background-color: black;
     }
   }
 }

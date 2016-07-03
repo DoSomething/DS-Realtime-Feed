@@ -10,7 +10,8 @@ function GlobeInit() {
   var visitColors = ['#fcd116', '#4e2b63', '#999', '#ddd', '#ff4747'];
   module.handleWebVisit = function(code) {
     var id = getRandomArbitrary(0, 100000);
-    var point = {id: id, code: code, offX: getRandomArbitrary(-5, 5), offY: getRandomArbitrary(-5, 5), color: visitColors[Math.floor(Math.random()*visitColors.length)], hide: 4};
+    var offset = 2;
+    var point = {id: id, code: code, offX: getRandomArbitrary(-offset, offset), offY: getRandomArbitrary(-offset, offset), color: visitColors[Math.floor(Math.random()*visitColors.length)], hide: 4};
     globePoints.push(point);
     setTimeout(function(id, point) {
       globePoints.splice(globePoints.indexOf(point), 1);
@@ -111,7 +112,7 @@ function GlobeInit() {
                 }
                 else {
                   context.beginPath();
-                  context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, 10, 0, Math.PI * 2);
+                  context.arc(projectedPoints[0] + element.offX, projectedPoints[1] + element.offY, radius * .10, 0, Math.PI * 2);
                   context.fillStyle = element.color;
                   context.fill();
                 }
