@@ -7,7 +7,7 @@ function GlobeInit() {
     return Math.random() * (max - min) + min;
   }
 
-  var visitColors = ['#fcd116', '#4e2b63', '#999', '#ddd', '#ff4747'];
+  var visitColors = ['#fcd116', '#4e2b63', '#ff4747'];
   module.handleWebVisit = function(code) {
     var id = getRandomArbitrary(0, 100000);
     var offset = 2;
