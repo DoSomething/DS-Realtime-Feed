@@ -91,4 +91,9 @@ html, body, {
   &.-campaign_signup {
     background-color: $yellow;
   }
+
+  &.-campaign_reportback {
+    background-color: $purple;
+    color: $white;
+  }
 }
