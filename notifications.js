@@ -51,7 +51,7 @@ exports.parseMessageBroker = function(data) {
   var type = data['activity'];
   var photo = "/images/logo.svg";
   var action = "";
-  
+
   switch (type) {
     case 'user_register':
       action = "Created an account"
@@ -67,7 +67,7 @@ exports.parseMessageBroker = function(data) {
     case 'campaign_signup':
       campaign = data['merge_vars']['CAMPAIGN_TITLE'];
       action = `Signed up for ${campaign}`;
-      drupal.get(`campaign/${data['event_id']}`, {}, function(data) {
+      drupal.get(`campaigns/${data['event_id']}`, {}, function(data) {
         if (!data.data) {
           photo = "/images/logo.svg";
         }
