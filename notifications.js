@@ -72,7 +72,7 @@ exports.parseMessageBroker = function(data) {
           photo = "/images/logo.svg";
         }
         else {
-          photo = data.data.square.default.sizes.landscape.uri;
+          photo = data.data.cover_image.default.sizes.square.uri;
         }
         buildNotification(name, type, photo, action);
       });
