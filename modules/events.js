@@ -6,6 +6,7 @@ module.exports = function(app, router){
       name: mb_data['merge_vars']['FNAME'],
     }
     if(data.activity != "user_register") {
+      console.log(JSON.stringify(mb_data));
       data['campaign'] = mb_data['merge_vars']['CAMPAIGN_TITLE'];
     }
     app.service_socket.broadcastMessage('event', data);
