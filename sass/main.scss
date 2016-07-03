@@ -1,3 +1,5 @@
+@import "rotations";
+
 $blue: #23b7fb;
 $purple: #4e2b63;
 $yellow: #fcd116;
@@ -10,7 +12,9 @@ $off-white: #f6f6f6;
 $white: #fff;
 $base-spacing: 16px;
 $box-shadow: 0 2px 12px rgba(#000, 0.3);
-$cube_length: 400px;
+
+$cube-length: 400px;
+$cube-animation-time: 6s;
 
 html, body, {
   margin: 0;
@@ -52,8 +56,8 @@ html, body, {
 
     .dashboard__scene {
       position: relative;
-      width: $cube_length;
-      height: $cube_length;
+      width: $cube-length;
+      height: $cube-length;
       margin: auto;
       top: 50%;
       transform: translateY(-50%);
@@ -135,12 +139,19 @@ html, body, {
   animation: idle 4s infinite;
 
   &.-flip_1 {
-    animation: rotate_360 6s;
+    animation: rotate_360-all $cube-animation-time;
   }
 
   &.-flip_2 {
-    animation: rotate_360_neg 6s;
+    animation: rotate_360_neg-all $cube-animation-time;
   }
+
+  &.-flip_3 {
+    animation: rotate_180-y $cube-animation-time;
+  }
+
+  // do the rest
+  // then fix the JS to use them all
 
   .cube__face {
     width: inherit;
@@ -157,65 +168,27 @@ html, body, {
     }
 
     &.-front {
-      transform: translate3d(0, 0, $cube_length / 2);
+      transform: translate3d(0, 0, $cube-length / 2);
     }
 
     &.-back {
-      transform: rotateY(180deg) translate3d(0, 0, $cube_length / 2);
+      transform: rotateY(180deg) translate3d(0, 0, $cube-length / 2);
     }
 
     &.-left {
-      transform: rotateY(-90deg) translate3d(0, 0, $cube_length / 2);
+      transform: rotateY(-90deg) translate3d(0, 0, $cube-length / 2);
     }
 
     &.-right {
-      transform: rotateY(90deg) translate3d(0, 0, $cube_length / 2);
+      transform: rotateY(90deg) translate3d(0, 0, $cube-length / 2);
     }
 
     &.-top {
-      transform: rotateX(-90deg) translate3d(0, 0, $cube_length / 2);
+      transform: rotateX(-90deg) translate3d(0, 0, $cube-length / 2);
     }
 
     &.-bottom {
-      transform: rotateX(90deg) translate3d(0, 0, $cube_length / 2);
+      transform: rotateX(90deg) translate3d(0, 0, $cube-length / 2);
     }
-  }
-}
-
-@keyframes idle {
-  0% {
-    transform: rotate3d(0, 0, 0, 0deg);
-  }
-  20% {
-    transform: rotate3d(1, 0, 1, 2deg);
-  }
-  40% {
-    transform: rotate3d(1, 1, 1, -2deg);
-  }
-  60% {
-    transform: rotate3d(0, 1, 0, 2deg);
-  }
-  80% {
-    transform: rotate3d(0, 0, 0, 0deg);
-  }
-}
-
-@keyframes rotate_360 {
-  from {
-    transform: rotate3d(0, 0, 0, 0deg);
-  }
-
-  to {
-    transform: rotate3d(1, 1, 1, 360deg);
-  }
-}
-
-@keyframes rotate_360_neg {
-  from {
-    transform: rotate3d(0, 0, 0, 0deg);
-  }
-
-  to {
-    transform: rotate3d(1, 1, 1, -360deg);
   }
 }

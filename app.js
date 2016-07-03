@@ -26,7 +26,7 @@ app.use(
     src: __dirname + '/sass',
     dest: __dirname + '/public',
     outputStyle: 'compressed',
-    debug: true
+    debug: !process.env.PRODUCTION
   })
 );
 app.use(express.static(`${__dirname}/public`));
