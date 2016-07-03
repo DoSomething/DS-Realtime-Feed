@@ -10,6 +10,7 @@ $off-white: #f6f6f6;
 $white: #fff;
 $base-spacing: 16px;
 $box-shadow: 0 2px 12px rgba(#000, 0.3);
+$cube_length: 400px;
 
 html, body, {
   margin: 0;
@@ -48,6 +49,16 @@ html, body, {
     right: 0;
     width: 70%;
     background: $blue;
+
+    .dashboard__scene {
+      position: relative;
+      width: $cube_length;
+      height: $cube_length;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      perspective: 600px;
+    }
   }
 
   .dashboard__stats {
@@ -113,5 +124,98 @@ html, body, {
     img {
       background-color: black;
     }
+  }
+}
+
+.cube {
+  width: inherit;;
+  height: inherit;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: idle 4s infinite;
+
+  &.-flip_1 {
+    animation: rotate_360 6s;
+  }
+
+  &.-flip_2 {
+    animation: rotate_360_neg 6s;
+  }
+
+  .cube__face {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    background-color: $white;
+    border: 1px solid $off-black;
+    opacity: 0.8;
+
+    img {
+      width: inherit;
+      height: inherit;
+      padding: $base-spacing
+    }
+
+    &.-front {
+      transform: translate3d(0, 0, $cube_length / 2);
+    }
+
+    &.-back {
+      transform: rotateY(180deg) translate3d(0, 0, $cube_length / 2);
+    }
+
+    &.-left {
+      transform: rotateY(-90deg) translate3d(0, 0, $cube_length / 2);
+    }
+
+    &.-right {
+      transform: rotateY(90deg) translate3d(0, 0, $cube_length / 2);
+    }
+
+    &.-top {
+      transform: rotateX(-90deg) translate3d(0, 0, $cube_length / 2);
+    }
+
+    &.-bottom {
+      transform: rotateX(90deg) translate3d(0, 0, $cube_length / 2);
+    }
+  }
+}
+
+@keyframes idle {
+  0% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  20% {
+    transform: rotate3d(1, 0, 1, 2deg);
+  }
+  40% {
+    transform: rotate3d(1, 1, 1, -2deg);
+  }
+  60% {
+    transform: rotate3d(0, 1, 0, 2deg);
+  }
+  80% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+
+@keyframes rotate_360 {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+
+  to {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
+
+@keyframes rotate_360_neg {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+
+  to {
+    transform: rotate3d(1, 1, 1, -360deg);
   }
 }

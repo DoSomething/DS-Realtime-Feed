@@ -51,7 +51,7 @@ app.get('/', function(req, res){
   res.render('app', {production: process.env.PRODUCTION});
 });
 
-app.post('/stats/members', function(req, res) {
+app.get('/stats/members', function(req, res) {
   drupal.post('users/get_member_count', {}, function(data) {
     if (!data.formatted) {
       res.send("Error");
@@ -59,6 +59,17 @@ app.post('/stats/members', function(req, res) {
     }
 
     res.send(data.formatted);
+  });
+});
+
+app.get('/reportbacks', function(req, res) {
+  drupal.get('reportbacks', {random: true, count: 1}, function(data) {
+    if (data == undefined || !data.data || !data.data[0]) {
+      res.send('/images/logo.svg');
+      return;
+    }
+
+    res.send(data.data[0].reportback_items.data[0].media.uri);
   });
 });
 

@@ -5,7 +5,7 @@ var MemberCount = React.createClass({
     };
   },
   fetchCount: function() {
-    this.serverRequest = $.post('/stats/members', function (result) {
+    this.serverRequest = $.get('/stats/members', function (result) {
       var count = result;
       this.setState({
         count: `${count} Members`

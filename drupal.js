@@ -94,12 +94,12 @@ exports.authPost = function(url, data, callback) {
  * @param Object data
  * @param Function callback
  */
-exports.get = function(url, data, callback) {
+exports.get = function(url, query, callback) {
   request
     .get(BASE_URL + API_VERSION + url)
     .set('Accept', 'application/json')
     .set("Content-type", "application/json")
-    .send(data)
+    .query(query)
     .end(function(err, res){
       if (err) {
         console.log(err);
