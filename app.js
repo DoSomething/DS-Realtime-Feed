@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+var cors = require('cors');
+
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
@@ -36,7 +38,13 @@ var drupal = require(`${__dirname}/drupal`);
 var notifications = require(`${__dirname}/notifications`);
 notifications.configureSocket(io);
 if (process.env.PRODUCTION == "FALSE") {
-  setInterval(notifications.fakeNotification, 5 * 1000); // If dev mode, make fake event every 5 seconds
+  // If dev mode, make fake event every 5 seconds
+  setInterval(notifications.fakeNotification, 5 * 1000);
+
+  // If dev mode, make fake visits every 2 seconds
+  setInterval(function() {
+    io.emit('visit', {code: "US"});
+  }, 2 * 1000);
 }
 
 app.get('/', function(req, res){
@@ -58,9 +66,14 @@ app.get('/notifications/recent', function(req, res) {
   res.json(notifications.fetch());
 });
 
-// Legacy URL that Message Broker pushes too
+// Legacy URL's that Message Broker & Drupal push too
 app.post('/services/message-broker', function(req, res) {
   var notif = notifications.parseMessageBroker(req.body);
+  res.json(["OKAY", 200]);
+});
+
+app.post('services/drupal', cors(), function(req, res) {
+  io.emit('visit', req.body);
   res.json(["OKAY", 200]);
 });
 
