@@ -1,7 +1,6 @@
 module.exports = function(app, router){
 
   app.service_message_broker.registerCallback(function(mb_data) {
-    console.log(mb_data);
     var data = {
       activity: mb_data['activity'],
       name: mb_data['merge_vars']['FNAME'],
