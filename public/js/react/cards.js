@@ -1,7 +1,7 @@
 var Card = React.createClass({
   render: function() {
     return (
-      <div className={"card -" + this.props.type}>
+      <div className={"animated bounceInLeft card -" + this.props.type}>
         <img className="card__photo" src={this.props.photo}></img>
         <div className="card__body">
           <h1>{this.props.name}</h1>
