@@ -11,6 +11,8 @@
 
     {{{body}}}
 
+    <script src="/socket.io/socket.io.js"></script>
+
     <!-- Required for React -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     {{#if (isTrue production)}}
@@ -20,6 +22,8 @@
       <script src="https://fb.me/react-15.2.0.js"></script>
       <script src="https://fb.me/react-dom-15.2.0.js"></script>
     {{/if}}
+    <script src="js/react/stats.js" type="text/babel"></script>
+    <script src="js/react/cards.js" type="text/babel"></script>
 
     <!-- Required for Forge -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -31,8 +35,6 @@
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="js/globe.js"></script>
 
-    <script src="js/react/stats.js" type="text/babel"></script>
-    <script src="js/globe.js"></script>
     <script src="js/main.js"></script>
 
   </body>

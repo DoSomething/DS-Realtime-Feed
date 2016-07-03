@@ -24,9 +24,7 @@ var MemberCount = React.createClass({
   },
   render: function() {
     return (
-      <div className="card">
-        <h1>{this.state.count}</h1>
-      </div>
+      <h1>{this.state.count}</h1>
     );
   }
 });

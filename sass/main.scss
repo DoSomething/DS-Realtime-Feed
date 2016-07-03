@@ -50,7 +50,45 @@ html, body, {
   }
 
   .dashboard__stats {
-    margin-top: $base-spacing;
+    margin: $base-spacing * 2 0;
     text-align: center;
+  }
+
+  .dashboard__notifications .card:first-of-type {
+    margin-top: 64px;
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 600px;
+  height: 128px;
+  margin: $base-spacing auto;
+  background-color: $light-gray;
+
+  .card__photo, .card__body {
+    display: inline-block;
+  }
+
+  .card__photo {
+    width: 128px;
+    height: 100%;
+    float: left;
+  }
+
+  .card__body {
+    padding: $base-spacing;
+
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 24px;
+    }
+  }
+
+  &.-campaign_signup {
+    background-color: $yellow;
   }
 }
