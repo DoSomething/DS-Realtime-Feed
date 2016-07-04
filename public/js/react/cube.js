@@ -1,3 +1,7 @@
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 var Face = React.createClass({
   render: function() {
     return (
@@ -52,32 +56,17 @@ var Cube = React.createClass({
       ]
     };
   },
-  getPhoto: function(index, callback) {
-    // Try to let the existing request finish instead
-    if (this.state.faces[index].request != undefined) {
-      return;
-    }
-
-    this.state.faces[index].request = $.get('/reportbacks', function (rb) {
-      this.state.faces[index].photo = rb;
-      this.state.faces[index].request = undefined;
+  setPhotos: function(callback) {
+    this.serverRequest = $.get('/reportbacks', function (rbs) {
+      for (var i = 0; i < rbs.length; i++) {
+        this.state.faces[i].photo = rbs[i];
+      }
+      // re-render to make sure the photo state changes are in place
+      this.forceUpdate();
       if (callback) {
-        callback(index);
+        callback();
       }
     }.bind(this));
-  },
-  setPhotos: function(callback) {
-    for (var i = 0; i < 6; i++) {
-      this.getPhoto(i, function(index) {
-        if (index == 5) {
-          // re-render to make sure the photo state changes are in place
-          this.forceUpdate();
-          if (callback) {
-            callback();
-          }
-        }
-      }.bind(this));
-    }
   },
   rotate: function() {
     // rotate the cube & change the photo
@@ -109,16 +98,12 @@ var Cube = React.createClass({
       clearTimeout(this.updateTimer);
     }
 
-    if (this.requests) {
-      for (var face of this.state.faces) {
-        if (face.request != undefined) {
-          face.request.abort();
-        }
-      }
+    if (this.serverRequest) {
+      this.serverRequest.abort();
     }
   },
   render: function() {
-    var flip = (this.state.rotate ? (Math.random() > 0.5 ? "-flip_1" : "-flip_2") : "idle");
+    var flip = (this.state.rotate ? `-flip_${getRandomInt(0, 5)}` : "idle");
     return (
       <div className="dashboard__scene">
         <div className={"cube " + flip}>

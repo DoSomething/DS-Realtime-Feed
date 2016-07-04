@@ -138,16 +138,28 @@ html, body, {
   transform-style: preserve-3d;
   animation: idle 4s infinite;
 
-  &.-flip_1 {
+  &.-flip_0 {
     animation: rotate_360-all $cube-animation-time;
   }
 
-  &.-flip_2 {
+  &.-flip_1 {
     animation: rotate_360_neg-all $cube-animation-time;
   }
 
-  &.-flip_3 {
+  &.-flip_2 {
     animation: rotate_180-y $cube-animation-time;
+  }
+
+  &.-flip_3 {
+    animation: rotate_180_neg-y $cube-animation-time;
+  }
+
+  &.-flip_4 {
+    animation: rotate_180-x $cube-animation-time;
+  }
+
+  &.-flip_5 {
+    animation: rotate_180_neg-x $cube-animation-time;
   }
 
   // do the rest

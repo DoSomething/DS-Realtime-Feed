@@ -47,6 +47,9 @@ if (process.env.PRODUCTION == "FALSE") {
   }, 2 * 1000);
 }
 
+var reportbacks = require(`${__dirname}/reportbacks`);
+reportbacks.setup();
+
 app.get('/', function(req, res){
   res.render('app', {production: process.env.PRODUCTION});
 });
@@ -63,15 +66,7 @@ app.get('/stats/members', function(req, res) {
 });
 
 app.get('/reportbacks', function(req, res) {
-  drupal.get('reportbacks', {random: true, count: 1}, function(data) {
-    // console.log("Got drupal data"); Show Diego how long this takes...
-    if (data == undefined || !data.data || !data.data[0]) {
-      res.send('/images/logo.svg');
-      return;
-    }
-
-    res.send(data.data[0].reportback_items.data[0].media.uri);
-  });
+  res.json(reportbacks.fetch())
 });
 
 app.get('/notifications/recent', function(req, res) {
