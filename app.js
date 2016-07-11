@@ -48,7 +48,7 @@ if (process.env.PRODUCTION == "FALSE") {
 }
 
 var reportbacks = require(`${__dirname}/reportbacks`);
-reportbacks.setup();
+reportbacks.getReportbacks();
 
 app.get('/', function(req, res){
   res.render('app', {production: process.env.PRODUCTION});
@@ -61,7 +61,7 @@ app.get('/stats/members', function(req, res) {
       return;
     }
 
-    res.send(data.formatted);
+    res.send(data.readable);
   });
 });
 
