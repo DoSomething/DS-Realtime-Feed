@@ -10,6 +10,8 @@ var API_VERSION = "/api/v1/";
 var API_USERNAME = process.env.DRUPAL_USERNAME;
 var API_PASSWORD = process.env.DRUPAL_PASSWORD;
 
+var ALLOWED_AUTH_REQUESTS = [];
+
 /*
  * GET from the Drupal API with the specified URL & data, use admin authentication.
  * Sends the response body back in callback.
@@ -19,6 +21,10 @@ var API_PASSWORD = process.env.DRUPAL_PASSWORD;
  * @param Function callback
  */
 exports.authGet = function(url, data, callback) {
+  if (ALLOWED_AUTH_REQUESTS.indexOf(url) == -1) {
+    return;
+  }
+
   request
    .post(BASE_URL + API_VERSION + "auth/login")
    .set('Content-Type', 'application/json')
@@ -57,6 +63,10 @@ exports.authGet = function(url, data, callback) {
  * @param Function callback
  */
 exports.authPost = function(url, data, callback) {
+  if (ALLOWED_AUTH_REQUESTS.indexOf(url) == -1) {
+    return;
+  }
+
   request
    .post(BASE_URL + API_VERSION + "auth/login")
    .set('Content-Type', 'application/json')
