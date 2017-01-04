@@ -9,7 +9,8 @@
     "url": "https://github.com/DoSomething/DS-Realtime-Feed"
   },
   "scripts": {
-    "preinstall": "npm config set python python2.7"
+    "preinstall": "npm config set python python2.7",
+    "build": "node-sass --output-style compressed ./sass/main.scss -o ./public/"
   },
   "dependencies": {
     "@dosomething/forge": "^6.7.4",

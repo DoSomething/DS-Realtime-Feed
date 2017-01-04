@@ -63,6 +63,14 @@ html, body, {
       transform: translateY(-50%);
       perspective: 600px;
     }
+
+    &.-video iframe {
+      display: block;
+      margin: auto;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
   .dashboard__stats {

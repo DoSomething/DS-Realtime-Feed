@@ -118,5 +118,5 @@ var Cube = React.createClass({
 
 var cube = ReactDOM.render(
   <Cube />,
-  document.getElementById('gallery')
+  document.getElementById('gallery-cube')
 );
